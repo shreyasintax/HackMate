@@ -1,8 +1,7 @@
 const mongoose=require("mongoose")
-require("dotenv").config();
 
-exports.connect = () => {
-    mongoose.connect(process.env.MONGO_URL)
+exports.connect = (MONGO_URL) => {
+    mongoose.connect(MONGO_URL)
         .then(() => {
             console.log("DB Connection Succesful")
         })

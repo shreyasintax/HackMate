@@ -1,36 +1,44 @@
-const mongoose = require("mongoose");
-const mailSender = require("../utils/MailSender");
+const { Schema, model } = require("mongoose");
+const mailSender = require("../utils/mailSender");
+const emailTemplate = require("../mail/templates/emailVerificationTemplate");
+const { CustomAPIError } = require("../errors");
 
-const OTPSchema = new mongoose.Schema({
-    email: {
-        type: String,
-        required: true
-    },
-    otp: {
-        type: String,
-        required: true
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now(),
-        expires: 5 * 60,
-    }
+const OTPSchema = new Schema({
+  email: {
+    type: String,
+    match: [
+      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+      "Please enter a valid email",
+    ],
+    required: true,
+  },
+  otp: {
+    type: String,
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    expires: 300, // 5 min
+  },
 });
 
-// To send Emails
-async function sendVerificationEmail(email, otp) {
-    try {
-        const mailResponse = await mailSender(email, "Verificaton Email from HackMate", otp);
-        console.log("Email Sent Succesfully: ", mailResponse);
-    } catch (err) {
-        console.log("Error occured while sending Mails: ", err);
-        throw err;
-    }
-}
-
 OTPSchema.pre("save", async function (next) {
-    await sendVerificationEmail(this.email, this.otp);
+  try {
+    //only send email when a new Document is created
+    if (this.isNew) {
+      const mailResponse = await mailSender(
+        this.email,
+        "Verification Email",
+        emailTemplate(this.otp)
+      );
+      // console.log("Verification Mail Sent :" + mailResponse.response);
+    }
     next();
-})
+  } catch (error) {
+    console.error("Error occurred while sending email", error);
+    throw new CustomAPIError("An error occurred while sending email");
+  }
+});
 
-module.exports = mongoose.model("OTP", OTPSchema);
+module.exports = model("OTP", OTPSchema);

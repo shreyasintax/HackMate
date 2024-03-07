@@ -1,16 +1,13 @@
-const mongoose = require("mongoose");
+const { Schema, model } = require("mongoose");
 
-const profileSchema = new mongoose.Schema({
-    about:{
-        type:String,
-    },
-    contactNumber:{
-        type:Number,
-    },
-    image: {
-        type: String,
-        required: true
-    },
-})
+const profileSchema = new Schema({
+  contactNumber: {
+    type: Number,
+    trim: true,
+  },
+  description:{
+    type:String
+  }
+});
 
-module.exports=mongoose.model("Profile",profileSchema);
+module.exports = model("Profile", profileSchema);
