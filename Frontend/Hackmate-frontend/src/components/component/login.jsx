@@ -65,7 +65,7 @@ export function Login() {
           
           <p className="mt-6 mb-6 text-center text-sm leading-5 text-gray-600">
             Don't have an account?
-            <Link to="#" className="ml-1 text-blue-600 hover:underline " >
+            <Link to="/" className="ml-1 text-blue-600 hover:underline " >
               Sign Up
             </Link>
           </p>

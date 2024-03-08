@@ -71,7 +71,7 @@ export function Registration() {
           <CardFooter className="flex justify-between">
           <div>
               Already have an account?
-              <Link to="#" className="ml-2 text-blue-600 hover:underline">Login</Link>
+              <Link to="/login" className="ml-2 text-blue-600 hover:underline">Login</Link>
           </div>
             <Button className="bg-blue-600 text-white">Next</Button>
           </CardFooter>
