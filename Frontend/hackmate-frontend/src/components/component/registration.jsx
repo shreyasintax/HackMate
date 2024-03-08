@@ -7,8 +7,7 @@ import { Button } from "../ui/button"
 import { CardTitle, CardHeader, CardContent, CardFooter, Card } from "../ui/card"
 import { Input } from "../ui/input"
 import { SelectValue, SelectTrigger, SelectItem, SelectContent, Select } from "../ui/select"
-//import { Link } from 'react-router-dom';
-
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 export function Registration() {
   return (
     (<div className="min-h-screen bg-white flex">
@@ -71,7 +70,8 @@ export function Registration() {
           </CardContent>
           <CardFooter className="flex justify-between">
           <div>
-              Already have an account? Login
+              Already have an account?
+              <Router><Link to="#" className="ml-2 text-blue-600 hover:underline">Login</Link></Router> 
           </div>
             <Button className="bg-blue-600 text-white">Next</Button>
           </CardFooter>
