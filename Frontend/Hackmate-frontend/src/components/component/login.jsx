@@ -6,7 +6,7 @@ import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 import { Checkbox } from "../ui/checkbox";
 import { CardTitle, CardHeader, CardContent, CardFooter, Card } from "../ui/card"
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 // import Link from "next/link"
@@ -55,9 +55,9 @@ export function Login() {
               <label className="ml-2 block text-sm leading-5 text-gray-900" htmlFor="remember-me">
                 Remember me
               </label>
-              <Router><Link to="#"className="text-sm ml-16 text-blue-600 hover:underline" >
+              <Link to="#"className="text-sm ml-16 text-blue-600 hover:underline" >
                 Forgot Password?
-              </Link></Router>
+              </Link>
             </div>
             
           </CardFooter>
@@ -65,9 +65,9 @@ export function Login() {
           
           <p className="mt-6 mb-6 text-center text-sm leading-5 text-gray-600">
             Don't have an account?
-            <Router><Link to="#" className="ml-1 text-blue-600 hover:underline " >
+            <Link to="#" className="ml-1 text-blue-600 hover:underline " >
               Sign Up
-            </Link></Router>
+            </Link>
           </p>
         {/* </div> */}
         </Card>
