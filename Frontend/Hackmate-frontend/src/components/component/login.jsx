@@ -6,6 +6,7 @@ import { CardTitle, CardHeader, CardContent, CardFooter, Card } from "../ui/card
 import { Link } from 'react-router-dom';
 
 
+
 // import Link from "next/link"
 
 export function Login() {
@@ -13,7 +14,7 @@ export function Login() {
     <div className="flex min-h-screen bg-gray-100">
       <div className="flex w-1/2 items-center justify-center p-12">
         <div>
-          <h1 className="text-4xl font-bold">Welcome to Educatsy Online Learning Platform</h1>
+          <h1 className="text-4xl font-bold">Welcome to Hackmate</h1>
           <img
             alt="Learning illustration"
             className="mt-6"
