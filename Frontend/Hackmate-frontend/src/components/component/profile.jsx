@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Link } from 'react-router-dom';
 import { Textarea } from "../ui/textarea";
 import { AvatarImage, AvatarFallback, Avatar } from "../component/avatar"
 
-export function Profile() {
+export function Profile({user, children}) {
   return (
 
     (<div className="w-full bg-gray-100 ">
@@ -17,7 +17,7 @@ export function Profile() {
               <AvatarFallback>JS</AvatarFallback>
             </Avatar>
             <div>
-              <h1 className="text-2xl font-semibold">John Smith</h1>
+              <h1 className="text-2xl font-semibold">{user}</h1>
               <p className="text-sm text-gray-500">Username</p>
             </div>
           </div>
@@ -71,20 +71,20 @@ export function Profile() {
               <div className="flex  items-center gap-2 mb-3">
               <i class="fa-regular fa-envelope"></i>
                 <span className="text-gray-500"> Email</span>
-              <Router><Link className="block text-sm   text-blue-600" href="#">
+              <Link className="block text-sm   text-blue-600" href="#">
                 jhon@contact.com
-              </Link></Router></div>
+              </Link></div>
               <div className="flex gap-2  items-center mb-3"><i class="fa-brands fa-linkedin"></i><span className="text-gray-500">LinkedIn</span>
-              <Router>
+              
               <Link t0="#" className="block text-sm text-blue-600" >
                  @jhon_S
-              </Link></Router></div><div className="flex gap-2   items-center mb-3">
+              </Link></div><div className="flex gap-2   items-center mb-3">
               <i class="fa-brands fa-github"></i>
                 <span className="text-gray-500">Github</span>
-              <Router>
+             
               <Link className="block text-sm text-blue-600" href="#">
                  github.com/johnsmith
-              </Link></Router></div>
+              </Link></div>
               
            
           </div>

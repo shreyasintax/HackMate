@@ -16,7 +16,7 @@ function App() {
         <Route path="/onboarding" element={<Onboarding />} />
         <Route path="/login" element={<Login/>} />
         <Route path="/opportunity_list" element={<Create_opportunity/>} />
-        <Route path="/profile" element={<Profile/>}/>
+        <Route path="/profile" element={<Profile user="Shreya"/>}/>
       </Routes>
     </Router>
   
