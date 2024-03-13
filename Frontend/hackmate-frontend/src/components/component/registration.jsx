@@ -42,7 +42,6 @@ export function Registration() {
               <div className="grid w-full gap-4">
                 <div className="flex space-x-4">
                   <Button variant="outline">Candidate</Button>
-                  <Button variant="outline">Recruiter</Button>
                   <Button variant="outline">Organizer</Button>
                 </div>
                 <div className="flex flex-col space-y-1.5">
