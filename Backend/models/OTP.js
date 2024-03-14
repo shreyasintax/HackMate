@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 const mailSender = require("../utils/MailSender");
 const emailTemplate = require("../mail/templates/emailVerification");
-const { CustomAPIError } = require("../errors");
+
 
 const OTPSchema = new Schema({
   email: {
@@ -25,23 +25,21 @@ const OTPSchema = new Schema({
 
 OTPSchema.pre("save", async function (next) {
   try {
-    //only send email when a new Document is created
+
     if (this.isNew) {
       const mailResponse = await mailSender(
         this.email,
         "Verification Email",
         emailTemplate(this.otp)
       );
-      // console.log("Verification Mail Sent :" + mailResponse.response);
     }
     next();
   } catch (error) {
     console.error("Error occurred while sending email", error);
     return res.json({
       succes:true,
-      message:"Error in OTP"
+      message:"Error in sending mail"
     })
-    // throw new CustomAPIError("An error occurred while sending email");
   }
 });
 

@@ -59,7 +59,9 @@ exports.addUser = async (req, res) => {
         const recentOtpResponse = await OTP.find({ email })
             .sort("-createdAt")
             .limit(1);
-
+        
+        console.log(recentOtpResponse);
+        
         //validate otp
         if (recentOtpResponse.length === 0)
             return res.json({

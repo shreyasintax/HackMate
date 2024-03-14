@@ -76,7 +76,7 @@ exports.sendOTP = async (req, res) => {
     if (!email) {
         return res.json({
             success: false,
-            message: "Emaiil not entered"
+            message: "Email not entered"
         })
     }
     const checkUserPresent = await User.findOne({ email });
@@ -108,6 +108,3 @@ exports.sendOTP = async (req, res) => {
 };
 
 
-// exports.verifyEmail=aync(req,res)=>{
-
-// }
