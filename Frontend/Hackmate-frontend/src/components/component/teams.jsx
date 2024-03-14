@@ -106,12 +106,12 @@ export function Teams() {
       leader: 'Michael Johnson'
     },
     {
-        id: 4,
-        name: 'Team 5',
-        idea: 'Team d idea description',
-        skills: ['Research', 'Analysis'],
-        members: ['Michael Johnson', 'Sarah Davis', 'David Miller'],
-        leader: 'Michael Johnson'
+      id: 4,
+      name: 'Team 5',
+      idea: 'Team d idea description',
+      skills: ['Research', 'Analysis'],
+      members: ['Michael Johnson', 'Sarah Davis', 'David Miller'],
+      leader: 'Michael Johnson'
 
     }
   ]);
@@ -148,9 +148,9 @@ export function Teams() {
               <CardFooter><Button className="bg-gray-300 rounded-md p-2 left-5">Interested</Button></CardFooter>
             </Card>
           ))}
-          
+
         </div>
-        
+
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ const Input = ({ className, type, value, onChange, name, ...props }) => {
       )}
       value={value}
       onChange={onChange}
-      name = {name}
+      name={name}
       {...props}
     />
   );

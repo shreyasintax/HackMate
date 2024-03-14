@@ -77,7 +77,7 @@
 //               </div>
 //             </div>
 //             <div className="p-4">
-              
+
 //              <Button variant="default">Interested</Button>
 //             </div>
 //           </Card>

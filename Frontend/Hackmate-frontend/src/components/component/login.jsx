@@ -30,44 +30,44 @@ export function Login() {
       </div>
       <div className="flex  w-1/2 items-center justify-center bg-white p-12">
         <Card className="w-[500px] ">
-        {/* <div className="w-full max-w-md"> */}
+          {/* <div className="w-full max-w-md"> */}
           {/* <div className="flex items-center justify-between"> */}
           <CardHeader>
             <CardTitle>Ready to Be Unstoppable! Sign in</CardTitle>
           </CardHeader>
-            <h2 className="text-2xl font-bold"> </h2>
-            <Button className="bg-blue-500 text-white" variant="secondary">
-              <ChromeIcon className="h-5 w-5 text-white" />
-              Sign in with Google{"\n"}
-            </Button>
+          <h2 className="text-2xl font-bold"> </h2>
+          <Button className="bg-blue-500 text-white" variant="secondary">
+            <ChromeIcon className="h-5 w-5 text-white" />
+            Sign in with Google{"\n"}
+          </Button>
           {/* </div> */}
           <CardContent>
-          <form className="mt-8 space-y-6">
-            <Input placeholder="Email address" type="email" />
-            <Input placeholder="Password" type="password" />
+            <form className="mt-8 space-y-6">
+              <Input placeholder="Email address" type="email" />
+              <Input placeholder="Password" type="password" />
             </form>
-            </CardContent> 
-            <CardFooter>
-           <div className="flex items-center mt-6">
+          </CardContent>
+          <CardFooter>
+            <div className="flex items-center mt-6">
               <Checkbox id="remember-me" />
               <label className="ml-2 block text-sm leading-5 text-gray-900" htmlFor="remember-me">
                 Remember me
               </label>
-              <Link to="#"className="text-sm ml-16 text-blue-600 hover:underline" >
+              <Link to="#" className="text-sm ml-16 text-blue-600 hover:underline" >
                 Forgot Password?
               </Link>
             </div>
-            
+
           </CardFooter>
-            <Button className="w-1/2 bg-blue-600 text-white">Sign In</Button>
-          
+          <Button className="w-1/2 bg-blue-600 text-white">Sign In</Button>
+
           <p className="mt-6 mb-6 text-center text-sm leading-5 text-gray-600">
             Don't have an account?
             <Link to="/" className="ml-1 text-blue-600 hover:underline " >
               Sign Up
             </Link>
           </p>
-        {/* </div> */}
+          {/* </div> */}
         </Card>
       </div>
     </div>
