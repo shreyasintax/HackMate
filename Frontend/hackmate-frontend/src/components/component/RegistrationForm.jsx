@@ -146,8 +146,30 @@ export function Onboarding({ formData, setFormData, onSubmit }) {
           <Label htmlFor="dob">Date of Birth</Label>
           <Input id="dob" type="date" value={formData.dob} onChange={handleChange} name="dob" />
         </div>
+<<<<<<< HEAD
+        
+        <div className="space-y-2">
+            <Label htmlFor="interests">Interests</Label>
+            <Input id="interests" placeholder="eg. Healthcare" value={formData.interests} onChange={handleChange} name="interests"/>
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="gradyear">Date of Birth</Label>
+          <Input id="gradyear" type="date" value={formData.gradyear} onChange={handleChange} name = "gradyear"/>
+        </div>
+        <div className="space-y-2">
+            <Label htmlFor="github">Interests</Label>
+            <Input id="github" type = "url" placeholder="eg. github.com/snehasoni26" value={formData.github} onChange={handleChange} name="github"/>
+        </div>
+        <div className="space-y-2">
+            <Label htmlFor="github">Interests</Label>
+            <Input id="github" type = "url" placeholder="eg. github.com/snehasoni26" value={formData.github} onChange={handleChange} name="github"/>
+        </div>
+        <button type = "submit">Save & Continue</button>
+        </form>
+=======
         <button type="submit">Save & Continue</button>
       </form>
+>>>>>>> edc214e0968eed744b9ff128d0390ab38691f52f
     </div>
     )
   );
@@ -157,6 +179,24 @@ export function Onboarding({ formData, setFormData, onSubmit }) {
 const RegistrationForm = () => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
+<<<<<<< HEAD
+        fname: '',
+        lname: '',
+        username: '',
+        email: '',
+        phone: '',
+        password: '',
+        degree: '',
+        college: '',
+        state: '',
+        city: '',
+        skill: '',
+        pincode: '',
+        dob: '',
+        interests: '',
+        gradyear: '',
+        github: '',
+=======
     fname: '',
     lname: '',
     username: '',
@@ -170,6 +210,7 @@ const RegistrationForm = () => {
     skill: '',
     pincode: '',
     dob: ''
+>>>>>>> edc214e0968eed744b9ff128d0390ab38691f52f
 
   });
 
