@@ -21,7 +21,7 @@ router.post("/login", login);
 //         message:"I am on Participant Route"
 //     })
 // });
-router.get("/sendOtp",sendOTP);
+router.post("/sendOtp",sendOTP);
 
 router.get("/:id", getSingleUser);
 router.delete("/:id", deleteProfile);

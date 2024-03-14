@@ -8,7 +8,14 @@ import { CardTitle, CardHeader, CardContent, CardFooter, Card } from "../ui/card
 import { Input } from "../ui/input"
 import { SelectValue, SelectTrigger, SelectItem, SelectContent, Select } from "../ui/select"
 import { BrowserRouter as Router, Link } from 'react-router-dom';
-export function Registration() {
+export function Registration({ formData, setFormData, onNext }) {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+        ...prevState,
+        [name]: value
+    }));
+};
   return (
     (<div className="min-h-screen bg-white flex">
       <div className="flex-1 flex flex-col justify-between bg-[#FFD100] p-10">
@@ -42,6 +49,7 @@ export function Registration() {
               <div className="grid w-full gap-4">
                 <div className="flex space-x-4">
                   <Button variant="outline">Candidate</Button>
+                  <Button variant="outline">Recruiter</Button>
                   <Button variant="outline">Organizer</Button>
                 </div>
                 <div className="flex flex-col space-y-1.5">
@@ -65,18 +73,17 @@ export function Registration() {
                 <Input placeholder="Password" type="password" />
                 <Input placeholder="Confirm Password" type="password" />
               </div>
-              <Link to="/onboarding">
-                <Button type="submit" className="bg-blue-600 text-white">Next</Button>
-              </Link>
+              <button onclick = {onNext} className="bg-blue-600 text-white">Next</button>
+            
 
 
             </form>
           </CardContent>
           <CardFooter className="flex justify-between">
-            <div>
+          <div>
               Already have an account?
               <Link to="/login" className="ml-2 text-blue-600 hover:underline">Login</Link>
-            </div>
+          </div>
           </CardFooter>
         </Card>
       </div>

@@ -6,8 +6,10 @@ import { Label } from "../ui/label";
 import { Select } from "../ui/select";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { useNavigate } from "react-router-dom";
 
-export function Onboarding() {
+
+export function Onboarding({ formData, setFormData, onSubmit }) {
   return (
     (<div className="mx-auto max-w-3xl space-y-8 p-6">
       <div className="space-y-2 text-center">

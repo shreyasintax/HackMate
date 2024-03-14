@@ -10,6 +10,7 @@ import { SelectValue, SelectTrigger, SelectItem, SelectContent, Select } from ".
 import { BrowserRouter as Router, Link, Route, Routes, Navigate, useNavigate } from 'react-router-dom';
 import { useState } from "react";
 import { Label } from "../ui/label"
+
 export function Registration({ formData, setFormData, onNext }) {
   const handleChange = (e) => {
     const { name, value } = e.target;

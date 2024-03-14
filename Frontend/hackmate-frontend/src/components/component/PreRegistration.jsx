@@ -18,7 +18,7 @@ function PreRegistration() {
         console.log('Email submitted successfully');
       } else {
         // Handle error
-        console.error(response);
+        console.log(response);
       }
     } catch (error) {
       console.error('Error submitting email:', error);
