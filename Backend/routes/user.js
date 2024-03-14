@@ -1,30 +1,31 @@
 const express = require("express");
 const router = express.Router();
-const {
-  login,
-  signUp,
-  sendOTP,
-  changePassword,
-} = require("../controllers/Auth");
-const { auth } = require("../middleware/auth"); // Check admin, participant,organiser
-const {
-  resetPasswordToken,
-  resetPassword,
-} = require("../controllers/ResetPassword");
 
-// const login = require("../controllers/Auth");
+const { getSingleUser, deleteProfile, addUser } = require("../controllers/Profile");
+const { login, sendOTP } = require("../controllers/Auth");
+const { isOrganiser, isParticipant } = require("../middlewares/auth");
+const { auth } = require("../middlewares/auth");
 
-//**********************************************************************************************
-//                                   Authentication Routes
-//**********************************************************************************************
-router.post("/sendotp", sendOTP);
-router.post("/signup", signUp);
-router.post("/login",auth, login);
-router.post("/changepassword", auth, changePassword);
 
-//Reset Password Routes
+router.post("/signup", addUser);
+router.post("/login", login);
 
-router.post("/reset-password-token", resetPasswordToken);
-router.post("/reset-password", resetPassword);
+// router.get("/organiser", auth, isOrganiser,(req,res)=>{
+//     return res.json({
+//         message:"I am on organiser Route"
+//     })
+// });
 
+// router.get("/participant", auth, isParticipant,(req,res)=>{
+//     return res.json({
+//         message:"I am on Participant Route"
+//     })
+// });
+router.get("/:id", getSingleUser)
+router.delete("/:id", deleteProfile)
+
+
+router.get("/sendOtp",sendOTP);
+
+router.get("/verifyEmail",verifyEmail);
 module.exports = router;

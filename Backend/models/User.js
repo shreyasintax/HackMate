@@ -96,30 +96,30 @@ const UserSchema = new Schema(
   { timestamps: true }
 );
 
-UserSchema.pre("save", async function () {
-  const salt = await bcrypt.genSalt(10); //10 rounds of salt
-  this.password = await bcrypt.hash(this.password, salt);
-  /* this.password = await bcrypt.hash(this.password, 10,); */ //or use this one line code
-});
+// UserSchema.pre("save", async function () {
+//   const salt = await bcrypt.genSalt(10); //10 rounds of salt
+//   this.password = await bcrypt.hash(this.password, salt);
+//   /* this.password = await bcrypt.hash(this.password, 10,); */ //or use this one line code
+// });
 
 
-// TODO 
-UserSchema.methods.comparePassword = async function (LoginPassword) {
-  const isMatching = await bcrypt.compare(LoginPassword, this.password);
-  return isMatching;
-};
+// // TODO 
+// UserSchema.methods.comparePassword = async function (LoginPassword) {
+//   const isMatching = await bcrypt.compare(LoginPassword, this.password);
+//   return isMatching;
+// };
 
-UserSchema.methods.createJWT = function () {
-  return jwt.sign(
-    {
-      //TODO: change account type is needed
-      id: this._id,
-      email: this.email,
-      accountType: this.accountType,
-    },
-    process.env.JWT_SECRET,
-    { expiresIn: 5*30}
-  );
-};
+// UserSchema.methods.createJWT = function () {
+//   return jwt.sign(
+//     {
+//       //TODO: change account type is needed
+//       id: this._id,
+//       email: this.email,
+//       accountType: this.accountType,
+//     },
+//     process.env.JWT_SECRET,
+//     { expiresIn: 5*30}
+//   );
+// };
 
 module.exports = model("User", UserSchema);

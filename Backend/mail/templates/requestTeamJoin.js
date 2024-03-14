@@ -1,10 +1,10 @@
-const otpTemplate = (otp) => {
+const requestTemplate = () => {
     return `<!DOCTYPE html>
       <html>
       
       <head>
           <meta charset="UTF-8">
-          <title>OTP Verification Email</title>
+          <title>Join Team Request Email</title>
           <style>
               body {
                   background-color: #ffffff;
@@ -66,27 +66,23 @@ const otpTemplate = (otp) => {
       
       <body>
           <div class="container">
-              <a href="http://localhost:5173/"><img class="logo"
-            
-
-                Insert logo image here
-                
-
-                      src="" alt="HackMate Logo"></a>
-              <div class="message">OTP Verification Email</div>
+              <a href="http://localhost:5173/"><img class="logo" src="" alt="Your Logo"></a>
+              <div class="message">Join Team Request Email</div>
               <div class="body">
-                  <p>Dear User,</p>
-                  <p>Thank you for registering with HackMate. To complete your registration, please use the following OTP
-                    (One-Time Password) to verify your account:</p>
-                  <h2 class="highlight">${otp}</h2>
-                  <p>This OTP is valid for 5 minutes. If you did not request this verification, please disregard this email.
-                  Once your account is verified, you will have access to our platform and its features.</p>
+                  <p>Dear Team Leader,</p>
+                  <p>A user has requested to join your team on HackMate.</p>
+                  <p>Please review their profile and decide whether to accept or reject their request.</p>
+                  <p>Thank you!</p>
               </div>
-              <div class="support">If you have any questions or need assistance, please feel free to reach out to us at <a
-             href="mailto:a33691671@gmail.com">info@hackmate.com</a>. We are here to help!</div>
+              <div>
+                  <a href="ACCEPT_LINK" class="cta">Accept</a>
+                  <a href="REJECT_LINK" class="cta" style="background-color: #FF3333;">Reject</a>
+              </div>
+              <div class="support">If you have any questions or need assistance, please feel free to reach out to us at <a href="mailto:info@hackmate.com">info@hackmate.com</a>. We are here to help!</div>
           </div>
       </body>
       
       </html>`;
 };
-module.exports = otpTemplate;
+
+module.exports = requestTemplate;
