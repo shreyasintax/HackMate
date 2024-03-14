@@ -6,11 +6,19 @@ const userRoutes = require("./routes/User");
 const oppoRoutes = require("./routes/Opportunity");
 const teamRoutes = require("./routes/Team");
 require("dotenv").config();
+const cors = require('cors');
+
 
 const PORT = process.env.PORT || 3000;
 const MONGO_URL = process.env.MONGO_URL;
 
 app.use(express.json());
+app.use(
+  cors({
+    origin: "http://localhost:3001",
+    credentials: true,
+  })
+)
 
 app.use("/hackmate/v1/user", userRoutes); 
 app.use("/hackmate/v1/opportunity", oppoRoutes); 
