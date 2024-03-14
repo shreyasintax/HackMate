@@ -7,7 +7,7 @@ exports.uploadImageCloudinary = async (file, folder, height, quality) => {
         options.height = height;
     }
     if (quality) {
-        optons.quality = quality;
+        options.quality = quality;
     }
     options.resource_type = "auto";
 

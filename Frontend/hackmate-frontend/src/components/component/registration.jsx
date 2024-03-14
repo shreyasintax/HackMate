@@ -65,18 +65,18 @@ export function Registration() {
                 <Input placeholder="Password" type="password" />
                 <Input placeholder="Confirm Password" type="password" />
               </div>
-              <Link to = "/onboarding">
-              <Button type="submit" className="bg-blue-600 text-white">Next</Button>
+              <Link to="/onboarding">
+                <Button type="submit" className="bg-blue-600 text-white">Next</Button>
               </Link>
 
 
             </form>
           </CardContent>
           <CardFooter className="flex justify-between">
-          <div>
+            <div>
               Already have an account?
               <Link to="/login" className="ml-2 text-blue-600 hover:underline">Login</Link>
-          </div>
+            </div>
           </CardFooter>
         </Card>
       </div>

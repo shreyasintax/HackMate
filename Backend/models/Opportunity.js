@@ -13,11 +13,12 @@ const opportunitySchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    timeline: {
+    timeline: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Round"
-    },
+    }],
     mode: {
+        type: "String",
         enum: ["Online", "Offline"],
         message:
             "Please select appropriate mode, either online or offline",
@@ -48,11 +49,12 @@ const opportunitySchema = new mongoose.Schema({
         interCollegeAllowed: {
             type: Boolean
         },
-        otherTeamConstraints: {
-            type: String
-        }
-        // May be required or not???
+    },
+    noOfRounds: {
+        type: Number,
+        required: true
     }
+
 });
 
 module.exports = mongoose.model("Opportunity", opportunitySchema)

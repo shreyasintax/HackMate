@@ -8,7 +8,7 @@ import { Input } from "../ui/input"
 import { Textarea } from "../ui/textarea"
 import { Button } from "../ui/button"
 
-export  function TeamRegistration() {
+export function TeamRegistration() {
   return (
     <div className="mx-auto max-w-2xl space-y-8">
       <div className="space-y-2 text-center">

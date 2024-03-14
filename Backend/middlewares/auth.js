@@ -1,34 +1,49 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
+
 const User = require("../models/User");
-const { UnauthenticatedError } = require("../errors");
+
 
 //auth middleware
 exports.auth = async (req, res, next) => {
-    const token =
-        req.cookies.token ||
-        req.body.token ||
-        req.header("Authorization")?.replace("Bearer ", "");
-
-    //if token missing
-    if (!token) throw new UnauthenticatedError("Token is missing");
-    //verify the token
     try {
-        const decode = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = decode;
-    } catch (error) {
-        throw new UnauthenticatedError("Token is invalid");
+        const token = req.body.token || req.cookies.token || req.header("Authorization").replace("Bearer ", "");
+        if (!token) {
+            return res.status(401).json({
+                success: false,
+                message: "Token Missing",
+            });
+        }
+        //verify the token
+        try {
+            const decode = jwt.verify(token, process.env.JWT_SECRET);
+            console.log(decode);
+            req.user = decode;
+            console.log(req.user)
+        } catch (error) {
+            return res.status(401).json({
+                success: false,
+                message: "Token is Invalid"
+            });
+        }
+        next();
+    } catch (err) {
+        return res.status(401).json({
+            success: false,
+            message: "Something Went Wrong while verifying the token"
+        })
     }
-    next();
+
 };
 
-// Role-based middleware
+
 const checkRole = (expectedRole) => {
     return (req, res, next) => {
-        if (req.user.accountType !== expectedRole) {
-            throw new UnauthenticatedError(
-                `This is a protected route for ${expectedRole} only`
-            )
+        if (req.user.role !== expectedRole) {
+            return res.status(401).json({
+                success: false,
+                message: `This is a protected route for ${expectedRole} only`
+            })
         }
         next();
     };
