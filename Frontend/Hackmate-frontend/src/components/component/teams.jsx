@@ -78,8 +78,10 @@
 import { useState } from 'react';
 import { CardContent, Card, CardFooter } from '../ui/card';
 import { Button } from '../ui/button';
+import { useParams } from 'react-router-dom';
 
 export function Teams() {
+  const {oppId} = useParams();
   const [teamData] = useState([
     {
       id: 1,

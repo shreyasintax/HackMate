@@ -1,5 +1,7 @@
-import { useParams } from 'react-router-dom';
+import { Route, Routes, useParams } from 'react-router-dom';
 import { Opportunity } from './opportunity';
+import { TeamRegistration } from './team_registration';
+import { Teams } from './teams';
 
 export function OpportunityPage() {
   const { id } = useParams();
@@ -8,7 +10,13 @@ export function OpportunityPage() {
   // Replace this with your actual data fetching logic
   const dummyOpportunityData = fetchOpportunityData(id);
 
-  return <Opportunity dummyOpportunityData={dummyOpportunityData} />;
+  return (
+    <Routes>
+      <Route path="/" element={<Opportunity dummyOpportunityData={dummyOpportunityData} />} />
+      <Route path="register_team" element={<TeamRegistration />} />
+      <Route path="join_team" element={<Teams />} />
+    </Routes>
+  );
 }
 
 // Function to fetch opportunity data based on the id parameter

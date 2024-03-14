@@ -28,7 +28,7 @@ function App() {
         <Route path="/teams" element={<Teams/>}/>
         <Route path="/team_registration" element={<TeamRegistration/>}/>
         <Route path="/list_opportunities" element={<ListOpportunities/>}/>
-        <Route path="/opportunity/:id" element={<OpportunityPage />} />
+        <Route path="/opportunity/:id/*" element={<OpportunityPage />} />
         <Route path = "/prereg" element={<PreRegistration/>} />
         <Route path = "/hero" element={<HomePage/>} />
 
