@@ -10,7 +10,7 @@ import RegistrationForm from './components/component/RegistrationForm';
 import { Teams } from './components/component/teams';
 import { TeamRegistration } from './components/component/team_registration';
 import { ListOpportunities } from './components/component/list_opportunities';
-import { Opportunity } from './components/component/opportunity';
+import { OpportunityPage } from './components/component/opportunitypage';
 
 function App() {
 
@@ -26,7 +26,7 @@ function App() {
         <Route path="/teams" element={<Teams/>}/>
         <Route path="/team_registration" element={<TeamRegistration/>}/>
         <Route path="/list_opportunities" element={<ListOpportunities/>}/>
-        <Route path="/opportunity" element={<Opportunity/>}/>
+        <Route path="/opportunity/:id" element={<OpportunityPage />} />
 
       </Routes>
     </Router>
