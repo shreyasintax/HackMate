@@ -146,6 +146,23 @@ export function Onboarding({ formData, setFormData, onSubmit }) {
           <Label htmlFor="dob">Date of Birth</Label>
           <Input id="dob" type="date" value={formData.dob} onChange={handleChange} name = "dob"/>
         </div>
+        
+        <div className="space-y-2">
+            <Label htmlFor="interests">Interests</Label>
+            <Input id="interests" placeholder="eg. Healthcare" value={formData.interests} onChange={handleChange} name="interests"/>
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="gradyear">Date of Birth</Label>
+          <Input id="gradyear" type="date" value={formData.gradyear} onChange={handleChange} name = "gradyear"/>
+        </div>
+        <div className="space-y-2">
+            <Label htmlFor="github">Interests</Label>
+            <Input id="github" type = "url" placeholder="eg. github.com/snehasoni26" value={formData.github} onChange={handleChange} name="github"/>
+        </div>
+        <div className="space-y-2">
+            <Label htmlFor="github">Interests</Label>
+            <Input id="github" type = "url" placeholder="eg. github.com/snehasoni26" value={formData.github} onChange={handleChange} name="github"/>
+        </div>
         <button type = "submit">Save & Continue</button>
         </form>
     </div>
@@ -169,7 +186,10 @@ const RegistrationForm = () => {
         city: '',
         skill: '',
         pincode: '',
-        dob: ''
+        dob: '',
+        interests: '',
+        gradyear: '',
+        github: '',
 
     });
 
