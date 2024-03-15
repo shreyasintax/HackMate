@@ -7,7 +7,8 @@ const User = require("../models/User");
 //auth middleware
 exports.auth = async (req, res, next) => {
     try {
-        const token = req.body.token || req.cookies.token || req.header("Authorization").replace("Bearer ", "");
+        const token = req.body.token  || req.cookies.hackMateCookie 
+        console.log(token)
         if (!token) {
             return res.status(401).json({
                 success: false,

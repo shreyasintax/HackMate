@@ -13,10 +13,6 @@ const opportunitySchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    timeline: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Round"
-    }],
     mode: {
         type: "String",
         enum: ["Online", "Offline"],
@@ -53,7 +49,15 @@ const opportunitySchema = new mongoose.Schema({
     noOfRounds: {
         type: Number,
         required: true
+    },
+    teams : [{
+        type: mongoose.Schema.ObjectId,
+        ref: "Team"
     }
+    ],
+    timeline: [{
+        type: String
+    }]
 
 });
 

@@ -21,11 +21,10 @@ router.post("/login", login);
 //         message:"I am on Participant Route"
 //     })
 // });
-router.get("/:id", getSingleUser)
-router.delete("/:id", deleteProfile)
+router.post("/sendOtp",sendOTP);
+
+router.get("/:id", getSingleUser);
+router.delete("/:id", deleteProfile);
 
 
-router.get("/sendOtp",sendOTP);
-
-router.get("/verifyEmail",verifyEmail);
 module.exports = router;
