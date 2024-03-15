@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import { CardContent, Card, CardFooter } from '../ui/card';
 import { Button } from '../ui/button';
+import { useParams } from 'react-router-dom';
 
 export function Teams() {
   const [teamData, setTeamData] = useState([]);
+  const {oppoId} = useParams();
 
   // let oppoId;
   // useEffect(() => {
