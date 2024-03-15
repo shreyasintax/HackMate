@@ -208,12 +208,12 @@ const RegistrationForm = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ formData }),
+        body: JSON.stringify(formData),
       });
       if (response.ok) {
         // Handle success
         console.log('User submitted successfully');
-
+        navigate("/login");
       } else {
         // Handle error
         console.log("Some error occured while submitting user -frontend");

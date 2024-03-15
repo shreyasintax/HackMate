@@ -11,13 +11,10 @@ import { Button } from "../ui/button";
 
 export function TeamRegistration() {
   const [formData, setFormData] = useState({
-    teamName: '',
-    teamLeader: '',
-    skills: '',
-    projectIdea: '',
-    email: '',
-    phone: '',
-    college: ''
+    name: '',
+    noOfMembers: 0,
+    skillsPreffered: '',
+    idea: '',
   });
 
   const handleChange = (e) => {
@@ -27,17 +24,18 @@ export function TeamRegistration() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form Data:', formData); 
+    console.log('Form Data:', formData);
     try {
+      // let oppoId = req.params;
       // Send the formData to your backend using fetch or any HTTP client library
-      const response = await fetch(`http://localhost:8080/hackmate/v1/opportunity/ooslme/team`, {
+      const response = await fetch(`http://localhost:8080/hackmate/v1/opportunity/weg/team`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(formData)
       });
-      
+
       if (response.ok) {
         // Handle success
         console.log('Team registration successful');
@@ -58,32 +56,20 @@ export function TeamRegistration() {
       </div>
       <div className="space-y-4">
         <div className="space-y-2">
-          <Label htmlFor="team-name">Team Name</Label>
-          <Input id="teamName" placeholder="Team Name" required onChange={handleChange} />
+          <Label htmlFor="name">Team Name</Label>
+          <Input id="name" placeholder="Team Name" required onChange={handleChange} name="name" />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="team-leader">Team Leader</Label>
-          <Input id="teamLeader" placeholder="Team Leader" required onChange={handleChange} />
+          <Label htmlFor="skillsPreffered">Skills Preferred</Label>
+          <Input id="skillsPreffered" placeholder="Skills Preferred" required onChange={handleChange} name="skillsPreffered" />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="skills">Skills Preferred</Label>
-          <Input id="skills" placeholder="Skills Preferred" required onChange={handleChange} />
+          <Label htmlFor="idea">Project Idea</Label>
+          <Textarea id="idea" placeholder="idea" required onChange={handleChange} name="idea"/>
         </div>
         <div className="space-y-2">
-          <Label htmlFor="project-idea">Project Idea</Label>
-          <Textarea id="projectIdea" placeholder="Project Idea" required onChange={handleChange} />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="email">Email</Label>
-          <Input id="email" placeholder="Email" required type="email" onChange={handleChange} />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="phone">Phone Number</Label>
-          <Input id="phone" placeholder="Phone Number" required type="tel" onChange={handleChange} />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="college">College Name</Label>
-          <Input id="college" placeholder="College Name" required onChange={handleChange} />
+          <Label htmlFor="noOfMembers">Skills Preferred</Label>
+          <Input id="noOfMembers" placeholder="Skills Preferred" required onChange={handleChange} name="noOfMembers" type="Number"/>
         </div>
         <Button type="submit">Submit</Button>
       </div>

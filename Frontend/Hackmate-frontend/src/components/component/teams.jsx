@@ -7,24 +7,27 @@ export function Teams() {
   const [teamData, setTeamData] = useState([]);
   const {oppoId} = useParams();
 
-  // let oppoId;
-  // useEffect(() => {
-  //   fetchTeamData();
-  // }, []);
-  // const fetchTeamData = async () => {
-  //   try {
-  //     // oppoId = req.params.oppoId;
-  //     // const response = await fetch(`http://localhost:8080/hackmate/v1/opportunity/${oppoId}/team`);
-  //     if (!response.ok) {
-  //       throw new Error('Failed to fetch team data');
-  //     }
-  //     const data = await response.json();
-  //     console.log(data);
-  //     setTeamData(data.teams);
-  //   } catch (error) {
-  //     console.error('Error fetching team data:', error);
-  //   }
-  // };
+
+  useEffect(() => {
+    fetchTeamData();
+  }, []);
+  const fetchTeamData = async () => {
+    try {
+      // let {oppoId} = req.params;
+      const response = await fetch(`http://localhost:8080/hackmate/v1/opportunity/dvdf/team`);
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch team data');
+      }
+      console.log(response);
+      const data = await response.json();
+      console.log(data);
+      setTeamData(data.teams);
+    } catch (error) {
+      console.error('Error fetching team data:', error);
+    }
+  };
+
 
   const sendInvite = async (teamId) => {
     // const response = await fetch(`http://localhost:8080/hackmate/v1/opportunity/${oppoId}/team/${teamId}`);

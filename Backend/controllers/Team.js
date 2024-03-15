@@ -21,12 +21,14 @@ exports.addTeam = async (req, res) => {
             });
         }
 
+        let skillArray=[];
+        skillArray.push(skillsPreffered);
 
         const team = await Team.create({
             oppoId,
             name,
             idea,
-            skillsPreffered,
+            skillsPreffered:skillArray,
             noOfMembers,
             teamLeader: id
         });

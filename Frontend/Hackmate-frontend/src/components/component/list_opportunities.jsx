@@ -15,7 +15,7 @@ export function ListOpportunities() {
   }, []); 
 
   const handleOpportunityClick = (opportunityId) => {
-    navigate(`${opportunityId}`); // Navigate to opportunity page with the opportunity ID
+    navigate(`/opportunity/${opportunityId}`); // Navigate to opportunity page with the opportunity ID
   };
 
   return (
@@ -30,7 +30,7 @@ export function ListOpportunities() {
         <div className="grid gap-4">
           {
             opportunities.map(opportunity => (
-            <div key={opportunity.id} onClick={() => handleOpportunityClick(opportunity.id)}> {/* Attach onClick handler to the wrapper div */}
+            <div key={opportunity.id} onClick={() => handleOpportunityClick(opportunity._id)}> {/* Attach onClick handler to the wrapper div */}
               <Card>
                 <div className="flex gap-4 p-4 ">
                   {/* <div className="">
@@ -42,9 +42,6 @@ export function ListOpportunities() {
                       width="120"
                     />
                   </div> */}
-                  {
-                    console.log(opportunity)
-                  }
                   <div className="grid gap-2 text-sm">
                     <h2 className="text-lg font-semibold">{opportunity.name}</h2>
                     <p className="text-sm text-gray-500 dark:text-gray-400">Organized by: {opportunity.mode}</p>
