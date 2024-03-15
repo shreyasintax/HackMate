@@ -1,9 +1,13 @@
 const mongoose = require("mongoose");
 
 const teamSchema = new mongoose.Schema({
-    teamLeader:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"User"
+    oppoId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Opportunity"
+    },
+    teamLeader: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
     },
     noOfMembers: {
         type: Number,

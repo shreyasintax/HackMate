@@ -17,7 +17,7 @@ exports.login = async (req, res) => {
             });
         }
 
-        const user = await User.findOne({ email });
+        let user = await User.findOne({ email }); // Change const to let
 
         if (!user) {
             return res.status(404).json({
@@ -36,7 +36,7 @@ exports.login = async (req, res) => {
             // Password Match
             let token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "2h" });
 
-            // user=user.toObject();
+            user = user.toObject();
             user.token = token;
             user.password = undefined;
 

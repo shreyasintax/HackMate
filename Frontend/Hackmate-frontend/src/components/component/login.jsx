@@ -23,14 +23,25 @@ export function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Your login logic here
-
-      // Redirect to the home page if login is successful
-      navigate('/');
+      const response = await fetch('http://localhost:8080/hackmate/v1/user/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email,password }),
+      });
+      if (response.ok) {
+        // Handle success
+        console.log('Login Details submitted successfully');
+        navigate('/');
+      } else {
+        // Handle error
+        console.log(response);
+      }
     } catch (error) {
-      console.error('Login failed:', error.message);
-      // Handle login failure, e.g., display an error message to the user
+      console.error('Error submitting email:', error);
     }
+ 
   };
 
   return (

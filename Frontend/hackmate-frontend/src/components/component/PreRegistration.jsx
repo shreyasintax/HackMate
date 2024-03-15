@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function PreRegistration() {
   const [email, setEmail] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,6 +18,8 @@ function PreRegistration() {
       if (response.ok) {
         // Handle success
         console.log('Email submitted successfully');
+        navigate("/showSignup");
+        
       } else {
         // Handle error
         console.log(response);

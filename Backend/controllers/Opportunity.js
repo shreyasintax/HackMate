@@ -13,9 +13,12 @@ exports.addOpportunity = async (req, res) => {
             contactDetails,
             eligibility,
             noOfRounds,
-            rounds
+            r1, r2, r3, r4
+
+            // Add other properties from req.body if needed
         } = req.body;
 
+        // Validate (mongoose validation is already present so no need to validate it)
         if (
             !name ||
             !regDeadline ||
@@ -25,117 +28,175 @@ exports.addOpportunity = async (req, res) => {
             !FAQs ||
             !contactDetails ||
             !eligibility ||
-            !noOfRounds ||
-            !rounds
+            !noOfRounds
+            // Add other required fields from req.body
         ) {
-            return res.status(400).json({
+            console.log("Fill all required details");
+            return res.json({
                 success: false,
-                message: "Fill all required details"
+                mesage: "Fill all required details"
             });
         }
+        let teamArray=[];
 
-        const newRounds = [];
-        for (const round of rounds) {
-            const newRound = await Round.create(round);
-            newRounds.push(newRound._id);
+        const roundArray = [];
+        if (r1) {
+            roundArray.push(r1)
+        } if (r2) {
+            roundArray.push(r2)
+        }
+        if (r3) {
+            roundArray.push(r3)
+        }
+        if (r4) {
+            roundArray.push(r4)
+        }
+
+        let newTimeline = [];
+        for (let i = 0; i < roundArray.length; i++) {
+            let newRound = await Round.create({
+                description: roundArray[i].description,
+                resultDate: roundArray[i].resultDate
+            })
+            newTimeline.push(newRound._id);
         }
 
         const opportunity = await Opportunity.create({
             name,
             regDeadline,
             description,
+            timeline: newTimeline,
             mode,
             rewards,
             FAQs,
             contactDetails,
             eligibility,
             noOfRounds,
-            rounds: newRounds
+            teams:teamArray
+            // Add other opportunity properties from req.body
         });
 
-        return res.status(201).json({
+        // Your existing user creation logic goes here...
+
+        return res.json({
             success: true,
             message: "Opportunity added successfully"
         });
-    } catch (error) {
-        console.error("Error adding opportunity:", error);
-        return res.status(500).json({
+    } catch (err) {
+        console.error(err);
+        return res.json({
             success: false,
-            message: "Some error occurred while adding opportunity"
+            message: "Some error occurred while adding Opportunity"
         });
     }
 };
 
 exports.getSingleOpportunity = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const opportunity = await Opportunity.findById(id);
+    let { id } = req.params;
 
-        if (!opportunity) {
-            return res.status(404).json({
-                success: false,
-                message: "Opportunity not found"
-            });
-        }
+    let opportunity = await Opportunity.findById(id);
 
-        return res.status(200).json({
-            success: true,
-            opportunity
-        });
-    } catch (error) {
-        console.error("Error retrieving opportunity:", error);
-        return res.status(500).json({
-            success: false,
-            message: "Some error occurred while retrieving opportunity"
-        });
+    if (!opportunity) {
+        return res.json({
+            success: "false",
+            mesage: "No Opportunity Listed"
+        })
     }
-};
+    return res.json({
+        success: true,
+        opportunity
+    });
+}
+
 
 exports.getAllOpportunity = async (req, res) => {
-    try {
-        const opportunities = await Opportunity.find({});
-
-        if (!opportunities || opportunities.length === 0) {
-            return res.status(404).json({
-                success: false,
-                message: "No opportunities listed"
-            });
-        }
-
-        return res.status(200).json({
-            success: true,
-            opportunities
-        });
-    } catch (error) {
-        console.error("Error retrieving opportunities:", error);
-        return res.status(500).json({
-            success: false,
-            message: "Some error occurred while retrieving opportunities"
-        });
+    let opportunity = await Opportunity.find({});
+    if (!opportunity) {
+        return res.json({
+            success: "false",
+            mesage: "No Opportunity Listed"
+        })
     }
-};
+    return res.json({
+        success: true,
+        opportunity
+    });
+}
 
 exports.deleteOpportunity = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const opportunity = await Opportunity.findByIdAndDelete(id);
+    let { id } = req.params;
 
-        if (!opportunity) {
-            return res.status(404).json({
-                success: false,
-                message: "Opportunity not found"
-            });
-        }
+    let opportunity = await Opportunity.findByIdAndDelete(id);
 
-        return res.status(200).json({
-            success: true,
-            message: "Opportunity deleted successfully"
-        });
-    } catch (error) {
-        console.error("Error deleting opportunity:", error);
-        return res.status(500).json({
-            success: false,
-            message: "Some error occurred while deleting opportunity"
-        });
+    if (!opportunity) {
+        return res.json({
+            success: "false",
+            mesage: "No Opportunity Listed"
+        })
     }
-};
+    return res.json({
+        success: true,
+        message: "Opportunity Deleted"
+    });
+}
+
+// exports.updateOpportunity = async (req, res) => {
+//     let { id } = req.params;
+
+//     try {
+//         let opportunity = await Opportunity.findById(id);
+
+//         if (!opportunity) {
+//             return res.status(404).json({
+//                 success: false,
+//                 message: "No Opportunity Listed"
+//             });
+//         }
+
+//         const {
+//             name,
+//             idea,
+//             skillsPreffered,
+//             noOfMembers,
+//             teamLeader
+//             // Add other fields as needed
+//         } = req.body;
+
+//         // Update team fields if provided in the request body
+//         if (name) team.name = name;
+//         if (idea) team.idea = idea;
+//         if (skillsPreffered) team.skillsPreffered = skillsPreffered;
+//         if (noOfMembers) team.noOfMembers = noOfMembers;
+//         if (teamLeader) team.teamLeader = teamLeader;
+//         // Add other fields as needed
+
+//         // Save the updated team
+//         await team.save();
+
+//         // Check if the teamId is provided
+//         if (!teamId) {
+//             return res.status(400).json({
+//                 success: false,
+//                 message: "Team ID is required"
+//             });
+//         }
+
+//         // Add the new team to the teams array
+//         opportunity.teams.push(teamId);
+        
+//         // Save the updated opportunity
+//         await opportunity.save();
+
+//         return res.status(200).json({
+//             success: true,
+//             message: "Opportunity updated successfully",
+//             opportunity
+//         });
+//     } catch (error) {
+//         console.error("Error updating opportunity:", error);
+//         return res.status(500).json({
+//             success: false,
+//             message: "Internal server error"
+//         });
+//     }
+// };

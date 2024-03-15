@@ -14,7 +14,8 @@ exports.addUser = async (req, res) => {
             confirmPassword,
             accountType,
             otp,
-            links,
+            github,
+            linkedin,
             hardSkills,
             softSkills,
             city,
@@ -32,7 +33,7 @@ exports.addUser = async (req, res) => {
             !email ||
             !password ||
             !confirmPassword ||
-            !otp || !city || !state || !pinCode || !gender || !dateOfBirth
+            !otp || !city || !state || !pinCode || !gender || !dateOfBirth 
         ) {
             return res.status(400).json({
                 success: false,
@@ -89,6 +90,16 @@ exports.addUser = async (req, res) => {
             contactNumber
         });
 
+        let softArray=[];
+        softArray.push(softSkills);
+
+        let hardArray=[];
+        hardArray.push(hardSkills);
+
+        let links=[];
+        links.push(github);
+        links.push(linkedin);
+
         const user = await User.create({
             firstName,
             lastName,
@@ -97,8 +108,8 @@ exports.addUser = async (req, res) => {
             confirmPassword,
             accountType,
             links,
-            hardSkills,
-            softSkills,
+            hardSkills:hardArray,
+            softSkills:softArray,
             city,
             state,
             pinCode,

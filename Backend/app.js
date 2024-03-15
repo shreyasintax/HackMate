@@ -13,16 +13,17 @@ const PORT = process.env.PORT || 3000;
 const MONGO_URL = process.env.MONGO_URL;
 
 app.use(express.json());
+
 app.use(
   cors({
-    origin: "http://localhost:3001",
+    origin: "http://localhost:3000",
     // credentials: true,
   })
 )
 
 app.use("/hackmate/v1/user", userRoutes); 
 app.use("/hackmate/v1/opportunity", oppoRoutes); 
-app.use("/hackmate/v1/team", teamRoutes); 
+
 
 app.get("/",(req,res)=>{
     res.send("Server is running!");
