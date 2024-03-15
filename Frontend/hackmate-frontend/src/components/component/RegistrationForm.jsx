@@ -63,6 +63,7 @@ export function Registration({ formData, setFormData, onNext }) {
                     </SelectContent>
                   </Select>
                   <Input className="flex-1" placeholder="Phone" value={formData.phone} onChange={handleChange} name="phone" />
+                  
                 </div>
                 <Input placeholder="Password" type="password" value={formData.password} onChange={handleChange} name="password" />
                 <Input placeholder="Confirm Password" type="password" />

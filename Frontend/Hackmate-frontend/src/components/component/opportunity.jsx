@@ -11,7 +11,7 @@ export function Opportunity(props) {
     <Card className="w-1/2 mx-auto">
       <CardHeader className="space-y-2">
         <div className="flex items-center">
-          <img
+          {/* <img
             alt="Hackathon Logo"
             className="mr-2"
             height="40"
@@ -21,7 +21,7 @@ export function Opportunity(props) {
               objectFit: "cover",
             }}
             width="40"
-          />
+          /> */}
           <CardTitle className="text-3xl font-bold tracking-tighter sm:text-5xl">{props.dummyOpportunityData.title}</CardTitle>
         </div>
         <CardDescription className="text-gray-500 dark:text-gray-400">

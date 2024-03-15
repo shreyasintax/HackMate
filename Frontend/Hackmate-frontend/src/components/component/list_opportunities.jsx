@@ -172,7 +172,7 @@ export function ListOpportunities() {
       id: 1,
       title: 'Hackathon 2024',
       organizer: 'Acme Inc',
-      rewards: '$10,000 in prizes',
+      rewards: '$10,00 in prizes',
       logoUrl: '/placeholder.svg'
     },
     {
