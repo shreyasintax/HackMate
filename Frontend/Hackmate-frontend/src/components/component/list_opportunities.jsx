@@ -4,37 +4,6 @@ import { Card } from "../ui/card";
 import { Button } from "../ui/button";
 
 export function ListOpportunities() {
-  // const [opportunities] = useState([
-  //   {
-  //     id: 1,
-  //     title: 'Hackathon 2024',
-  //     organizer: 'Acme Inc',
-  //     rewards: '$10,00 in prizes',
-  //     logoUrl: '/placeholder.svg'
-  //   },
-  //   {
-  //     id: 2,
-  //     title: 'Internship Program',
-  //     organizer: 'ABC Corporation',
-  //     rewards: 'Real-world experience',
-  //     logoUrl: '/placeholder.svg'
-  //   },
-  //   {
-  //     id: 3,
-  //     title: 'Volunteer Opportunity',
-  //     organizer: 'Community Center',
-  //     rewards: 'Making a difference',
-  //     logoUrl: '/placeholder.svg'
-  //   },
-  //   {
-  //     id: 4,
-  //     title: 'Hackathon D',
-  //     organizer: 'Center',
-  //     rewards: 'Making a difference',
-  //     logoUrl: '/placeholder.svg'
-  //   }
-  // ]);
-
   const [opportunities, setOpportunities] = useState([]);
   const navigate = useNavigate(); // Initialize navigate hook
 

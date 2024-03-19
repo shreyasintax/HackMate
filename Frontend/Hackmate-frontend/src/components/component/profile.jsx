@@ -169,17 +169,16 @@ export function Profile({ user, children }) {
         {profileData && (
           <div className="flex flex-col lg:flex-row lg:space-x-8">
             <div className="flex-col w-1/2 bg-white p-4 rounded-lg mt-4">
-           
-              <div className="rounded-t-lg h-32 overflow-hidden">
-        <img className="object-cover object-top w-full" src='https://images.unsplash.com/photo-1549880338-65ddcdfd017b?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ' alt='Mountain'/>
-    </div>
-    <div className="mx-auto w-32 h-32 relative -mt-16 border-4 border-white rounded-full overflow-hidden">
-        <img className="object-cover object-center h-32" src='https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ' alt='Woman looking front'/>
-    </div>
-    <div className="text-center mt-2">
-        <h2 className="font-semibold">{profileData.name}</h2>
-        <p className="text-gray-500">username</p>
-    </div>
+              <div className="flex items-center space-x-4 mb-4">
+                <Avatar>
+                  <AvatarImage alt="Profile Picture" src="/placeholder.svg?height=100&width=100" />
+                  <AvatarFallback>{user}</AvatarFallback>
+                </Avatar>
+                <div>
+                  <h1 className="text-2xl font-semibold">{profileData.name}</h1>
+                  <p className="text-sm text-gray-500">Username</p>
+                </div>
+              </div>
               <div className="space-y-4">
                 <div>
                   <h2 className="font-semibold text-lg">General Interests (Themes)</h2>
