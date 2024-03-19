@@ -39,7 +39,6 @@ export function TeamRegistration() {
         credentials:"include",
         body: JSON.stringify(formData)
       });
-
       if (response.ok) {
         // Handle success
         console.log('Team registration successful');
