@@ -25,17 +25,11 @@ export function Registration({ formData, setFormData, onNext }) {
   };
   return (
     (<div className="min-h-screen bg-white flex">
-      <div className="flex-1 flex flex-col justify-between bg-[#FFD100] p-10">
-
-        <div className="flex justify-center space-x-2">
-          <div className="w-2 h-2 bg-white rounded-full" />
-          <div className="w-2 h-2 bg-white rounded-full" />
-          <div className="w-2 h-2 bg-white rounded-full" />
-          <div className="w-2 h-2 bg-white rounded-full" />
-        </div>
-      </div>
-      <div className="flex-1 flex items-center justify-center p-10">
-        <Card className="w-[500px]">
+    <div className="flex-1 flex flex-col justify-between p-10">
+      <img src="/image1.png" alt="background image" className="object-cover w-full h-full" />
+    </div>
+    <div className="flex-1 flex items-center justify-center p-10">
+        <Card className="w-[500px] bg-blue-100">
           <CardHeader>
             <CardTitle>Ready to Be Unstoppable! Create an account</CardTitle>
           </CardHeader>
@@ -44,7 +38,6 @@ export function Registration({ formData, setFormData, onNext }) {
               <div className="grid w-full gap-4">
                 <div className="flex space-x-4">
                   <Button variant="outline">Candidate</Button>
-                  <Button variant="outline">Recruiter</Button>
                   <Button variant="outline">Organizer</Button>
                 </div>
                 <div className="flex flex-col space-y-1.5">
@@ -68,7 +61,7 @@ export function Registration({ formData, setFormData, onNext }) {
                 <Input placeholder="Confirm Password" type="password" value={formData.confirmPassword} onChange={handleChange} name="confirmPassword" />
                 <Input placeholder="OTP" value={formData.otp} onChange={handleChange} name="otp" />
               </div>
-              <button type="submit" className="bg-blue-600 text-white">Next</button>
+              <Button type="submit" className="w-1/2 bg-blue-600 text-white mt-2">Next</Button>
 
 
             </form>

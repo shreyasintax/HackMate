@@ -25,7 +25,7 @@ export function SpecialOpp() {
               aspectRatio: "300/200",
               objectFit: "cover",
             }}
-            width="300"
+            // width="300"
           />
           <CardHeader>
             <CardTitle>Productathon</CardTitle>
@@ -58,12 +58,12 @@ export function SpecialOpp() {
             alt="Productathon"
             className="rounded-t-lg"
             height="200"
-            src="/hackathon2.jpg"
+            src="/hacakthon.jpg"
             style={{
               aspectRatio: "300/200",
               objectFit: "cover",
             }}
-            width="300"
+            // width="300"
           />
           <CardHeader>
             <CardTitle>Hackshetra</CardTitle>
@@ -97,12 +97,12 @@ export function SpecialOpp() {
             alt="Hackshetra"
             className="rounded-t-lg"
             height="200"
-            src="/hackathon3.jpeg"
+            src="/hacakthon.jpg"
             style={{
               aspectRatio: "300/200",
               objectFit: "cover",
             }}
-            width="300"
+            // width="300"
           />
           <CardHeader>
             <CardTitle>B-Plan</CardTitle>

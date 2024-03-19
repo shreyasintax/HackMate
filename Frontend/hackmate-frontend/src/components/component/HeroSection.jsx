@@ -28,7 +28,7 @@ export function HeroSection() {
             Pricing
           </a>
         </div>
-        <Link to = "/reg">
+        <Link to = "/showSignup">
         <Button className="hidden md:block bg-white text-[#5c2d91]">Register</Button>
         </Link>
         <Link to = "/opportunity_list">

@@ -5,14 +5,14 @@
  */
 import {Link} from'react-router-dom'
 
-export default function Component() {
+export function Footer() {
   return (
     <footer className="bg-[#252525] text-white py-6">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex flex-col items-center">
           <div className="mb-6">
-            <span className="text-purple-500 font-bold text-lg">T</span>
-            <span className="font-bold text-lg">react</span>
+            <span className="text-purple-500 font-bold text-lg">H</span>
+            <span className="font-bold text-lg">ackmate</span>
           </div>
           <div className="flex space-x-4 mb-6">
             <Link className="hover:text-gray-300" href="#">
@@ -36,7 +36,7 @@ export default function Component() {
             <TwitterIcon className="h-6 w-6 hover:text-gray-300" />
             <YoutubeIcon className="h-6 w-6 hover:text-gray-300" />
           </div>
-          <div className="text-sm">© Copyright 2020, Treact Inc. All Rights Reserved.</div>
+          <div className="text-sm">© Copyright 2020, Hackmate Inc. All Rights Reserved.</div>
         </div>
       </div>
     </footer>

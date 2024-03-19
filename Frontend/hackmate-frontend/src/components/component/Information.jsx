@@ -22,9 +22,7 @@ export function Information() {
       <div className="w-1/2 px-12">
         <h1 className="text-6xl font-bold text-blue-900">We Value TeamWork</h1>
         <p className="mt-6 text-lg text-gray-700">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat.
+        Welcome to HackMate, your ultimate destination for finding the perfect hackathon partner! Gone are the days of struggling to assemble a team or feeling lost in the sea of potential collaborators. With HackMate, we've streamlined the process, making it easier than ever to connect with like-minded individuals who share your passion for innovation and teamwork.
         </p>
         <div className="grid grid-cols-2 gap-8 mt-12">
           <div>
@@ -33,15 +31,15 @@ export function Information() {
           </div>
           <div>
             <p className="text-5xl font-bold text-blue-900">479</p>
-            <p className="mt-2 text-xl font-semibold">Hotels</p>
+            <p className="mt-2 text-xl font-semibold">Users</p>
           </div>
           <div>
             <p className="text-5xl font-bold text-blue-900">2093</p>
-            <p className="mt-2 text-xl font-semibold">Rooms</p>
+            <p className="mt-2 text-xl font-semibold">Teams</p>
           </div>
           <div>
-            <p className="text-5xl font-bold text-blue-900">10347</p>
-            <p className="mt-2 text-xl font-semibold">Workers</p>
+            <p className="text-5xl font-bold text-blue-900">147</p>
+            <p className="mt-2 text-xl font-semibold">Organizers</p>
           </div>
         </div>
       </div>

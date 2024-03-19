@@ -203,12 +203,12 @@ export function Create_opportunity() {
         <form onSubmit={handleSubmit}>
 
           <div className="grid gap-6">
-            <Input id="name" placeholder="Name" type="text" onChange={handleChange} />
-            <Input id="registrationDeadline" placeholder="Registration Deadline" type="date" onChange={handleChange} />
-            <Input id="eligibility" placeholder="Eligibility" type="text" onChange={handleChange} />
-            <Input id="yearOfGraduation" placeholder="Year of Graduation" type="number" onChange={handleChange} />
-            <Input id="age" placeholder="Age" type="number" onChange={handleChange} />
-            <Input id="teamMembersNumber" placeholder="Team Members Number" type="number" onChange={handleChange} />
+            <Input name="name" placeholder="Name" type="text" onChange={handleChange} />
+            <Input name="regDeadline" placeholder="Registration Deadline" type="date" onChange={handleChange} />
+            {/* <Input name="eligibility" placeholder="Eligibility" type="text" onChange={handleChange} /> */}
+            <Input name="eligibility[yearOfGraduation]" placeholder="Year of Graduation" type="number" onChange={handleChange} />
+            <Input name="eligibility[age]" placeholder="Age" type="number" onChange={handleChange} />
+            <Input name="eligibility[teamMembersNumber]" placeholder="Team Members Number" type="number" onChange={handleChange} />
             {/* <div className="flex items-center space-x-4">
               <Checkbox id="interYearAllowed" onChange={handleChange} />
               <label className="text-sm font-medium leading-none"  htmlFor="inter-year">
@@ -224,7 +224,7 @@ export function Create_opportunity() {
                   <div className="flex items-center space-x-4">
         <input
           type="checkbox"
-          id="interYearAllowed"
+          id="elibility[interYearAllowed]"
           checked={formData.interYearAllowed}
           onChange={handleChange}
         />
@@ -235,7 +235,7 @@ export function Create_opportunity() {
       <div className="flex items-center space-x-4">
         <input
           type="checkbox"
-          id="interCollegeAllowed"
+          name="eligibility[interCollegeAllowed]"
           checked={formData.interCollegeAllowed}
           onChange={handleChange}
         />
@@ -282,15 +282,15 @@ export function Create_opportunity() {
                 </div>
               </div>
             </div>
-            <select id="mode" value = {formData.mode} onChange = {handleChange}>
+            <select name="mode" value = {formData.mode} onChange = {handleChange}>
                       <option value="">select mode</option>
                       <option value="offline">Offline</option>
                       <option value="online">Online</option>
                       {/* <option value="jpg">JPG</option> */}
                   </select>
 
-            <Textarea id="rewardsDescription" placeholder="Rewards (description)" onChange={handleChange} />
-            <Textarea id="faqs" placeholder="FAQs" onChange={handleChange} />
+            <Textarea name="rewards" placeholder="Rewards (description)" onChange={handleChange} />
+            {/* <Textarea name="FAQs" placeholder="FAQs" onChange={handleChange} /> */}
             <Input id="organizerContact" placeholder="Organizer Contact" type="text" onChange={handleChange} />
 
             <button type="submit" className="mt-4">Next</button>

@@ -22,15 +22,16 @@ export function Opportunity(props) {
           <CardContent className="space-y-2">
             <h2 className="text-lg font-semibold">Timeline</h2>
             <div className="grid grid-cols-3 gap-4 sm:grid-cols-1">
-              {/* {
-                props.rd.map((description, resultDate, id) => (
-                  <div key={id} className="space-y-1">
-                    <h3 className="text-base font-semibold">{description}</h3>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">{resultDate}</p>
-                    <Button size="sm">Results</Button>
-                  </div>
-                ))
-              } */}
+            <h2 className="text-lg font-semibold">Timeline</h2>
+            <div className="grid grid-cols-3 gap-4 sm:grid-cols-1">
+              {props.rd.map((round, index) => (
+                <div key={index} className="space-y-1">
+                  <h3 className="text-base font-semibold">{round.description}</h3>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">{round.resultDate}</p>
+                  <Button size="sm">Results</Button>
+                </div>
+              ))}
+            </div>
             </div>
           </CardContent>
         </Card>
@@ -58,12 +59,12 @@ export function Opportunity(props) {
           <CardContent className="space-y-2">
             <h2 className="text-lg font-semibold">FAQs</h2>
             <div className="grid gap-2">
-              {/* {props.OpportunityData.faqs.map((faq, index) => (
+              {props.OpportunityData.faqs.map((faq, index) => (
                 <div key={index}>
-                  <h3 className="text-base font-semibold">{faq.question}</h3>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">{faq.answer}</p>
+                  <h3 className="text-base font-semibold">{faq}</h3>
+                  
                 </div>
-              ))} */}
+              ))}
             </div>
           </CardContent>
         </Card>

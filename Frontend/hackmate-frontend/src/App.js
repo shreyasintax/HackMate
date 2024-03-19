@@ -11,7 +11,7 @@ import { ListOpportunities } from './components/component/list_opportunities';
 import { OpportunityPage } from './components/component/opportunitypage';
 import { Matching } from './components/component/matchingalgo';
 import PreRegistration from './components/component/PreRegistration';
-import HomePage from './components/component/HomePage';
+import { HomePage }from './components/component/HomePage';
 
 function App() {
 
@@ -28,7 +28,7 @@ function App() {
         <Route path="/match" element={<Matching/>}/>
         <Route path="/opportunity/:id/*" element={<OpportunityPage />} />
         <Route path = "/prereg" element={<PreRegistration/>} />
-        <Route path = "/hero" element={<HomePage/>} />
+        <Route path = "/" element={<HomePage/>} />
       </Routes>
     </Router>
 

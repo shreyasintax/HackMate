@@ -48,9 +48,10 @@ export function Login() {
     <div className="flex min-h-screen bg-gray-100">
       <div className="flex w-1/2 items-center justify-center p-12">
         {/* Left side content */}
+        <img src="image1.png"></img>
       </div>
       <div className="flex  w-1/2 items-center justify-center bg-white p-12">
-        <Card className="w-[500px] ">
+        <Card className="w-[500px] bg-blue-100  ">
           <CardHeader>
             <CardTitle>Ready to Be Unstoppable! Sign in</CardTitle>
           </CardHeader>
@@ -86,7 +87,7 @@ export function Login() {
           <CardFooter>
             <p className="mt-6 mb-6 text-center text-sm leading-5 text-gray-600">
               Don't have an account?
-              <Link to="/" className="ml-1 text-blue-600 hover:underline">
+              <Link to="/showSignup" className="ml-1 text-blue-600 hover:underline">
                 Sign Up
               </Link>
             </p>
