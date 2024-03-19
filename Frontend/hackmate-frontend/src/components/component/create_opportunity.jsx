@@ -8,200 +8,35 @@ import { Checkbox } from "../ui/checkbox"
 import { Textarea } from "../ui/textarea"
 import { SelectValue, SelectTrigger, SelectItem, SelectContent, Select } from "../ui/select"
 
-// export function Create_opportunity() {
-//   return (
-//     (<div className="max-w-4xl mx-auto p-6">
-//       <div className="flex items-center justify-between border-b pb-4">
-//         <Button className="flex items-center space-x-2" variant="ghost">
-//           <ArrowLeftIcon className="w-4 h-4" />
-//           <span>Back</span>
-//         </Button>
-//         <div className="flex space-x-4 items-center">
-//           <div className="flex items-center space-x-2">
-//             <div
-//               className="rounded-full bg-blue-500 w-5 h-5 flex items-center justify-center text-white">1</div>
-//             <span className="font-semibold">Basic Details</span>
-//           </div>
-//           <ChevronRightIcon className="w-4 h-4" />
-//           <div className="flex items-center space-x-2">
-//             <div
-//               className="rounded-full bg-gray-200 w-5 h-5 flex items-center justify-center text-gray-500">2</div>
-//             <span>Registration Details</span>
-//           </div>
-//         </div>
-//       </div>
-//       <div className="mt-6">
-//         <h1 className="text-2xl font-semibold mb-6">Basic Details</h1>
-//         <div
-//           className="border-dashed border-2 border-gray-300 rounded-lg p-6 flex justify-center items-center mb-6">
-//           <span className="text-gray-400">Opportunity Logo *</span>
-//         </div>
-//         <form>
-//           <div className="grid gap-6">
-//             <Input placeholder="Name" type="text" />
-//             <Input placeholder="Registration Deadline" type="date" />
-//             <Input placeholder="Eligibility" type="text" />
-//             <Input placeholder="Year of Graduation" type="number" />
-//             <Input placeholder="Age" type="number" />
-//             <Input placeholder="Team Members Number" type="number" />
-//             <div className="flex items-center space-x-4">
-//               <Checkbox id="inter-year" />
-//               <label className="text-sm font-medium leading-none" htmlFor="inter-year">
-//                 Inter-year allowed?
-//               </label>
-//             </div>
-//             <div className="flex items-center space-x-4">
-//               <Checkbox id="inter-college" />
-//               <label className="text-sm font-medium leading-none" htmlFor="inter-college">
-//                 Inter-college allowed?
-//               </label>
-//             </div>
-//             <Input
-//               placeholder="Other Team Constraints (e.g., 1 mandatory female)"
-//               type="text" />
-//             <Textarea placeholder="Description" />
-//             <div>
-//               <label className="block text-sm font-medium mb-1">
-//                 Timeline (Multiple rounds with each round having a. Description b. Upload format c. Results)
-//               </label>
-//               <div className="grid gap-4">
-//                 <div>
-//                   <Textarea className="mb-2" placeholder="Round 1 Description" />
-//                   <Select>
-//                     <SelectTrigger id="upload-format">
-//                       <SelectValue placeholder="Select Upload Format" />
-//                     </SelectTrigger>
-//                     <SelectContent position="popper">
-//                       <SelectItem value="pdf">PDF</SelectItem>
-//                       <SelectItem value="doc">DOC</SelectItem>
-//                       <SelectItem value="jpg">JPG</SelectItem>
-//                     </SelectContent>
-//                   </Select>
-//                 </div>
-//                 <div>
-//                   <Textarea className="mb-2" placeholder="Round 2 Description" />
-//                   <Select>
-//                     <SelectTrigger id="upload-format">
-//                       <SelectValue placeholder="Select Upload Format" />
-//                     </SelectTrigger>
-//                     <SelectContent position="popper">
-//                       <SelectItem value="pdf">PDF</SelectItem>
-//                       <SelectItem value="doc">DOC</SelectItem>
-//                       <SelectItem value="jpg">JPG</SelectItem>
-//                     </SelectContent>
-//                   </Select>
-//                 </div>
-//                 <div>
-//                   <Textarea className="mb-2" placeholder="Round 3 Description" />
-//                   <Select>
-//                     <SelectTrigger id="upload-format">
-//                       <SelectValue placeholder="Select Upload Format" />
-//                     </SelectTrigger>
-//                     <SelectContent position="popper">
-//                       <SelectItem value="pdf">PDF</SelectItem>
-//                       <SelectItem value="doc">DOC</SelectItem>
-//                       <SelectItem value="jpg">JPG</SelectItem>
-//                     </SelectContent>
-//                   </Select>
-//                 </div>
-//               </div>
-//             </div>
-//             <Select>
-//               <SelectTrigger id="mode">
-//                 <SelectValue placeholder="Mode (online/offline)" />
-//               </SelectTrigger>
-//               <SelectContent position="popper">
-//                 <SelectItem value="online">Online</SelectItem>
-//                 <SelectItem value="offline">Offline</SelectItem>
-//               </SelectContent>
-//             </Select>
-//             <Textarea placeholder="Rewards (description)" />
-//             <Textarea placeholder="FAQs" />
-//             <Input placeholder="Organizer Contact" type="text" />
-//             <Button className="mt-4">Next</Button>
-//           </div>
-//         </form>
-//       </div>
-//     </div>)
-//   );
-// }
-
-import React, { useState } from 'react';
 export function Create_opportunity() {
-  const [formData, setFormData] = useState({
-    name: '',
-    registrationDeadline: '',
-    eligibility: '',
-    yearOfGraduation: '',
-    age: '',
-    teamMembersNumber: '',
-    interYearAllowed: false,
-    interCollegeAllowed: false,
-    otherTeamConstraints: '',
-    description: '',
-    round1Description: '',
-    round1UploadFormat: '',
-    round2Description: '',
-    round2UploadFormat: '',
-    round3Description: '',
-    round3UploadFormat: '',
-    mode: '',
-    rewardsDescription: '',
-    faqs: '',
-    organizerContact: ''
-  });
-
-  const handleChange = (e) => {
-    const { id, value, type, checked } = e.target;
-    const newValue = type === 'checkbox' ? checked : value;
-    setFormData({ ...formData, [id]: newValue });
-  };
-  const handleChangeSelect = (selectedOption) => {
-    setFormData({ ...formData, mode: selectedOption });
-  };
-  
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log('Form Data:', formData);
-    try {
-      // Send the formData to your backend using fetch or any HTTP client library
-      const response = await fetch('/api/registerTeam', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      });
-
-      if (response.ok) {
-        // Handle success
-        console.log('Team registration successful');
-      } else {
-        // Handle error
-        console.error('Team registration failed');
-      }
-    } catch (error) {
-      console.error('Error submitting form:', error);
-    }
-  };
-
-
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    (<div className="max-w-4xl mx-auto p-6">
       <div className="flex items-center justify-between border-b pb-4">
-        {/* Your navigation buttons */}
         <Button className="flex items-center space-x-2" variant="ghost">
           <ArrowLeftIcon className="w-4 h-4" />
           <span>Back</span>
         </Button>
+        <div className="flex space-x-4 items-center">
+          <div className="flex items-center space-x-2">
+            <div
+              className="rounded-full bg-blue-500 w-5 h-5 flex items-center justify-center text-white">1</div>
+            <span className="font-semibold">Basic Details</span>
+          </div>
+          <ChevronRightIcon className="w-4 h-4" />
+          <div className="flex items-center space-x-2">
+            <div
+              className="rounded-full bg-gray-200 w-5 h-5 flex items-center justify-center text-gray-500">2</div>
+            <span>Registration Details</span>
+          </div>
+        </div>
       </div>
       <div className="mt-6">
         <h1 className="text-2xl font-semibold mb-6">Basic Details</h1>
-        <div className="border-dashed border-2 border-gray-300 rounded-lg p-6 flex justify-center items-center mb-6">
+        <div
+          className="border-dashed border-2 border-gray-300 rounded-lg p-6 flex justify-center items-center mb-6">
           <span className="text-gray-400">Opportunity Logo *</span>
         </div>
-        <form onSubmit={handleSubmit}>
-
+        <form>
           <div className="grid gap-6">
             <Input name="name" placeholder="Name" type="text" onChange={handleChange} />
             <Input name="regDeadline" placeholder="Registration Deadline" type="date" onChange={handleChange} />
@@ -216,7 +51,7 @@ export function Create_opportunity() {
               </label>
             </div>
             <div className="flex items-center space-x-4">
-              <Checkbox id="interCollegeAllowed" onChange={handleChange} />
+              <Checkbox id="inter-college" />
               <label className="text-sm font-medium leading-none" htmlFor="inter-college">
                 Inter-college allowed?
               </label>
@@ -246,39 +81,51 @@ export function Create_opportunity() {
 
             <Input id="otherTeamConstraints"
               placeholder="Other Team Constraints (e.g., 1 mandatory female)"
-              type="text" onChange={handleChange} />
-            <Textarea id="description" placeholder="Description" onChange={handleChange} />
+              type="text" />
+            <Textarea placeholder="Description" />
             <div>
               <label className="block text-sm font-medium mb-1">
                 Timeline (Multiple rounds with each round having a. Description b. Upload format c. Results)
               </label>
               <div className="grid gap-4">
                 <div>
-                  <Textarea id="round1Description" className="mb-2" placeholder="Round 1 Description" onChange={handleChange} />
-                  <select id="round1UploadFormat" value = {formData.round1UploadFormat} onChange = {handleChange}>
-                      <option value="">select format</option>
-                      <option value="pdf">PDF</option>
-                      <option value="doc">DOC</option>
-                      <option value="jpg">JPG</option>
-                  </select>
+                  <Textarea className="mb-2" placeholder="Round 1 Description" />
+                  <Select>
+                    <SelectTrigger id="upload-format">
+                      <SelectValue placeholder="Select Upload Format" />
+                    </SelectTrigger>
+                    <SelectContent position="popper">
+                      <SelectItem value="pdf">PDF</SelectItem>
+                      <SelectItem value="doc">DOC</SelectItem>
+                      <SelectItem value="jpg">JPG</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
                 <div>
-                  <Textarea id="round2Description" className="mb-2" placeholder="Round 2 Description" onChange={handleChange} />
-                  <select id="round2UploadFormat" value = {formData.round2UploadFormat} onChange = {handleChange}>
-                      <option value="">select format</option>
-                      <option value="pdf">PDF</option>
-                      <option value="doc">DOC</option>
-                      <option value="jpg">JPG</option>
-                  </select>
+                  <Textarea className="mb-2" placeholder="Round 2 Description" />
+                  <Select>
+                    <SelectTrigger id="upload-format">
+                      <SelectValue placeholder="Select Upload Format" />
+                    </SelectTrigger>
+                    <SelectContent position="popper">
+                      <SelectItem value="pdf">PDF</SelectItem>
+                      <SelectItem value="doc">DOC</SelectItem>
+                      <SelectItem value="jpg">JPG</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
                 <div>
-                  <Textarea id="round3Description" className="mb-2" placeholder="Round 3 Description" onChange={handleChange} />
-                  <select id="round3UploadFormat" value = {formData.round3UploadFormat} onChange = {handleChange}>
-                      <option value="">select format</option>
-                      <option value="pdf">PDF</option>
-                      <option value="doc">DOC</option>
-                      <option value="jpg">JPG</option>
-                  </select>
+                  <Textarea className="mb-2" placeholder="Round 3 Description" />
+                  <Select>
+                    <SelectTrigger id="upload-format">
+                      <SelectValue placeholder="Select Upload Format" />
+                    </SelectTrigger>
+                    <SelectContent position="popper">
+                      <SelectItem value="pdf">PDF</SelectItem>
+                      <SelectItem value="doc">DOC</SelectItem>
+                      <SelectItem value="jpg">JPG</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
               </div>
             </div>
@@ -296,172 +143,11 @@ export function Create_opportunity() {
             <button type="submit" className="mt-4">Next</button>
           </div>
         </form>
-        
       </div>
-    </div>
+    </div>)
   );
 }
 
-
-// export function Create_opportunity() {
-//   const [formData, setFormData] = useState({
-//     name: '',
-//     registrationDeadline: '',
-//     eligibility: '',
-//     yearOfGraduation: '',
-//     age: '',
-//     teamMembersNumber: '',
-//     interYearAllowed: false,
-//     interCollegeAllowed: false,
-//     otherTeamConstraints: '',
-//     description: '',
-//     round1Description: '',
-//     round1UploadFormat: '',
-//     round2Description: '',
-//     round2UploadFormat: '',
-//     round3Description: '',
-//     round3UploadFormat: '',
-//     mode: '',
-//     rewardsDescription: '',
-//     faqs: '',
-//     organizerContact: ''
-//   });
-
-//   const handleChange = (e) => {
-//     const { id, value } = e.target;
-//     setFormData({ ...formData, [id]: value });
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     console.log('Form Data:', formData); 
-//     try {
-//       // Send the formData to your backend using fetch or any HTTP client library
-//       const response = await fetch('/api/registerTeam', {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify(formData)
-//       });
-      
-//       if (response.ok) {
-//         // Handle success
-//         console.log('Team registration successful');
-//       } else {
-//         // Handle error
-//         console.error('Team registration failed');
-//       }
-//     } catch (error) {
-//       console.error('Error submitting form:', error);
-//     }
-//   };
-
-
-//   return (
-//     <div className="max-w-4xl mx-auto p-6">
-//       <div className="flex items-center justify-between border-b pb-4">
-//         {/* Your navigation buttons */}
-//         <Button className="flex items-center space-x-2" variant="ghost">
-//           <ArrowLeftIcon className="w-4 h-4" />
-//           <span>Back</span>
-//         </Button>
-//       </div>
-//       <div className="mt-6">
-//         <h1 className="text-2xl font-semibold mb-6">Basic Details</h1>
-//         <div className="border-dashed border-2 border-gray-300 rounded-lg p-6 flex justify-center items-center mb-6">
-//           <span className="text-gray-400">Opportunity Logo *</span>
-//         </div>
-//         <form onSubmit={handleSubmit}>
-
-//           <div className="grid gap-6">
-//             <Input id="name" placeholder="Name" type="text" onChange={handleChange}   /> 
-//             <Input id="reregistrationDeadline"placeholder="Registration Deadline" type="date" onChange={handleChange}  />       
-//                  <Input id="eligibility" placeholder="Eligibility" type="text" onChange={handleChange}  />           
-//              <Input id="yearOfGraduation" placeholder="Year of Graduation" type="number" onChange={handleChange}  />           
-//               <Input id="age" placeholder="Age" type="number" onChange={handleChange} />            
-//              <Input id="teamMembersNumber" placeholder="Team Members Number" type="number" onChange={handleChange}  />
-//             <div className="flex items-center space-x-4">             
-//              <Checkbox id="inter-year" />             
-//               <label className="text-sm font-medium leading-none" htmlFor="inter-year">
-//               Inter-year allowed?              </label>        
-//                   </div>          
-//                     <div className="flex items-center space-x-4">
-//               <Checkbox id="inter-college" />
-//               <label className="text-sm font-medium leading-none" htmlFor="inter-college">
-//                 Inter-college allowed?
-//               </label>
-//             </div>            
-//             <Input id="otherTeamConstraints"
-//               placeholder="Other Team Constraints (e.g., 1 mandatory female)"
-//               type="text" onChange={handleChange}  />
-//             <Textarea id="description" placeholder="Description" onChange={handleChange}  />
-//             <div>
-//               <label className="block text-sm font-medium mb-1">
-//                 Timeline (Multiple rounds with each round having a. Description b. Upload format c. Results)
-//               </label>
-//               <div className="grid gap-4">
-//                 <div>
-//                   <Textarea id="round1Description" className="mb-2" placeholder="Round 1 Description" onChange={handleChange} />
-//                   <Select>
-//                     <SelectTrigger id="round1UploadFormat">
-//                       <SelectValue placeholder="Select Upload Format" />
-//                     </SelectTrigger>
-//                     <SelectContent position="popper">
-//                       <SelectItem value="pdf">PDF</SelectItem>
-//                       <SelectItem value="doc">DOC</SelectItem>
-//                       <SelectItem value="jpg">JPG</SelectItem>
-//                     </SelectContent>
-//                   </Select>
-//                 </div>
-//                 <div>
-//                   <Textarea id="round2Description"className="mb-2" placeholder="Round 2 Description" onChange={handleChange}  />
-//                   <Select>
-//                     <SelectTrigger id="round2UploadFormat">
-//                       <SelectValue placeholder="Select Upload Format"  />
-//                     </SelectTrigger>
-//                     <SelectContent position="popper">
-//                       <SelectItem value="pdf">PDF</SelectItem>
-//                       <SelectItem value="doc">DOC</SelectItem>
-//                       <SelectItem value="jpg">JPG</SelectItem>
-//                     </SelectContent>
-//                   </Select>
-//                 </div>
-//                 <div>
-//                   <Textarea id="round3Description"className="mb-2" placeholder="Round 3 Description" onChange={handleChange}  />
-//                   <Select onChange={handleChange}  >
-//                     <SelectTrigger id="round3UploadFormat">
-//                       <SelectValue placeholder="Select Upload Format" />
-//                     </SelectTrigger>
-//                     <SelectContent position="popper">
-//                       <SelectItem value="pdf">PDF</SelectItem>
-//                       <SelectItem value="doc">DOC</SelectItem>
-//                       <SelectItem value="jpg">JPG</SelectItem>
-//                     </SelectContent>
-//                   </Select>
-//                 </div>
-//               </div>
-//             </div>
-//             <Select  id="mode"  onChange={handleChange}  >
-//               <SelectTrigger >
-//                 <SelectValue placeholder="Mode (online/offline)" />
-//               </SelectTrigger>
-//               <SelectContent position="popper">
-//                 <SelectItem value="online">Online</SelectItem>
-//                 <SelectItem value="offline">Offline</SelectItem>
-//               </SelectContent>
-//             </Select>
-//             <Textarea id="rewardsDescription"placeholder="Rewards (description)" onChange={handleChange}  />
-//             <Textarea id="faqs" placeholder="FAQs" onChange={handleChange} />
-//             <Input id="organizerContact"placeholder="Organizer Contact" type="text" onChange={handleChange}  />
-
-//             <button type="submit" className="mt-4">Next</button>
-//           </div>
-//         </form>
-//       </div>
-//     </div>
-//   );
-// }
 
 function ArrowLeftIcon(props) {
   return (

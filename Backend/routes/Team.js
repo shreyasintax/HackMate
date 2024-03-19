@@ -4,8 +4,6 @@ const {auth}=require("../middlewares/auth");
 
 const router = express.Router();
 
-router.post("/:oppoId/team",auth,addTeam);
-router.get("/", getAllTeams)
 router.patch("/:id", addMember)
 
 module.exports = router;

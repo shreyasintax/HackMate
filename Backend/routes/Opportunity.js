@@ -1,7 +1,8 @@
 const express = require("express");
-const { addOpportunity, getSingleOpportunity, getAllOpportunity, deleteOpportunity } = require("../controllers/Opportunity");
+const { addOpportunity, getSingleOpportunity, getAllOpportunity, deleteOpportunity,sendInvite } = require("../controllers/Opportunity");
 const {auth,isOrganiser}=require("../middlewares/auth");
 const { getAllTeams, addTeam } = require("../controllers/Team");
+
 
 const router = express.Router();
 
@@ -17,4 +18,5 @@ router.get("/:oppoId/team", getAllTeams)
 
 router.post("/:oppoId/team",auth,addTeam);
 
+router.get("/team/:teamId",sendInvite);
 module.exports = router;

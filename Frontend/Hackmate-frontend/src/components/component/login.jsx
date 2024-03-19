@@ -25,6 +25,7 @@ export function Login() {
     try {
       const response = await fetch('http://localhost:8080/hackmate/v1/user/login', {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },

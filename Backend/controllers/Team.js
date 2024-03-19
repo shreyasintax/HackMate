@@ -120,10 +120,10 @@ exports.getAllTeams = async (req, res) => {
 };
 
 exports.addMember = async (req, res) => {
-    const teamId = req.params.id;
+    const {id} = req.params;
     try {
         const updatedTeam = await Team.findOneAndUpdate(
-            { _id: teamId },
+            { _id: id },
             { $inc: { noOfMembers: 1 } },
             { new: true }
         );
@@ -138,15 +138,15 @@ exports.addMember = async (req, res) => {
     }
 };
 
-exports.sendMailOnTeam = async (req, res) => {
-    const { teamId } = req.params;
+// exports.sendMailOnTeam = async (req, res) => {
+//     const { teamId } = req.params;
 
-    let team = Team.findById(teamId).populate("teamLeader").exec();
+//     let team = Team.findById(teamId).populate("teamLeader").exec();
 
-    MailSender(team.teamLeader.email, "Request to join team", `<p> I want to join your team </p>
-    <form method="PATCH" action="http://localhost:8080/hackmate/v1/team/:${teamId}">
-        <button>Accept </button>
-    `)
+//     MailSender(team.teamLeader.email, "Request to join team", `<p> I want to join your team </p>
+//     <form method="PATCH" action="http://localhost:8080/hackmate/v1/team/:${teamId}">
+//         <button>Accept </button>
+//     `)
 
-}
+// }
 

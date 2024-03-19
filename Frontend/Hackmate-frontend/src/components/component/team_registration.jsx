@@ -8,8 +8,11 @@ import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
+import { useParams } from 'react-router-dom';
 
 export function TeamRegistration() {
+  const {id}=useParams();
+  console.log(id)
   const [formData, setFormData] = useState({
     name: '',
     noOfMembers: 0,
@@ -26,15 +29,17 @@ export function TeamRegistration() {
     e.preventDefault();
     console.log('Form Data:', formData);
     try {
-      // let oppoId = req.params;
+      let oppoId = id;
       // Send the formData to your backend using fetch or any HTTP client library
-      const response = await fetch(`http://localhost:8080/hackmate/v1/opportunity/weg/team`, {
+      const response = await fetch(`http://localhost:8080/hackmate/v1/opportunity/${oppoId}/team`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
+        credentials:"include",
         body: JSON.stringify(formData)
       });
+
       if (response.ok) {
         // Handle success
         console.log('Team registration successful');
@@ -67,8 +72,8 @@ export function TeamRegistration() {
           <Textarea id="idea" placeholder="idea" required onChange={handleChange} name="idea"/>
         </div>
         <div className="space-y-2">
-          <Label htmlFor="noOfMembers">Skills Preferred</Label>
-          <Input id="noOfMembers" placeholder="Skills Preferred" required onChange={handleChange} name="noOfMembers" type="Number"/>
+          <Label htmlFor="noOfMembers">No. of Members</Label>
+          <Input id="noOfMembers" placeholder="No. of Members" required onChange={handleChange} name="noOfMembers" type="Number"/>
         </div>
         <Button type="submit">Submit</Button>
       </div>

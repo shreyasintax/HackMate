@@ -44,6 +44,7 @@ exports.login = async (req, res) => {
             const options = {
                 expires: new Date(Date.now() + 3 * 24 * 60 * 50 * 1000), //3 days
                 httpOnly: true,
+                sameSite: 'strict' // Or 'lax', depending on your requirements
             };
 
             res.cookie("hackMateCookie", token, options).status(200).json({

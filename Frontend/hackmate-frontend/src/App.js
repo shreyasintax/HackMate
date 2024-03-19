@@ -9,7 +9,6 @@ import { Teams } from './components/component/teams';
 import { TeamRegistration } from './components/component/team_registration';
 import { ListOpportunities } from './components/component/list_opportunities';
 import { OpportunityPage } from './components/component/opportunitypage';
-import { Matching } from './components/component/matchingalgo';
 import PreRegistration from './components/component/PreRegistration';
 import { HomePage }from './components/component/HomePage';
 
@@ -25,10 +24,13 @@ function App() {
         <Route path="/teams" element={<Teams/>}/>
         <Route path="/team_registration" element={<TeamRegistration/>}/>
         <Route path="/list_opportunities" element={<ListOpportunities/>}/>
-        <Route path="/match" element={<Matching/>}/>
         <Route path="/opportunity/:id/*" element={<OpportunityPage />} />
         <Route path = "/prereg" element={<PreRegistration/>} />
         <Route path = "/" element={<HomePage/>} />
+
+        
+        <Route path = "/acceptPage/:teamId" element = {<AcceptOpportunity/>}/>
+
       </Routes>
     </Router>
 
