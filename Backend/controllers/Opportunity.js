@@ -1,5 +1,7 @@
 const Opportunity = require("../models/Opportunity");
 const Round = require("../models/Round");
+const Team = require("../models/Team");
+const mailSender = require("../utils/MailSender");
 
 exports.addOpportunity = async (req, res) => {
     try {
@@ -37,7 +39,7 @@ exports.addOpportunity = async (req, res) => {
                 mesage: "Fill all required details"
             });
         }
-        let teamArray=[];
+        let teamArray = [];
 
         const roundArray = [];
         if (r1) {
@@ -72,7 +74,7 @@ exports.addOpportunity = async (req, res) => {
             contactDetails,
             eligibility,
             noOfRounds,
-            teams:teamArray
+            teams: teamArray
             // Add other opportunity properties from req.body
         });
 
@@ -139,4 +141,14 @@ exports.deleteOpportunity = async (req, res) => {
         message: "Opportunity Deleted"
     });
 }
+
+exports.sendInvite = async (req, res) => {
+    const { teamId } = req.params;
+    console.log(teamId);
+    let team = await Team.findById(teamId).populate("teamLeader");
+    mailSender(team.teamLeader.email, "Invite mail", `
+        <button onclick="window.location.href='/http://localhost:3000/acceptPage/${teamId}'">Accept</button>
+    `);
+}
+
 

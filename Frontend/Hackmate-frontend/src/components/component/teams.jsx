@@ -5,17 +5,18 @@ import { useParams } from 'react-router-dom';
 
 export function Teams() {
   const [teamData, setTeamData] = useState([]);
-  const {oppoId} = useParams();
-
+  const { id } = useParams();
+  console.log(id);
 
   useEffect(() => {
     fetchTeamData();
   }, []);
   const fetchTeamData = async () => {
     try {
-      // let {oppoId} = req.params;
-      const response = await fetch(`http://localhost:8080/hackmate/v1/opportunity/dvdf/team`);
-
+      let oppoId = id;
+      const response = await fetch(`http://localhost:8080/hackmate/v1/opportunity/${oppoId}/team`);
+      console.log(`http://localhost:8080/hackmate/v1/opportunity/${oppoId}/team`)
+      console.log(response);
       if (!response.ok) {
         throw new Error('Failed to fetch team data');
       }
@@ -28,9 +29,12 @@ export function Teams() {
     }
   };
 
+  if (!teamData)
+    return <div>Loading...</div>
+
 
   const sendInvite = async (teamId) => {
-    // const response = await fetch(`http://localhost:8080/hackmate/v1/opportunity/${oppoId}/team/${teamId}`);
+    const response = await fetch(`http://localhost:8080/hackmate/v1/opportunity/team/${teamId}`);
     // console.log(response);
   }
   return (

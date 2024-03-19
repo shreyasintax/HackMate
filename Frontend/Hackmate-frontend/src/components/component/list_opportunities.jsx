@@ -49,6 +49,7 @@ export function ListOpportunities() {
                   </div>
                 </div>
                 <div className="p-4">
+      
                   <Button variant="default" className="bg-gray-300 rounded-md">Interested</Button>
                 </div>
               </Card>
