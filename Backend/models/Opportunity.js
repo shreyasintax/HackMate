@@ -24,7 +24,12 @@ const opportunitySchema = new mongoose.Schema({
         type: String
     },
     FAQs: [{
-        type: String
+        question:{
+            type:String
+        },
+        answer:{
+            type:String
+        }
     }],
     contactDetails: {
         type: Number
@@ -56,7 +61,8 @@ const opportunitySchema = new mongoose.Schema({
     }
     ],
     timeline: [{
-        type: String
+        type: mongoose.Schema.ObjectId,
+        ref: "Round"
     }]
 
 });

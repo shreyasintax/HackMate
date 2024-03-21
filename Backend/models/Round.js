@@ -6,6 +6,9 @@ const roundSchema=new mongoose.Schema({
     },
     resultDate:{
         type:Date,
+    },
+    deadline:{
+        type:Date
     }
 });
 

@@ -1,4 +1,4 @@
-const requestTemplate = () => {
+const requestTemplate = (userId,teamId) => {
     return `<!DOCTYPE html>
       <html>
       

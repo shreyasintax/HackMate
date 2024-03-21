@@ -17,7 +17,7 @@ exports.login = async (req, res) => {
             });
         }
 
-        let user = await User.findOne({ email }); // Change const to let
+        let user = await User.findOne({ email }); 
 
         if (!user) {
             return res.status(404).json({
@@ -108,4 +108,35 @@ exports.sendOTP = async (req, res) => {
     });
 };
 
+exports.verifyOtp = async (req, res) => {
+    try {
+        const { otp } = req.body;
+        const recentOtpResponse = await OTP.find({ email })
+            .sort("-createdAt")
+            .limit(1);
 
+        console.log(recentOtpResponse);
+
+        //validate otp
+        if (recentOtpResponse.length === 0)
+            return res.json({
+                success: false,
+                message: "OTP does not exists in db"
+            })
+        else if (otp !== recentOtpResponse[0].otp)
+            return res.json({
+                success: false,
+                message: "OTP does not match"
+            })
+        
+        return res.json({
+            success:true,
+            otp
+        })
+    } catch (err) {
+        return res.jsn({
+            success: false,
+            message: err.message
+        })
+    }
+}

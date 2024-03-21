@@ -3,6 +3,7 @@ const Profile = require("../models/Profile");
 const mailSender = require("../utils/MailSender");
 const bcrypt = require("bcrypt");
 const OTP = require("../models/OTP");
+const { uploadFileToCloudinary } = require("../utils/imageUploader");
 
 exports.addUser = async (req, res) => {
     try {
@@ -13,7 +14,6 @@ exports.addUser = async (req, res) => {
             password,
             confirmPassword,
             accountType,
-            otp,
             github,
             linkedin,
             hardSkills,
@@ -24,7 +24,7 @@ exports.addUser = async (req, res) => {
             dateOfBirth,
             gender,
             description,
-            contactNumber
+            contactNumber,
         } = req.body;
 
         if (
@@ -32,8 +32,8 @@ exports.addUser = async (req, res) => {
             !lastName ||
             !email ||
             !password ||
-            !confirmPassword ||
-            !otp || !city || !state || !pinCode || !gender || !dateOfBirth 
+            !confirmPassword || 
+            !city || !state || !pinCode || !gender || !dateOfBirth
         ) {
             return res.status(400).json({
                 success: false,
@@ -57,24 +57,6 @@ exports.addUser = async (req, res) => {
             });
         }
 
-        const recentOtpResponse = await OTP.find({ email })
-            .sort("-createdAt")
-            .limit(1);
-        
-        console.log(recentOtpResponse);
-        
-        //validate otp
-        if (recentOtpResponse.length === 0)
-            return res.json({
-                success: false,
-                message: "OTP does not exists in db"
-            })
-        else if (otp !== recentOtpResponse[0].otp)
-            return res.json({
-                success: false,
-                message: "OTP does not match"
-            })
-            
         let hashedPassword;
         try {
             hashedPassword = await bcrypt.hash(password, 10);
@@ -84,19 +66,28 @@ exports.addUser = async (req, res) => {
                 message: "Error in hashing Password"
             });
         }
+        let imgUrl = "";
+        if (req.files) {
+            const file = req.files.img;
+            const imgResponse = await uploadFileToCloudinary(file, "Images");
+            imgUrl = imgResponse.secure_url;
+        }
+        else {
+            imgUrl = `https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}`
+        }
 
         const profileDetails = await Profile.create({
             description,
             contactNumber
         });
 
-        let softArray=[];
+        let softArray = [];
         softArray.push(softSkills);
 
-        let hardArray=[];
+        let hardArray = [];
         hardArray.push(hardSkills);
 
-        let links=[];
+        let links = [];
         links.push(github);
         links.push(linkedin);
 
@@ -108,15 +99,15 @@ exports.addUser = async (req, res) => {
             confirmPassword,
             accountType,
             links,
-            hardSkills:hardArray,
-            softSkills:softArray,
+            hardSkills: hardArray,
+            softSkills: softArray,
             city,
             state,
             pinCode,
             dateOfBirth,
             gender,
             additionalDetails: profileDetails._id,
-            image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}`,
+            image: imgUrl,
         });
 
         mailSender("ketankansal124@gmail.com", "SSKH", "<p>Team added successfully </p>");

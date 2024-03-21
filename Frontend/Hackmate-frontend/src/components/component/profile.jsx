@@ -1,116 +1,3 @@
-// import { SelectValue, SelectTrigger, SelectItem, SelectContent, Select } from "../ui/select"
-// import { BrowserRouter as Router, Link } from 'react-router-dom';
-// import { Textarea } from "../ui/textarea";
-// import { AvatarImage, AvatarFallback, Avatar } from "../component/avatar"
-
-// export function Profile({user, children}) {
-//   return (
-
-
-//     (<div className="w-full bg-gray-100 ">
-//         <div className="w-10/12 mx-auto p-6">
-//       <div className="flex flex-col lg:flex-row lg:space-x-8">
-//         <div className="flex-col w-1/2 bg-white p-4 rounded-lg mt-4">
-
-//           <div className="flex items-center space-x-4 mb-4">
-//             <Avatar>
-//               <AvatarImage alt="Profile Picture" src="/placeholder.svg?height=100&width=100" />
-//               <AvatarFallback>JS</AvatarFallback>
-//             </Avatar>
-//             <div>
-//               <h1 className="text-2xl font-semibold">{user}</h1>
-//               <p className="text-sm text-gray-500">Username</p>
-//             </div>
-//           </div>
-//           <div className="space-y-4">
-//             <div>
-//               <h2 className="font-semibold text-lg">General Interests (Themes)</h2>
-//               <p className="text-sm">#event-marketing #performance-marketing</p>
-//             </div>
-//             <div>
-//               <h2 className="font-semibold text-lg">Education</h2>
-//               <p className="text-sm">Graduation Year: 2024</p>
-//               <p className="text-sm">Degree: Bachelor of Science in Marketing</p>
-//               <p className="text-sm">College Name: Oxford International</p>
-//             </div>
-//             <div>
-//               <h2 className="font-semibold text-lg">Skills</h2>
-//               <ul>
-//               <h3  className="font-semibold text-base text-gray-500">Hard Skills</h3>
-//               <p className="text-sm">Next.js , react.js</p>
-//               <h3  className="font-semibold text-base text-gray-500"> Soft Skills</h3>
-//               <p className="text-sm">Communication, Teamwork, Problem-solving</p>
-//               </ul>
-//             </div>
-
-//             <div>
-//               <h2 className="font-semibold text-lg">Personal Info</h2>
-//               <p className="text-sm">DOB: January 1, 1990</p>
-//               <p className="text-sm">Gender: Male</p>
-//               <p className="text-sm">Username: johnsmith</p>
-//               <p className="text-sm">Contact No: (123) 456-7890</p>
-//             </div>
-//             <div>
-//               <h2 className="font-semibold text-lg">Location</h2>
-//               <p className="text-sm">City: Virginia</p>
-//               <p className="text-sm">State: NY</p>
-//               <p className="text-sm">Pincode: 12345</p>
-//             </div>
-//             </div>
-
-
-
-//         </div>
-//         <div className="flex-col w-1/2">
-//         <div className="flex-col">
-
-//             <div className="bg-white p-4 rounded-lg mt-4">
-//               <h2 className="font-semibold text-lg mb-4">Intro</h2>
-
-//               <p className="text-sm mb-3 flex gap-2 items-center"><i class="fa-solid fa-building-columns"></i><span className="text-gray-500">Went to </span> Oxford International</p>
-//               <p className="text-sm mb-3 flex gap-2 items-center"><i class="fa-solid fa-location-dot"></i><span className="text-gray-500">Lives in </span> Virginia, NY</p>
-//               <div className="flex  items-center gap-2 mb-3">
-//               <i class="fa-regular fa-envelope"></i>
-//                 <span className="text-gray-500"> Email</span>
-//               <Link className="block text-sm   text-blue-600" href="#">
-//                 jhon@contact.com
-//               </Link></div>
-//               <div className="flex gap-2  items-center mb-3"><i class="fa-brands fa-linkedin"></i><span className="text-gray-500">LinkedIn</span>
-
-//               <Link t0="#" className="block text-sm text-blue-600" >
-//                  @jhon_S
-//               </Link></div><div className="flex gap-2   items-center mb-3">
-//               <i class="fa-brands fa-github"></i>
-//                 <span className="text-gray-500">Github</span>
-
-//               <Link className="block text-sm text-blue-600" href="#">
-//                  github.com/johnsmith
-//               </Link></div>
-
-
-//           </div>
-//         </div>
-//         <div className="bg-white p-4 rounded-lg mt-4">
-//             <div>
-//   <h2 className="font-semibold text-lg mb-2">About</h2>
-// <Textarea className="mb-2" placeholder="Description"></Textarea>
-// </div>
-// <div>
-// <h2 className="font-semibold text-lg mb-2">Achievements</h2>
-// <Textarea className="mb-2" placeholder="Achivements"></Textarea>
-// </div>
-// <div>
-// <h2 className="font-semibold text-lg mb-2">Hackathons</h2>
-// <Textarea className="mb-2" placeholder="Hackathons" ></Textarea>
-// </div> 
-//         </div>
-//       </div>
-//     </div>
-//     </div>
-//     </div>)
-//   );
-// }
-
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Textarea } from "../ui/textarea";
@@ -118,50 +5,24 @@ import { AvatarImage, AvatarFallback, Avatar } from "../component/avatar";
 import { Button } from '../ui/button';
 
 export function Profile({ user, children }) {
-
   const [profileData, setProfileData] = useState(null);
-  
+
   useEffect(() => {
-    // URL to fetch profile data from
-    const profileDataURL = 'YOUR_PROFILE_DATA_URL_HERE';
-
-    // Fetch profile data from the URL
-    fetch(profileDataURL)
-      .then(response => response.json())
-      .then(data => setProfileData(data))
-      .catch(error => console.error('Error fetching profile data:', error));
-  }, []);
-
-  // useEffect(() => {
-  //   // Dummy profile data
-  //   const dummyData = {
-  //     name: "John Smith",
-  //     interests: "#event-marketing #performance-marketing",
-  //     graduationYear: "2024",
-  //     degree: "Bachelor of Science in Marketing",
-  //     collegeName: "Oxford International",
-  //     skills: ["Next.js", "React.js", "Communication", "Teamwork", "Problem-solving", "ppcbdjhv"],
-  //     Email: "john@gmail.com",
-  //     Linkedin: "@jhon_S",
-  //     Github: "@jhon_S",
-  //     personalInfo: {
-  //       DOB: "January 1, 1990",
-  //       Gender: "Male",
-  //       Username: "johnsmith",
-  //       ContactNo: "(123) 456-7890",
-
-  //     },
-  //     location: {
-  //       City: "Virginia",
-  //       State: "NY",
-  //       Pincode: "12345"
-  //     }
-
-  //   };
-
-  //   // Set the dummy profile data
-  //   setProfileData(dummyData);
-  // }, []);
+    // Make a GET request to your backend API
+    fetch(`http://localhost:8080/hackmate/v1/user/${userId}`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch profile data');
+        }
+        return response.json();
+      })
+      .then(data => {
+        setProfileData(data);
+      })
+      .catch(error => {
+        console.error('Error fetching profile data:', error);
+      });
+  }, []); 
 
   return (
     <div className="w-full bg-gray-100 ">
@@ -169,16 +30,17 @@ export function Profile({ user, children }) {
         {profileData && (
           <div className="flex flex-col lg:flex-row lg:space-x-8">
             <div className="flex-col w-1/2 bg-white p-4 rounded-lg mt-4">
-              <div className="flex items-center space-x-4 mb-4">
-                <Avatar>
-                  <AvatarImage alt="Profile Picture" src="/placeholder.svg?height=100&width=100" />
-                  <AvatarFallback>{user}</AvatarFallback>
-                </Avatar>
-                <div>
-                  <h1 className="text-2xl font-semibold">{profileData.name}</h1>
-                  <p className="text-sm text-gray-500">Username</p>
-                </div>
-              </div>
+           
+              <div className="rounded-t-lg h-32 overflow-hidden">
+        <img className="object-cover object-top w-full" src='https://images.unsplash.com/photo-1549880338-65ddcdfd017b?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ' alt='Mountain'/>
+    </div>
+    <div className="mx-auto w-32 h-32 relative -mt-16 border-4 border-white rounded-full overflow-hidden">
+        <img className="object-cover object-center h-32" src='https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ' alt='Woman looking front'/>
+    </div>
+    <div className="text-center mt-2">
+        <h2 className="font-semibold">{profileData.name}</h2>
+        <p className="text-gray-500">username</p>
+    </div>
               <div className="space-y-4">
                 <div>
                   <h2 className="font-semibold text-lg">General Interests (Themes)</h2>
@@ -267,4 +129,3 @@ export function Profile({ user, children }) {
     </div>
   );
 }
-

@@ -64,21 +64,21 @@ const UserSchema = new Schema(
         type: String
       }
     ],
-    city:{
-      type:String,
-      required:true
+    city: {
+      type: String,
+      required: true
     },
-    state:{
-      type:String,
-      required:true
+    state: {
+      type: String,
+      required: true
     },
-    pinCode:{
-      type:String,
-      required:true
+    pinCode: {
+      type: String,
+      required: true
     },
     dateOfBirth: {
       type: Date,
-      required:true
+      required: true
     },
     gender: {
       type: String,
@@ -86,40 +86,14 @@ const UserSchema = new Schema(
       defaultValue: "",
       message:
         "Gender must be either 'Male', 'Female'",
-      required:true
+      required: true
     },
-    // TODO: LATER
-    //reset password token
-    token: String,
-    resetPasswordExpires: Date,
+    img: {
+      type: String
+    }
   },
   { timestamps: true }
 );
 
-// UserSchema.pre("save", async function () {
-//   const salt = await bcrypt.genSalt(10); //10 rounds of salt
-//   this.password = await bcrypt.hash(this.password, salt);
-//   /* this.password = await bcrypt.hash(this.password, 10,); */ //or use this one line code
-// });
-
-
-// // TODO 
-// UserSchema.methods.comparePassword = async function (LoginPassword) {
-//   const isMatching = await bcrypt.compare(LoginPassword, this.password);
-//   return isMatching;
-// };
-
-// UserSchema.methods.createJWT = function () {
-//   return jwt.sign(
-//     {
-//       //TODO: change account type is needed
-//       id: this._id,
-//       email: this.email,
-//       accountType: this.accountType,
-//     },
-//     process.env.JWT_SECRET,
-//     { expiresIn: 5*30}
-//   );
-// };
 
 module.exports = model("User", UserSchema);

@@ -66,13 +66,7 @@ const otpTemplate = (otp) => {
       
       <body>
           <div class="container">
-              <a href="http://localhost:5173/"><img class="logo"
-            
-
-                Insert logo image here
-                
-
-                      src="" alt="HackMate Logo"></a>
+              <a href="http://localhost:5173/"><img class="logo" src="" alt="HackMate Logo"></a>
               <div class="message">OTP Verification Email</div>
               <div class="body">
                   <p>Dear User,</p>

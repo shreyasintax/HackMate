@@ -2,6 +2,7 @@ const Opportunity = require("../models/Opportunity");
 const Round = require("../models/Round");
 const Team = require("../models/Team");
 const mailSender = require("../utils/MailSender");
+const requestTeamJoin = require("../mail/templates/requestTeamJoin");
 
 exports.addOpportunity = async (req, res) => {
     try {
@@ -16,7 +17,6 @@ exports.addOpportunity = async (req, res) => {
             eligibility,
             noOfRounds,
             r1, r2, r3, r4
-
             // Add other properties from req.body if needed
         } = req.body;
 
@@ -58,11 +58,18 @@ exports.addOpportunity = async (req, res) => {
         for (let i = 0; i < roundArray.length; i++) {
             let newRound = await Round.create({
                 description: roundArray[i].description,
-                resultDate: roundArray[i].resultDate
+                resultDate: roundArray[i].resultDate,
+                deadline: roundArray[i].deadline
             })
             newTimeline.push(newRound._id);
         }
 
+        let faqArray = [];
+        faqArray.push({
+            question: FAQs.question,
+            answer: FAQs.answer
+        }
+        )
         const opportunity = await Opportunity.create({
             name,
             regDeadline,
@@ -75,10 +82,7 @@ exports.addOpportunity = async (req, res) => {
             eligibility,
             noOfRounds,
             teams: teamArray
-            // Add other opportunity properties from req.body
         });
-
-        // Your existing user creation logic goes here...
 
         return res.json({
             success: true,
@@ -146,9 +150,7 @@ exports.sendInvite = async (req, res) => {
     const { teamId } = req.params;
     console.log(teamId);
     let team = await Team.findById(teamId).populate("teamLeader");
-    mailSender(team.teamLeader.email, "Invite mail", `
-        <button onclick="window.location.href='/http://localhost:3000/acceptPage/${teamId}'">Accept</button>
-    `);
+    mailSender(team.teamLeader.email, "Invite mail", requestTeamJoin("123", teamId)); // userId -> 123
 }
 
 

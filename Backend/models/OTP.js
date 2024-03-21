@@ -25,7 +25,6 @@ const OTPSchema = new Schema({
 
 OTPSchema.pre("save", async function (next) {
   try {
-
     if (this.isNew) {
       const mailResponse = await mailSender(
         this.email,
