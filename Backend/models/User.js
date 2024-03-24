@@ -37,10 +37,6 @@ const UserSchema = new Schema(
       message: "Account Type must either be Admin , Participant or Organiser",
       required: [true, "Please provide account type"],
     },
-    // active: {
-    //   type: Boolean,
-    //   default: true,
-    // },
     additionalDetails: {
       type: Schema.Types.ObjectId,
       ref: "Profile",
