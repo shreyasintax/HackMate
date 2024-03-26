@@ -10,12 +10,12 @@ const cookieParser = require("cookie-parser");
 require("dotenv").config();
 const cors = require('cors');
 
-
 const PORT = process.env.PORT || 3000;
 const MONGO_URL = process.env.MONGO_URL;
 
 app.use(express.json());
 app.use(cookieParser());
+
 const fileUpload = require("express-fileupload");
 app.use(fileUpload({
     useTempFiles: true,
@@ -35,11 +35,12 @@ app.use("/hackmate/v1/team", teamRoutes);
 
 app.get("/", (req, res) => {
     res.send("Server is running!");
-})
+});
+
 const start = async () => {
     try {
         await connect(MONGO_URL);
-        cloudinaryConnect(); // cloudinary config
+        cloudinaryConnect();
         app.listen(PORT, () => {
             console.log("Server is listening at " + PORT);
         });

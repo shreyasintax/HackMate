@@ -4,7 +4,8 @@ const bcrypt = require("bcrypt");
 require("dotenv").config();
 const otpGenerator = require("otp-generator");
 const OTP = require("../models/OTP");
-
+const mailSender = require("../utils/MailSender");
+const emailTemplate = require("../mail/templates/emailVerification");
 
 exports.login = async (req, res) => {
     try {
@@ -17,7 +18,7 @@ exports.login = async (req, res) => {
             });
         }
 
-        let user = await User.findOne({ email }); 
+        let user = await User.findOne({ email });
 
         if (!user) {
             return res.status(404).json({
@@ -96,21 +97,36 @@ exports.sendOTP = async (req, res) => {
         specialChars: false,
     });
 
-    //TODO: check if otp is unique
-
     //save otp in db
-    const otpBody = await OTP.create({ email, otp });
+    let hashedOTP;
+    try {
+        hashedOTP = await bcrypt.hash(otp, 10);
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            message: "Error in hashing OTP"
+        });
+    }
+
+    mailSender(email, "Verification Email", emailTemplate(otp));
+    const otpBody = await OTP.create({ email, otp: hashedOTP });
 
     return res.status(200).json({
         success: true,
         msg: "otp sent successfully",
-        otp,
+        otp, // For testing purpose , otp is displayed
     });
 };
 
 exports.verifyOtp = async (req, res) => {
     try {
-        const { otp } = req.body;
+        const { email, otp } = req.body;
+        if (!email || !otp) {
+            return res.status(400).json({
+                success: false,
+                message: "Please provide email and otp"
+            });
+        }
         const recentOtpResponse = await OTP.find({ email })
             .sort("-createdAt")
             .limit(1);
@@ -123,18 +139,39 @@ exports.verifyOtp = async (req, res) => {
                 success: false,
                 message: "OTP does not exists in db"
             })
-        else if (otp !== recentOtpResponse[0].otp)
-            return res.json({
+
+        const payload = {
+            email,
+            isOtpVerified: true
+        };
+
+        const hashedOTP = recentOtpResponse[0].otp;
+        if (await bcrypt.compare(otp, hashedOTP)) {
+            // OTP Match
+            let token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
+
+            // Create cookie
+            const options = {
+                expires: new Date(Date.now() + 3 * 24 * 60 * 50 * 1000), //3 days
+                httpOnly: true,
+                sameSite: 'strict' // Or 'lax', depending on your requirements
+            };
+
+            res.cookie("otpCookie", token, options).status(200).json({
+                success: true,
+                token,
+                message: "OTP verified successfully",
+            });
+
+        } else {
+            // OTP does not match
+            return res.status(403).json({
                 success: false,
-                message: "OTP does not match"
-            })
-        
-        return res.json({
-            success:true,
-            otp
-        })
+                message: "Incorrect OTP"
+            });
+        }
     } catch (err) {
-        return res.jsn({
+        return res.json({
             success: false,
             message: err.message
         })

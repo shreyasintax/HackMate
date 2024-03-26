@@ -1,10 +1,9 @@
 exports.contactUsEmail = (
     email,
-    firstname,
-    lastname,
+    firstName,
+    lastName,
     message,
-    phoneNo,
-  ) => {
+) => {
     return `<!DOCTYPE html>
     <html>
     
@@ -33,6 +32,9 @@ exports.contactUsEmail = (
             .logo {
                 max-width: 200px;
                 margin-bottom: 20px;
+                border-radius: 10px;
+                height: 100px;
+                width: 200px;
             }
     
             .message {
@@ -73,29 +75,22 @@ exports.contactUsEmail = (
     
     <body>
         <div class="container">
-            <a href="http://localhost:5173/"><img class="logo"
-
-
-            Insert Logo Image here
-
-
-                    src="" alt="HackMate Logo"></a>
+            <a href="http://localhost:5173/"><img class="logo" src="https://res.cloudinary.com/dvu2ziiyz/image/upload/v1711437918/Images/Logo_eszqov.jpg" alt="HackMate Logo"></a>
             <div class="message">Contact Form Confirmation</div>
             <div class="body">
-                <p>Dear ${firstname} ${lastname},</p>
+                <p>Dear ${firstName} ${lastName},</p>
                 <p>Thank you for contacting us. We have received your message and will respond to you as soon as possible.
                 </p>
                 <p>Here are the details you provided:</p>
-                <p>Name: ${firstname} ${lastname}</p>
+                <p>Name: ${firstName} ${lastName}</p>
                 <p>Email: ${email}</p>
-                <p>Phone Number: ${phoneNo}</p>
                 <p>Message: ${message}</p>
                 <p>We appreciate your interest and will get back to you shortly. </p>
             </div>
             <div class="support">If you have any further questions or need immediate assistance, please feel free to reach
-                out to us at <a href="mailto:a33691671@gmail.com">info@hackmate.com</a>. We are here to help!</div>
+                out to us at <a href="mailto:hackmate287@gmail.com">info@hackmate.com</a>. We are here to help!</div>
         </div>
     </body>
     
     </html>`
-  }
+}

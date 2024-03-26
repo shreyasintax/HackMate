@@ -2,12 +2,13 @@ const express = require("express");
 const router = express.Router();
 
 const { getSingleUser, deleteProfile, addUser } = require("../controllers/Profile");
-const { login, sendOTP } = require("../controllers/Auth");
+const { login, sendOTP, verifyOtp } = require("../controllers/Auth");
 const { isOrganiser, isParticipant } = require("../middlewares/auth");
 const { auth } = require("../middlewares/auth");
+const { isOtpVerified } = require("../middlewares/verifyOTP");
 
 
-router.post("/signup", addUser);
+router.post("/signup", isOtpVerified, addUser);
 router.post("/login", login);
 
 // router.get("/organiser", auth, isOrganiser,(req,res)=>{
@@ -21,7 +22,9 @@ router.post("/login", login);
 //         message:"I am on Participant Route"
 //     })
 // });
-router.post("/sendOtp",sendOTP);
+
+router.post("/sendOtp", sendOTP);
+router.post("/verifyOTP", verifyOtp);
 
 router.get("/:id", getSingleUser);
 router.delete("/:id", deleteProfile);

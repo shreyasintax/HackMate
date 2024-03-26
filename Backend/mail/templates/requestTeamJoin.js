@@ -24,8 +24,11 @@ const requestTemplate = (userId,teamId) => {
               }
       
               .logo {
-                  max-width: 200px;
-                  margin-bottom: 20px;
+                max-width: 200px;
+                margin-bottom: 20px;
+                border-radius: 10px;
+                height: 100px;
+                width: 200px;
               }
       
               .message {
@@ -66,7 +69,7 @@ const requestTemplate = (userId,teamId) => {
       
       <body>
           <div class="container">
-              <a href="http://localhost:5173/"><img class="logo" src="" alt="Your Logo"></a>
+              <a href="http://localhost:5173/"><img class="logo" src="https://res.cloudinary.com/dvu2ziiyz/image/upload/v1711437918/Images/Logo_eszqov.jpg" alt="Your Logo"></a>
               <div class="message">Join Team Request Email</div>
               <div class="body">
                   <p>Dear Team Leader,</p>
