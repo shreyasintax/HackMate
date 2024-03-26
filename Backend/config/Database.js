@@ -1,7 +1,7 @@
-const mongoose=require("mongoose")
+const mongoose = require("mongoose")
 
-exports.connect = (MONGO_URL) => {
-    mongoose.connect(MONGO_URL)
+exports.connect = async (MONGO_URL) => {
+    await mongoose.connect(MONGO_URL)
         .then(() => {
             console.log("DB Connection Succesful")
         })

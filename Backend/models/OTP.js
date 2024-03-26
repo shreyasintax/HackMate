@@ -1,7 +1,4 @@
 const { Schema, model } = require("mongoose");
-const mailSender = require("../utils/MailSender");
-const emailTemplate = require("../mail/templates/emailVerification");
-
 
 const OTPSchema = new Schema({
   email: {
@@ -21,25 +18,6 @@ const OTPSchema = new Schema({
     default: Date.now,
     expires: 300, // 5 min
   },
-});
-
-OTPSchema.pre("save", async function (next) {
-  try {
-    if (this.isNew) {
-      const mailResponse = await mailSender(
-        this.email,
-        "Verification Email",
-        emailTemplate(this.otp)
-      );
-    }
-    next();
-  } catch (error) {
-    console.error("Error occurred while sending email", error);
-    return res.json({
-      succes:true,
-      message:"Error in sending mail"
-    })
-  }
 });
 
 module.exports = model("OTP", OTPSchema);

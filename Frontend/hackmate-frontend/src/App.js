@@ -17,11 +17,11 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* <Route path="*" element={<RegistrationForm/>} />
+        <Route path="*" element={<RegistrationForm/>} />
         <Route path="/login" element={<Login/>} />
-        <Route path="/opportunity_list" element={<Create_opportunity/>} /> */}
+        <Route path="/opportunity_list" element={<Create_opportunity/>} />
         <Route path="/profile" element={<Profile user="Shreya"/>}/>
-        {/* <Route path="/teams" element={<Teams/>}/>
+        <Route path="/teams" element={<Teams/>}/>
         <Route path="/team_registration" element={<TeamRegistration/>}/>
         <Route path="/list_opportunities" element={<ListOpportunities/>}/>
         <Route path="/opportunity/:id/*" element={<OpportunityPage />} />
@@ -29,7 +29,7 @@ function App() {
         <Route path = "/" element={<HomePage/>} />
 
         
-        <Route path = "/acceptPage/:teamId" element = {<AcceptOpportunity/>}/> */}
+        {/* <Route path = "/acceptPage/:teamId" element = {<AcceptOpportunity/>}/> */}
 
       </Routes>
     </Router>
