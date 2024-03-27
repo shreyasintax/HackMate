@@ -8,6 +8,7 @@ export function Profile({ user, children }) {
   const [profileData, setProfileData] = useState(null);
 
   useEffect(() => {
+
     // Make a GET request to your backend API
     fetch(`http://localhost:8080/hackmate/v1/user/${userId}`)
       .then(response => {
@@ -23,6 +24,37 @@ export function Profile({ user, children }) {
         console.error('Error fetching profile data:', error);
       });
   }, []); 
+
+    // Dummy profile data
+    const dummyData = {
+      name: "John Smith",
+      interests: "#event-marketing #performance-marketing",
+      graduationYear: "2024",
+      degree: "Bachelor of Science in Marketing",
+      collegeName: "Oxford International",
+      skills: ["Next.js", "React.js", "Communication", "Teamwork", "Problem-solving", "ppcbdjhv"],
+      Email: "john@gmail.com",
+      Linkedin: "@jhon_S",
+      Github: "@jhon_S",
+      personalInfo: {
+        DOB: "January 1, 1990",
+        Gender: "Male",
+        Username: "johnsmith",
+        ContactNo: "(123) 456-7890",
+
+      },
+      location: {
+        City: "Virginia",
+        State: "NY",
+        Pincode: "12345"
+      }
+
+    };
+
+    // Set the dummy profile data
+    setProfileData(dummyData);
+  // }, []);
+
 
   return (
     <div className="w-full bg-gray-100 ">

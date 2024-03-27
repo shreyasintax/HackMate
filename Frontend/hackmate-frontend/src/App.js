@@ -11,6 +11,8 @@ import { ListOpportunities } from './components/component/list_opportunities';
 import { OpportunityPage } from './components/component/opportunitypage';
 import PreRegistration from './components/component/PreRegistration';
 import { HomePage }from './components/component/HomePage';
+import AcceptOpportunity from './components/component/acceptOpportunity';
+
 
 function App() {
 
