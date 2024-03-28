@@ -9,9 +9,9 @@ export function Information() {
       <div className="w-1/2">
         <img
           alt="Beachside hotel"
-          className="object-cover w-full h-full"
+          className="object-cover w-full h-full rounded-lg"
           height="768"
-          src="/svg.jpg"
+          src="/hero.jpg"
           style={{
             aspectRatio: "799/768",
             objectFit: "cover",

@@ -7,12 +7,11 @@ import {Link} from'react-router-dom'
 
 export function Footer() {
   return (
-    <footer className="bg-[#252525] text-white py-6">
+    <footer className="bg-[#0D4C92] text-white py-6">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex flex-col items-center">
           <div className="mb-6">
-            <span className="text-purple-500 font-bold text-lg">H</span>
-            <span className="font-bold text-lg">ackmate</span>
+          <img src="logo.png" className="h-20"></img>
           </div>
           <div className="flex space-x-4 mb-6">
             <Link className="hover:text-gray-300" href="#">

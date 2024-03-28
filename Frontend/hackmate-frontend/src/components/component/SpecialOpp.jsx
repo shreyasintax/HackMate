@@ -3,137 +3,82 @@
  * @see https://v0.dev/t/v58nOr73dYH
  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
  */
-import { CardTitle, CardHeader, CardContent, CardFooter, Card } from "../ui/card"
-import { Button } from "../ui/button"
+import { useState } from 'react';
+import { CardHeader, CardContent, CardFooter, Card } from "../ui/card";
+// import { ChevronLeftIcon, ChevronRightIcon } from "../ui/icons";
+import { Button } from "../ui/button";
 
 export function SpecialOpp() {
+  const [startIndex, setStartIndex] = useState(0);
+
+  const handleNext = () => {
+    setStartIndex(prevIndex => Math.min(prevIndex + 1, totalCards - 3));
+  };
+
+  const handlePrevious = () => {
+    setStartIndex(prevIndex => Math.max(prevIndex - 1, 0));
+  };
+
+  // Dummy data for demonstration
+  const hackathons = [
+    { id: 1, name: "Hackathon 1", daysLeft: 5 , desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit"},
+    { id: 2, name: "Hackathon 2", daysLeft: 4 ,desc:"f vkfkkv"},
+    { id: 3, name: "Hackathon 3", daysLeft: 3,desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit" },
+    { id: 4, name: "Hackathon 4", daysLeft: 2,desc:"dknfkvnkj" },
+    { id: 5, name: "Hackathon 5", daysLeft: 1,desc:"Lorem ipsum dolor sit amet, consectetur adipiscing elit" }
+  ];
+
+  const visibleHackathons = hackathons.slice(startIndex, startIndex + 3);
+  const totalCards = hackathons.length;
+
   return (
-    <div className="bg-white p-8">
-      <h2 className="text-4xl font-bold text-gray-800 mb-6">Popular Hackathons</h2>
-      <div className="flex justify-between items-center mb-6">
-        <ChevronLeftIcon className="text-purple-500 w-6 h-6" />
-        <ChevronRightIcon className="text-purple-500 w-6 h-6" />
-      </div>
-      <div className="grid grid-cols-3 gap-4">
-        <Card className="w-full">
+    <div className="bg-white w-full">
+      <div className="bg-white p-8 mx-24">
+        <h2 className="text-4xl font-bold text-[#0D4C92] mb-6">Featured Hackathons</h2>
+        <div className="flex justify-between items-center mb-6">
+          <ChevronLeftIcon className="text-purple-500 w-6 h-6" onClick={handlePrevious} />
+          <ChevronRightIcon className="text-purple-500 w-6 h-6" onClick={handleNext} />
+        </div>
+        <div className="grid grid-cols-3 gap-6">
+          {visibleHackathons.map(hackathon => (
+            <Card key={hackathon.id} className="w-11/12 mx-auto rounded-tl-3xl rounded-br-3xl h-11/12 rounded-bl-none">
+               
           <img
             alt="Wyatt Residency"
-            className="rounded-t-lg"
-            height="200"
-            src="/hacakthon.jpg"
+            className="rounded-tl-3xl"
+            height="150"
+            src="/hackathon.jpg"
             style={{
-              aspectRatio: "300/200",
+              aspectRatio: "300/150",
               objectFit: "cover",
             }}
             // width="300"
           />
-          <CardHeader>
-            <CardTitle>Productathon</CardTitle>
-            <div className="flex items-center">
-              <StarIcon className="text-yellow-400 w-5 h-5" />
-              <span className="text-lg text-yellow-600 font-semibold">4.8</span>
+          <CardHeader >
+            <div className="flex justify-between">
+            <div className="flex gap-2">
+              <div>online</div>
+              <div>|</div>
+              <div>free</div>
             </div>
+           <div className=""><i class="fa-regular fa-heart"></i></div>
+           </div>
           </CardHeader>
           <CardContent>
-            <div className="flex items-center justify-between text-sm text-gray-600 mb-2">
-              <span>
-                <LocateIcon className="w-4 h-4 mr-1" />
-                NIT Kurukshetra
-              </span>
-              <span>
-                Coding Challenge
-              </span>
-            </div>
-            <p className="text-gray-600 mb-4">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua.
+            <p className="text-gray-600 mb-4 font-bold text-lg">
+              {hackathon.desc}
             </p>
           </CardContent>
-          <CardFooter>
-            <Button className="w-full bg-purple-500 text-white">Book Now</Button>
-          </CardFooter>
+          <CardFooter className="flex gap-2"><i class="fa-regular fa-clock"></i><div>{hackathon.daysLeft}</div></CardFooter>
         </Card>
-        <Card className="w-full">
-          <img
-            alt="Productathon"
-            className="rounded-t-lg"
-            height="200"
-            src="/hacakthon.jpg"
-            style={{
-              aspectRatio: "300/200",
-              objectFit: "cover",
-            }}
-            // width="300"
-          />
-          <CardHeader>
-            <CardTitle>Hackshetra</CardTitle>
-            <div className="flex items-center">
-              <StarIcon className="text-yellow-400 w-5 h-5" />
-              <span className="text-lg text-yellow-600 font-semibold">4.9</span>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-center justify-between text-sm text-gray-600 mb-2">
-              <span>
-                <LocateIcon className="w-4 h-4 mr-1" />
-                IIT Delhi
-              </span>
-              <span>
-    
-                Hackathon
-              </span>
-            </div>
-            <p className="text-gray-600 mb-4">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua.
-            </p>
-          </CardContent>
-          <CardFooter>
-            <Button className="w-full bg-purple-500 text-white">Book Now</Button>
-          </CardFooter>
-        </Card>
-        <Card className="w-full">
-          <img
-            alt="Hackshetra"
-            className="rounded-t-lg"
-            height="200"
-            src="/hacakthon.jpg"
-            style={{
-              aspectRatio: "300/200",
-              objectFit: "cover",
-            }}
-            // width="300"
-          />
-          <CardHeader>
-            <CardTitle>B-Plan</CardTitle>
-            <div className="flex items-center">
-              <StarIcon className="text-yellow-400 w-5 h-5" />
-              <span className="text-lg text-yellow-600 font-semibold">5.0</span>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-center justify-between text-sm text-gray-600 mb-2">
-              <span>
-                <LocateIcon className="w-4 h-4 mr-1" />
-                NIT Kurukshetra
-              </span>
-              <span>
-                Case Study Challenge
-              </span>
-            </div>
-            <p className="text-gray-600 mb-4">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua.
-            </p>
-          </CardContent>
-          <CardFooter>
-            <Button className="w-full bg-purple-500 text-white">Book Now</Button>
-          </CardFooter>
-        </Card>
+            
+          ))}
+        </div>
       </div>
     </div>
-  )
+  );
 }
+
 
 function ChevronLeftIcon(props) {
   return (
