@@ -12,6 +12,7 @@ import { OpportunityPage } from './components/component/opportunitypage';
 import PreRegistration from './components/component/PreRegistration';
 import { HomePage }from './components/component/HomePage';
 import AcceptOpportunity from './components/component/acceptOpportunity';
+import { Information } from './components/component/Information';
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
         <Route path="/opportunity/:id/*" element={<OpportunityPage />} />
         <Route path = "/prereg" element={<PreRegistration/>} />
         <Route path = "/" element={<HomePage/>} />
+        <Route path="/about" element={<Information/>}/>
 
         
         {/* <Route path = "/acceptPage/:teamId" element = {<AcceptOpportunity/>}/> */}

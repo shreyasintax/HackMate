@@ -7,23 +7,23 @@ import { Button } from '../ui/button';
 export function Profile({ user, children }) {
   const [profileData, setProfileData] = useState(null);
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    // Make a GET request to your backend API
-    fetch(`http://localhost:8080/hackmate/v1/user/${userId}`)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch profile data');
-        }
-        return response.json();
-      })
-      .then(data => {
-        setProfileData(data);
-      })
-      .catch(error => {
-        console.error('Error fetching profile data:', error);
-      });
-  }, []); 
+  //   // Make a GET request to your backend API
+  //   fetch(`http://localhost:8080/hackmate/v1/user/${userId}`)
+  //     .then(response => {
+  //       if (!response.ok) {
+  //         throw new Error('Failed to fetch profile data');
+  //       }
+  //       return response.json();
+  //     })
+  //     .then(data => {
+  //       setProfileData(data);
+  //     })
+  //     .catch(error => {
+  //       console.error('Error fetching profile data:', error);
+  //     });
+  // }, []); 
 
     // Dummy profile data
     const dummyData = {
