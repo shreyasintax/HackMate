@@ -10,6 +10,7 @@ import { SelectValue, SelectTrigger, SelectItem, SelectContent, Select } from ".
 import { BrowserRouter as Router, Link, Route, Routes, Navigate, useNavigate } from 'react-router-dom';
 import { useState } from "react";
 import { Label } from "../ui/label"
+import { toast } from 'react-toastify';
 
 export function Registration({ formData, setFormData, onNext }) {
   const [isOtpSent, setIsOtpSent] = useState(false);
@@ -23,54 +24,55 @@ export function Registration({ formData, setFormData, onNext }) {
       [name]: value,
     }));
   };
-  const handleSendOtp = () => {
-    setIsOtpSent(true);
-  }
-  
-  // const handleSendOtp = async () => {
-  //   // Send request to backend to send OTP to the provided email
-  //   try {
-  //     const response = await fetch('http://localhost:8080/hackmate/v1/user/sendOtp', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({ email: formData.email }),
-  //     });
-  //     if (response.ok) {
-  //       setIsOtpSent(true);
-  //       console.log('OTP sent successfully');
-  //     } else {
-  //       console.log('Failed to send OTP');
-  //     }
-  //   } catch (error) {
-  //     console.error('Error sending OTP:', error);
-  //   }
-  // };
+  // const handleSendOtp = () => {
+  //   setIsOtpSent(true);
+  // }
 
-  const handleVerifyOtp = () => {
-    setIsOtpVerified(true);
-  }
-  // const handleVerifyOtp = async () => {
-  //   // Send request to backend to verify OTP
-  //   try {
-  //     const response = await fetch('http://localhost:8080/hackmate/v1/user/verifyOTP', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({ email: formData.email, otp }),
-  //     });
-  //     if (response.ok) {
-  //       setIsOtpVerified(true);
-  //       console.log('OTP verified successfully');
-  //     } else {
-  //       console.log('Failed to verify OTP');
-  //     }
-  //   } catch (error) {
-  //     console.error('Error verifying OTP:', error);
-  //   }
-  // };
+  const handleSendOtp = async () => {
+    // Send request to backend to send OTP to the provided email
+    try {
+      const response = await fetch('http://localhost:8080/hackmate/v1/user/sendOtp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: formData.email }),
+      });
+      console.log(`Response : ${response}`)
+      if (response.ok) {
+        setIsOtpSent(true);
+      } else {
+        console.log('Failed to send OTP');
+      }
+    } catch (error) {
+      console.error('Error sending OTP:', error);
+    }
+  };
+
+  // const handleVerifyOtp = () => {
+  //   setIsOtpVerified(true);
+  // }
+  const handleVerifyOtp = async () => {
+    // Send request to backend to verify OTP
+    try {
+      const response = await fetch('http://localhost:8080/hackmate/v1/user/verifyOTP', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: formData.email, otp }),
+      });
+      console.log(`Response: ${response}`);
+      if (response.ok) {
+        setIsOtpVerified(true);
+        console.log('OTP verified successfully');
+      } else {
+        console.log('Failed to verify OTP');
+      }
+    } catch (error) {
+      console.error('Error verifying OTP:', error);
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault(); // Prevent the default form submission behavior
@@ -103,26 +105,30 @@ export function Registration({ formData, setFormData, onNext }) {
                   <Input placeholder="Last Name" value={formData.lastName} onChange={handleChange} name="lastName" />
                 </div>
                 <Input placeholder="Email" value={formData.email} onChange={handleChange} name="email" />
-                {isOtpSent ? (
-                  <div className="flex space-x-2">
-                    {[...Array(6)].map((_, index) => (
-                      <Input
-                        key={index}
-                        placeholder="Enter OTP"
-                        maxLength="1"
-                        value={otp[index] || ""}
-                        onChange={(e) => {
-                          const newOtp = [...otp];
-                          newOtp[index] = e.target.value;
-                          setOtp(newOtp);
-                        }}
-                      />
-                    ))}
-                    <Button onClick={handleVerifyOtp} type = "button">Submit OTP</Button>
-                  </div>
-                ) : (
-                  <Button onClick={handleSendOtp} type = "button">Send OTP</Button>
-                )}
+                {
+                  isOtpSent ? (
+                    <div className="flex space-x-2">
+                      {
+                        [...Array(6)].map((_, index) => (
+                          <Input
+                            key={index}
+                            placeholder="Enter OTP"
+                            maxLength="1"
+                            value={otp[index] || ""}
+                            onChange={(e) => {
+                              const newOtp = [...otp];
+                              newOtp[index] = e.target.value;
+                              setOtp(newOtp);
+                            }}
+                          />
+                        ))
+                      }
+                      <Button onClick={handleVerifyOtp} type="button">Submit OTP</Button>
+                    </div>
+                  ) : (
+                    <Button onClick={handleSendOtp} type="button">Send OTP</Button>
+                  )
+                }
                 <div className="flex space-x-2">
                   <Select>
                     <SelectTrigger id="country-code">
