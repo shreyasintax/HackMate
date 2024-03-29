@@ -113,7 +113,7 @@ exports.sendOTP = async (req, res) => {
 
     return res.status(200).json({
         success: true,
-        msg: "otp sent successfully",
+        message: "otp sent successfully",
         otp, // For testing purpose , otp is displayed
     });
 };
@@ -127,6 +127,7 @@ exports.verifyOtp = async (req, res) => {
                 message: "Please provide email and otp"
             });
         }
+        console.log(otp)
         const recentOtpResponse = await OTP.find({ email })
             .sort("-createdAt")
             .limit(1);
