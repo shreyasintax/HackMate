@@ -49,17 +49,20 @@ export function Registration({ formData, setFormData, onNext }) {
   // };
 
   const handleVerifyOtp = () => {
+    let fullOtp = parseInt(otp.join(""));
+    console.log(fullOtp);
     setIsOtpVerified(true);
   }
   // const handleVerifyOtp = async () => {
-  //   // Send request to backend to verify OTP
+  //   let fullOtp = parseInt(otp.join(""));
+  //   console.log(fullOtp);
   //   try {
   //     const response = await fetch('http://localhost:8080/hackmate/v1/user/verifyOTP', {
   //       method: 'POST',
   //       headers: {
   //         'Content-Type': 'application/json',
   //       },
-  //       body: JSON.stringify({ email: formData.email, otp }),
+  //       body: JSON.stringify({ email: formData.email, fullOtp }),
   //     });
   //     if (response.ok) {
   //       setIsOtpVerified(true);
