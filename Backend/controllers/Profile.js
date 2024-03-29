@@ -66,6 +66,7 @@ exports.addUser = async (req, res) => {
                 message: "Error in hashing Password"
             });
         }
+
         let imgUrl = "";
         if (req.files) {
             const file = req.files.img;
@@ -110,7 +111,7 @@ exports.addUser = async (req, res) => {
             image: imgUrl,
         });
 
-        mailSender("ketankansal124@gmail.com", "SSKH", "<p>Team added successfully </p>");
+        mailSender(email, "SSKH", "<p>Team added successfully </p>");
 
         return res.status(201).json({
             success: true,
