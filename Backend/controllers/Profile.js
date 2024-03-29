@@ -127,7 +127,7 @@ exports.addUser = async (req, res) => {
 
 exports.getSingleUser = async (req, res) => {
     try {
-        const { id } = req.params;
+        const { id } = req.user;
 
         const user = await User.findById(id).populate('additionalDetails');
 
