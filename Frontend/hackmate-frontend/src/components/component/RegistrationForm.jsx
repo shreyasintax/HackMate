@@ -28,51 +28,32 @@ export function Registration({ formData, setFormData, onNext }) {
   //   setIsOtpSent(true);
   // }
 
-  const handleSendOtp = async () => {
-    // Send request to backend to send OTP to the provided email
-    try {
-      const response = await fetch('http://localhost:8080/hackmate/v1/user/sendOtp', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email: formData.email }),
-      });
-      console.log(`Response : ${response}`)
-      if (response.ok) {
-        setIsOtpSent(true);
-      } else {
-        console.log('Failed to send OTP');
-      }
-    } catch (error) {
-      console.error('Error sending OTP:', error);
-    }
-  };
-
-  // const handleVerifyOtp = () => {
-  //   setIsOtpVerified(true);
-  // }
-  const handleVerifyOtp = async () => {
-    // Send request to backend to verify OTP
-    try {
-      const response = await fetch('http://localhost:8080/hackmate/v1/user/verifyOTP', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email: formData.email, otp }),
-      });
-      console.log(`Response: ${response}`);
-      if (response.ok) {
-        setIsOtpVerified(true);
-        console.log('OTP verified successfully');
-      } else {
-        console.log('Failed to verify OTP');
-      }
-    } catch (error) {
-      console.error('Error verifying OTP:', error);
-    }
-  };
+  const handleVerifyOtp = () => {
+    let fullOtp = parseInt(otp.join(""));
+    console.log(fullOtp);
+    setIsOtpVerified(true);
+  }
+  // const handleVerifyOtp = async () => {
+  //   let fullOtp = parseInt(otp.join(""));
+  //   console.log(fullOtp);
+  //   try {
+  //     const response = await fetch('http://localhost:8080/hackmate/v1/user/verifyOTP', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({ email: formData.email, fullOtp }),
+  //     });
+  //     if (response.ok) {
+  //       setIsOtpVerified(true);
+  //       console.log('OTP verified successfully');
+  //     } else {
+  //       console.log('Failed to verify OTP');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error verifying OTP:', error);
+  //   }
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault(); // Prevent the default form submission behavior
