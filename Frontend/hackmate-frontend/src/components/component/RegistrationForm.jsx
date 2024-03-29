@@ -12,23 +12,81 @@ import { useState } from "react";
 import { Label } from "../ui/label"
 
 export function Registration({ formData, setFormData, onNext }) {
+  const [isOtpSent, setIsOtpSent] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [isOtpVerified, setIsOtpVerified] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
+  const handleSendOtp = () => {
+    setIsOtpSent(true);
+  }
+  
+  // const handleSendOtp = async () => {
+  //   // Send request to backend to send OTP to the provided email
+  //   try {
+  //     const response = await fetch('http://localhost:8080/hackmate/v1/user/sendOtp', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({ email: formData.email }),
+  //     });
+  //     if (response.ok) {
+  //       setIsOtpSent(true);
+  //       console.log('OTP sent successfully');
+  //     } else {
+  //       console.log('Failed to send OTP');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error sending OTP:', error);
+  //   }
+  // };
+
+  const handleVerifyOtp = () => {
+    setIsOtpVerified(true);
+  }
+  // const handleVerifyOtp = async () => {
+  //   // Send request to backend to verify OTP
+  //   try {
+  //     const response = await fetch('http://localhost:8080/hackmate/v1/user/verifyOTP', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({ email: formData.email, otp }),
+  //     });
+  //     if (response.ok) {
+  //       setIsOtpVerified(true);
+  //       console.log('OTP verified successfully');
+  //     } else {
+  //       console.log('Failed to verify OTP');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error verifying OTP:', error);
+  //   }
+  // };
+
   const handleSubmit = (e) => {
     e.preventDefault(); // Prevent the default form submission behavior
-    onNext(); // Call the onNext function to handle the form submission
+    if (isOtpVerified) {
+      onNext(); // Call the onNext function to handle the form submission
+    } else {
+      console.log('Please verify OTP first');
+    }
   };
+
   return (
-    (<div className="min-h-screen bg-white flex">
-    <div className="flex-1 flex flex-col justify-between p-10">
-      <img src="/image1.png" alt="background image" className="object-cover w-full h-full" />
-    </div>
-    <div className="flex-1 flex items-center justify-center p-10">
+    <div className="min-h-screen bg-white flex">
+      <div className="flex-1 flex flex-col justify-between p-10">
+        <img src="/image1.png" alt="background image" className="object-cover w-full h-full" />
+      </div>
+      <div className="flex-1 flex items-center justify-center p-10">
         <Card className="w-[500px] bg-blue-100">
           <CardHeader>
             <CardTitle>Ready to Be Unstoppable! Create an account</CardTitle>
@@ -45,6 +103,26 @@ export function Registration({ formData, setFormData, onNext }) {
                   <Input placeholder="Last Name" value={formData.lastName} onChange={handleChange} name="lastName" />
                 </div>
                 <Input placeholder="Email" value={formData.email} onChange={handleChange} name="email" />
+                {isOtpSent ? (
+                  <div className="flex space-x-2">
+                    {[...Array(6)].map((_, index) => (
+                      <Input
+                        key={index}
+                        placeholder="Enter OTP"
+                        maxLength="1"
+                        value={otp[index] || ""}
+                        onChange={(e) => {
+                          const newOtp = [...otp];
+                          newOtp[index] = e.target.value;
+                          setOtp(newOtp);
+                        }}
+                      />
+                    ))}
+                    <Button onClick={handleVerifyOtp} type = "button">Submit OTP</Button>
+                  </div>
+                ) : (
+                  <Button onClick={handleSendOtp} type = "button">Send OTP</Button>
+                )}
                 <div className="flex space-x-2">
                   <Select>
                     <SelectTrigger id="country-code">
@@ -61,9 +139,9 @@ export function Registration({ formData, setFormData, onNext }) {
                 <Input placeholder="Confirm Password" type="password" value={formData.confirmPassword} onChange={handleChange} name="confirmPassword" />
                 <Input placeholder="OTP" value={formData.otp} onChange={handleChange} name="otp" />
               </div>
-              <Button type="submit" className="w-1/2 bg-blue-600 text-white mt-2">Next</Button>
-
-
+              <Button type="submit" className="w-1/2 bg-blue-600 text-white mt-2" disabled={!isOtpVerified}>
+                Next
+              </Button>
             </form>
           </CardContent>
           <CardFooter className="flex justify-between">
@@ -74,10 +152,9 @@ export function Registration({ formData, setFormData, onNext }) {
           </CardFooter>
         </Card>
       </div>
-    </div>)
+    </div>
   );
 }
-
 
 
 /**
@@ -89,9 +166,9 @@ export function Registration({ formData, setFormData, onNext }) {
 export function Onboarding({ formData, setFormData, onSubmit }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
   const handleSubmit = (e) => {
@@ -99,7 +176,7 @@ export function Onboarding({ formData, setFormData, onSubmit }) {
     onSubmit(); // Call the onNext function to handle the form submission
   };
   return (
-    (<div className="mx-auto max-w-3xl space-y-8 p-6">
+    <div className="mx-auto max-w-3xl space-y-8 p-6">
       <div className="space-y-2 text-center">
         <h1 className="text-4xl font-extrabold tracking-tight leading-tight">Welcome to the Community</h1>
         <p className="text-gray-500 dark:text-gray-400">
@@ -156,7 +233,6 @@ export function Onboarding({ formData, setFormData, onSubmit }) {
         <button type="submit">Save & Continue</button>
       </form>
     </div>
-    )
   );
 }
 
@@ -209,7 +285,7 @@ const RegistrationForm = () => {
         navigate("/login");
       } else {
         // Handle error
-        console.log("Some error occured while submitting user -frontend");
+        console.log("Some error occurred while submitting user - frontend");
       }
     } catch (error) {
       console.error('Error submitting email:', error);
