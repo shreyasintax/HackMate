@@ -45,7 +45,7 @@ exports.login = async (req, res) => {
             const options = {
                 expires: new Date(Date.now() + 3 * 24 * 60 * 50 * 1000), //3 days
                 httpOnly: true,
-                sameSite: 'strict' // Or 'lax', depending on your requirements
+                sameSite: 'strict' 
             };
 
             res.cookie("hackMateCookie", token, options).status(200).json({
@@ -72,32 +72,32 @@ exports.login = async (req, res) => {
 };
 
 exports.sendOTP = async (req, res) => {
-    //fetch email from req body
+    // Fetch email from req body
     const { email } = req.body;
-    //check if user already exists ?
+    // Check if email is provided
     if (!email) {
-        return res.json({
+        return res.status(400).json({
             success: false,
             message: "Email not entered"
-        })
+        });
     }
     const checkUserPresent = await User.findOne({ email });
 
     if (checkUserPresent) {
-        return res.json({
+        return res.status(409).json({ 
             success: false,
             message: "User already exists"
-        })
+        });
     }
 
-    //generate Otp
+    // Generate OTP
     const otp = otpGenerator.generate(6, {
         upperCaseAlphabets: false,
         lowerCaseAlphabets: false,
         specialChars: false,
     });
 
-    //save otp in db
+    // Save otp in db
     let hashedOTP;
     try {
         hashedOTP = await bcrypt.hash(otp, 10);
@@ -111,12 +111,13 @@ exports.sendOTP = async (req, res) => {
     mailSender(email, "Verification Email", emailTemplate(otp));
     const otpBody = await OTP.create({ email, otp: hashedOTP });
 
-    return res.status(200).json({
+    return res.status(202).json({ 
         success: true,
-        message: "otp sent successfully",
-        otp, // For testing purpose , otp is displayed
+        message: "OTP sent successfully",
+        otp, // For testing purpose, otp is displayed
     });
 };
+
 
 exports.verifyOtp = async (req, res) => {
     try {
@@ -155,7 +156,7 @@ exports.verifyOtp = async (req, res) => {
             const options = {
                 expires: new Date(Date.now() + 3 * 24 * 60 * 50 * 1000), //3 days
                 httpOnly: true,
-                sameSite: 'strict' // Or 'lax', depending on your requirements
+                sameSite: 'strict' 
             };
 
             res.cookie("otpCookie", token, options).status(200).json({

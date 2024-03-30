@@ -24,10 +24,6 @@ export function Registration({ formData, setFormData, onNext }) {
       [name]: value,
     }));
   };
-  // const handleSendOtp = () => {
-  //   setIsOtpSent(true);
-  // }
-
   const handleSendOtp = async () => {
     // Send request to backend to send OTP to the provided email
     try {
@@ -38,10 +34,13 @@ export function Registration({ formData, setFormData, onNext }) {
         },
         body: JSON.stringify({ email: formData.email }),
       });
+      const data=await response.json();
       if (response.ok) {
         setIsOtpSent(true);
+        toast.success(data.message);
         console.log('OTP sent successfully');
       } else {
+        toast.error(data.message);
         console.log('Failed to send OTP');
       }
     } catch (error) {
@@ -49,11 +48,6 @@ export function Registration({ formData, setFormData, onNext }) {
     }
   };
 
-  // const handleVerifyOtp = () => {
-  //   let fullOtp = parseInt(otp.join(""));
-  //   console.log(fullOtp);
-  //   setIsOtpVerified(true);
-  // }
   const handleVerifyOtp = async () => {
     let fullOtp = otp.join("");
     console.log(fullOtp);
@@ -66,14 +60,13 @@ export function Registration({ formData, setFormData, onNext }) {
         body: JSON.stringify({ email: formData.email, otp: fullOtp }),
         credentials: "include"
       });
-      console.log(response)
+
+      const data = await response.json();
       if (response.ok) {
         setIsOtpVerified(true);
-        console.log('OTP verified successfully');
+        toast.success(data.message);
       } else {
-        const data = await response.json();
-        toast.error(data.message)
-        console.log('Failed to verify OTP');
+        toast.error(data.message);
       }
     } catch (error) {
       console.error('Error verifying OTP:', error);
@@ -81,11 +74,11 @@ export function Registration({ formData, setFormData, onNext }) {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent the default form submission behavior
+    e.preventDefault(); 
     if (isOtpVerified) {
       onNext(); // Call the onNext function to handle the form submission
     } else {
-      console.log('Please verify OTP first');
+      toast.warn("Please verify OTP first")
     }
   };
 
@@ -284,14 +277,14 @@ const RegistrationForm = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
+        credentials: "include"
       });
+      const data = await response.json();
       if (response.ok) {
-        // Handle success
-        console.log('User submitted successfully');
+        toast.success(data.message);
         navigate("/login");
       } else {
-        // Handle error
-        console.log("Some error occurred while submitting user - frontend");
+        toast.error(data.message);
       }
     } catch (error) {
       console.error('Error submitting email:', error);

@@ -3,83 +3,32 @@ import { Link } from 'react-router-dom';
 import { Textarea } from "../ui/textarea";
 import { AvatarImage, AvatarFallback, Avatar } from "../component/avatar";
 import { Button } from '../ui/button';
+import { toast } from 'react-toastify';
 
 export function Profile({ user, children }) {
   const [profileData, setProfileData] = useState(null);
 
   useEffect(() => {
-
-    // Make a GET request to your backend API
-    fetch(`http://localhost:8080/hackmate/v1/user`)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch profile data');
+    const fetchProfile = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/hackmate/v1/user', {
+          method: 'GET',
+          credentials: 'include', 
+        });
+        const data = await response.json();
+        console.log(data.user);
+        if (response.ok) {
+          setProfileData(data.user);
+          toast.success(data.message);
+        } else {
+          toast.error(data.message);
         }
-        return response.json();
-      })
-      .then(data => {
-        setProfileData(data.user);
-      })
-      .catch(error => {
+      } catch (error) {
         console.error('Error fetching profile data:', error);
-      });
+      }
+    };
+    fetchProfile();
   }, []); 
-
-  // Dummy profile data
-  // const dummyData = {
-  //   name: "John Smith",
-  //   interests: "#event-marketing #performance-marketing",
-  //   graduationYear: "2024",
-  //   degree: "Bachelor of Science in Marketing",
-  //   collegeName: "Oxford International",
-  //   skills: ["Next.js", "React.js", "Communication", "Teamwork", "Problem-solving", "ppcbdjhv"],
-  //   Email: "john@gmail.com",
-  //   Linkedin: "@jhon_S",
-  //   Github: "@jhon_S",
-  //   personalInfo: {
-  //     DOB: "January 1, 1990",
-  //     Gender: "Male",
-  //     Username: "johnsmith",
-  //     ContactNo: "(123) 456-7890",
-
-  //   },
-  //   location: {
-  //     City: "Virginia",
-  //     State: "NY",
-  //     Pincode: "12345"
-  //   }
-
-  // };
-
-  // // Set the dummy profile data
-  // setProfileData(dummyData);
-  // }, []);
-  // const getUserData = async () => {
-  //   const token = '4398439dosjfo';
-  //   if (token) {
-  //     try {
-  //       const response = await fetch(`http://localhost:8080/hackmate/v1/user/${userId}`, {
-  //         method: 'GET',
-  //         headers: {
-  //           Authorization: `Bearer ${token.split('=')[1]}`,
-  //         },
-  //       });
-
-  //       if (!response.ok) {
-  //         throw new Error(`Error fetching user data: ${response.status}`);
-  //       }
-
-  //       const data = await response.json();
-  //       return data;
-  //     } catch (error) {
-  //       console.error('Error fetching user data:', error);
-  //       return null; // Handle errors appropriately, e.g., redirect to login
-  //     }
-  //   } else {
-  //     // No token found, redirect to login or handle appropriately
-  //   }
-  // };
-
 
   return (
     <div className="w-full bg-gray-100 ">

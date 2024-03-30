@@ -2,17 +2,29 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
 import { Card } from "../ui/card";
 import { Button } from "../ui/button";
+import {toast} from "react-toastify";
 
 export function ListOpportunities() {
   const [opportunities, setOpportunities] = useState([]);
   const navigate = useNavigate(); // Initialize navigate hook
 
   useEffect(() => {
-    fetch('http://localhost:8080/hackmate/v1/opportunity')
-      .then(response => response.json())
-      .then(data => setOpportunities(data.opportunity))  
-      .catch(error => console.error('Error fetching opportunities:', error));
-  }, []); 
+    const fetchOpportunities = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/hackmate/v1/opportunity');
+        const data = await response.json();
+        if (response.ok) {
+          setOpportunities(data.opportunity);
+        } else {
+          toast.error(data.message || 'Failed to fetch opportunities');
+        }
+      } catch (error) {
+        console.error('Error fetching opportunities:', error);
+      }
+    };
+
+    fetchOpportunities();
+  }, []);
 
   const handleOpportunityClick = (opportunityId) => {
     navigate(`/opportunity/${opportunityId}`); // Navigate to opportunity page with the opportunity ID
@@ -30,10 +42,10 @@ export function ListOpportunities() {
         <div className="grid gap-4">
           {
             opportunities.map(opportunity => (
-            <div key={opportunity.id} onClick={() => handleOpportunityClick(opportunity._id)}> {/* Attach onClick handler to the wrapper div */}
-              <Card>
-                <div className="flex gap-4 p-4 ">
-                  {/* <div className="">
+              <div key={opportunity.id} onClick={() => handleOpportunityClick(opportunity._id)}> {/* Attach onClick handler to the wrapper div */}
+                <Card>
+                  <div className="flex gap-4 p-4 ">
+                    {/* <div className="">
                     <img
                       alt="Logo"
                       className="aspect-[2/1] overflow-hidden rounded-full  border-green-500 object-contain object-center "
@@ -42,19 +54,19 @@ export function ListOpportunities() {
                       width="120"
                     />
                   </div> */}
-                  <div className="grid gap-2 text-sm">
-                    <h2 className="text-lg font-semibold">{opportunity.name}</h2>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">Organized by: {opportunity.mode}</p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">Rewards: {opportunity.description}</p>
+                    <div className="grid gap-2 text-sm">
+                      <h2 className="text-lg font-semibold">{opportunity.name}</h2>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Organized by: {opportunity.mode}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Rewards: {opportunity.description}</p>
+                    </div>
                   </div>
-                </div>
-                <div className="p-4">
-      
-                  <Button variant="default" className="bg-gray-300 rounded-md">Interested</Button>
-                </div>
-              </Card>
-            </div>
-          ))}
+                  <div className="p-4">
+
+                    <Button variant="default" className="bg-gray-300 rounded-md">Interested</Button>
+                  </div>
+                </Card>
+              </div>
+            ))}
         </div>
       </div>
     </div>
