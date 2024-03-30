@@ -7,13 +7,13 @@ import {Link} from'react-router-dom'
 
 export function Footer() {
   return (
-    <footer className="bg-[#0D4C92] text-white py-2 ">
+    <footer className="bg-[#0D4C92] text-white py-6">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex flex-col items-center">
-          <div className="mb-0">
+          <div className="mb-6">
           <img src="logo.png" className="h-20"></img>
           </div>
-          <div className="flex space-x-4 mb-3">
+          <div className="flex space-x-4 mb-6">
             <Link className="hover:text-gray-300" href="#">
               Home
             </Link>
@@ -30,7 +30,7 @@ export function Footer() {
               Reviews
             </Link>
           </div>
-          <div className="flex space-x-4 mb-3">
+          <div className="flex space-x-4 mb-6">
             <FacebookIcon className="h-6 w-6 hover:text-gray-300" />
             <TwitterIcon className="h-6 w-6 hover:text-gray-300" />
             <YoutubeIcon className="h-6 w-6 hover:text-gray-300" />
