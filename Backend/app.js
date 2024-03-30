@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
-const { connect } = require("./config/database");
-const { cloudinaryConnect } = require("./config/cloudinary");
+const { connect } = require("./config/Database");
+const { cloudinaryConnect } = require("./config/Cloudinary");
 const userRoutes = require("./routes/User");
 const oppoRoutes = require("./routes/Opportunity");
 const teamRoutes = require("./routes/Team");

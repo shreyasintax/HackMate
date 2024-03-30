@@ -17,10 +17,9 @@ exports.addOpportunity = async (req, res) => {
             eligibility,
             noOfRounds,
             r1, r2, r3, r4
-            // Add other properties from req.body if needed
         } = req.body;
 
-        // Validate (mongoose validation is already present so no need to validate it)
+        console.log(eligibility);
         if (
             !name ||
             !regDeadline ||

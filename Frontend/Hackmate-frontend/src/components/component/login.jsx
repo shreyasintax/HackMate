@@ -6,6 +6,7 @@ import { Input } from "../ui/input";
 import { Checkbox } from "../ui/checkbox";
 import { CardTitle, CardHeader, CardContent, CardFooter, Card } from "../ui/card";
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export function Login() {
   const [email, setEmail] = useState('');
@@ -29,20 +30,20 @@ export function Login() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email,password }),
+        body: JSON.stringify({ email, password }),
       });
+      const data = await response.json();
       if (response.ok) {
         // Handle success
-        console.log('Login Details submitted successfully');
+        toast.success(data.message);
         navigate('/');
       } else {
-        // Handle error
-        console.log(response);
+        toast.error(data.message);
       }
     } catch (error) {
       console.error('Error submitting email:', error);
     }
- 
+
   };
 
   return (
@@ -73,7 +74,7 @@ export function Login() {
               <div className="flex items-center mt-6">
                 <Checkbox
                   id="remember-me"
-                  // Implement your rememberMe logic here
+                // Implement your rememberMe logic here
                 />
                 <label className="ml-2 block text-sm leading-5 text-gray-900" htmlFor="remember-me">
                   Remember me
