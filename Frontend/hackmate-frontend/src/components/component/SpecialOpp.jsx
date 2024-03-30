@@ -69,7 +69,7 @@ export function SpecialOpp() {
               {hackathon.desc}
             </p>
           </CardContent>
-          <CardFooter className="flex gap-2"><i class="fa-regular fa-clock"></i><div>{hackathon.daysLeft}</div></CardFooter>
+          <CardFooter className="flex gap-2"><i class="fa-regular fa-clock"></i><div>{hackathon.daysLeft} days left</div></CardFooter>
         </Card>
             
           ))}

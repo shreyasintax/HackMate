@@ -16,15 +16,11 @@ export function Create_opportunity() {
   const [image, setImage] = useState('hackathon3.jpeg');
   const [formData, setFormData] = useState({
     name: '',
-    registrationDeadline: '',
-   
-    
-   
     description: '',
-    
+    FAQs: [{ question: '', answer: '' }],
     mode: '',
-    rewardsDescription: '',
-    faqs: '',
+    rewards: '',
+  
     organizerContact: '',
     rounds: [
       { description: '', lastDate: '', result: '' } // Initial round
@@ -46,16 +42,52 @@ export function Create_opportunity() {
       });
     }
   };
+  const handleFaqChange = (index, fieldName, value) => {
+    const newFaqs = [...formData.FAQs];
+    newFaqs[index][fieldName] = value;
+    setFormData({ ...formData, FAQs: newFaqs });
+  };
+
+  const addFaq = () => {
+    setFormData({
+      ...formData,
+      FAQs: [...formData.FAQs, { question: '', answer: '' }]
+    });
+  };
   const handleChange = (e) => {
     const { id, value, type, checked } = e.target;
     const newValue = type === 'checkbox' ? checked : value;
-    setFormData({ ...formData, [id]: newValue });
+    if (id.startsWith('FAQ')) {
+      const faqIndex = parseInt(id.split('-')[1]); // Extract FAQ index from id
+      const updatedFaqs = [...formData.FAQs];
+      updatedFaqs[faqIndex][id.split('-')[0]] = newValue; // Update question or answer based on id
+      setFormData(prevState => ({
+        ...prevState,
+        FAQs: updatedFaqs
+      }));
+    }
+    else if (id.startsWith('eligibility')) {
+      const eligibilityField = id.split('[')[1].split(']')[0];
+      const updatedEligibility = { ...formData.eligibility[0], [eligibilityField]: newValue };
+      setFormData(prevState => ({
+        ...prevState,
+        eligibility: [updatedEligibility]
+      }));
+    } else {
+      // For other fields, update normally
+      setFormData({ ...formData, [id]: newValue });
+    }
+  
+   
   };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+   
     console.log('Form Data:', formData);
+    const roundsType = typeof formData.eligibility;
+    console.log('Type of eligibility:', roundsType);
     try {
       // Send the formData to your backend using fetch or any HTTP client library
       const response = await fetch('/api/registerTeam', {
@@ -198,6 +230,38 @@ export function Create_opportunity() {
      
               </div>
             </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">ADD questions</label>
+            </div>
+            <div className="grid gap-4">
+              {formData.FAQs.map((FAQ, index) => (
+        <div key={index}>
+          <h3>Question {index + 1}</h3>
+          <Textarea
+            type="text"
+            value={FAQ.question}
+            onChange={(e) =>handleFaqChange(index, 'question', e.target.value)}
+            placeholder="question"
+          />
+          <br></br>
+          <Textarea
+            type="text"
+            value={FAQ.answer}
+            onChange={(e) =>handleFaqChange(index, 'answer', e.target.value)}
+            placeholder="answer"
+          />
+          {/* <button type="button" onClick={() => removeRound(index)}>
+            Remove Round
+          </button> */}
+        </div>
+      ))}
+      {formData.rounds.length < 4 && (
+        <button type="button" onClick={addFaq}>
+          Add question
+        </button>
+      )}
+     </div>
+
             <select id="mode" value = {formData.mode} onChange = {handleChange}>
                       <option value="">select mode</option>
                       <option value="offline">Offline</option>
