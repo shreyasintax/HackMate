@@ -20,14 +20,14 @@ export function Create_opportunity() {
     FAQs: [{ question: '', answer: '' }],
     mode: '',
     rewards: '',
-  
-    organizerContact: '',
+    noOfRounds: '',
+    contactDetails: '',
     rounds: [
       { description: '', lastDate: '', result: '' } // Initial round
     ],
-    eligibility: [ {
-      yearOfGraduation:'',age:'',interCollegeAllowed:'false',interYearAllowed:'flase',teamMembersNumber:''
-    }]
+    eligibility: {
+      yearOfGraduation:'',age:'',interCollegeAllowed:'false',interYearAllowed:'false',teamMembersNumber:''
+    }
   });
   const handleRoundChange = (index, fieldName, value) => {
     const newRounds = [...formData.rounds];
@@ -192,6 +192,8 @@ export function Create_opportunity() {
               <label className="block text-sm font-medium mb-1">
                 Timeline (Multiple rounds with each round having a. Description b. last date c. Results)
               </label>
+              <label className="block text-sm font-medium mb-1">No of Rounds req.</label>
+              <Input type="number" id="noOfRounds" placeholder="noOfRounds" onChange={handleChange} ></Input>
               <div className="grid gap-4">
               {formData.rounds.map((round, index) => (
         <div key={index}>
@@ -264,14 +266,14 @@ export function Create_opportunity() {
 
             <select id="mode" value = {formData.mode} onChange = {handleChange}>
                       <option value="">select mode</option>
-                      <option value="offline">Offline</option>
-                      <option value="online">Online</option>
+                      <option value="Offline">Offline</option>
+                      <option value="Online">Online</option>
                       {/* <option value="jpg">JPG</option> */}
                   </select>
 
             <Textarea id="rewards" placeholder="Rewards (description)" onChange={handleChange} />
             {/* <Textarea name="FAQs" placeholder="FAQs" onChange={handleChange} /> */}
-            <Input id="organizerContact" placeholder="Organizer Contact" type="text" onChange={handleChange} />
+            <Input id="contactDetails" placeholder="Organizer Contact" type="text" onChange={handleChange} />
 
             <button type="submit" className="mt-4">Next</button>
           </div>
