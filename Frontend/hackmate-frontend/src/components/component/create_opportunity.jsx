@@ -26,7 +26,11 @@ export function Create_opportunity() {
       { description: '', lastDate: '', result: '' } // Initial round
     ],
     eligibility: {
-      yearOfGraduation:'',age:'',interCollegeAllowed:'false',interYearAllowed:'false',teamMembersNumber:''
+      yearOfGraduation: '',
+      age: '',
+      interCollegeAllowed: false,
+      interYearAllowed: false,
+      teamMembersNumber: ''
     }
   });
   const handleRoundChange = (index, fieldName, value) => {
@@ -65,23 +69,20 @@ export function Create_opportunity() {
         ...prevState,
         FAQs: updatedFaqs
       }));
-    }
-    else if (id.startsWith('eligibility')) {
-      const eligibilityField = id.split('[')[1].split(']')[0];
-      const updatedEligibility = { ...formData.eligibility[0], [eligibilityField]: newValue };
+    } else if (id.startsWith('eligibility')) {
+      const eligibilityField = id.split('.')[1];
       setFormData(prevState => ({
         ...prevState,
-        eligibility: [updatedEligibility]
+        eligibility: {
+          ...prevState.eligibility,
+          [eligibilityField]: newValue
+        }
       }));
     } else {
       // For other fields, update normally
       setFormData({ ...formData, [id]: newValue });
     }
-  
-   
   };
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
    
@@ -160,14 +161,14 @@ export function Create_opportunity() {
            
             <Input id="regDeadline" placeholder="Registration Deadline" type="date" onChange={handleChange} />
            
-            <Input id="eligibility[yearOfGraduation]" placeholder="Year of Graduation" type="number" onChange={handleChange} />
-            <Input id="eligibility[age]" placeholder="Age" type="number" onChange={handleChange} />
-            <Input id="eligibility[teamMembersNumber]" placeholder="Team Members Number" type="number" onChange={handleChange} />
+            <Input id="eligibility.yearOfGraduation" placeholder="Year of Graduation" type="number" onChange={handleChange} />
+            <Input id="eligibility.age" placeholder="Age" type="number" onChange={handleChange} />
+            <Input id="eligibility.teamMembersNumber" placeholder="Team Members Number" type="number" onChange={handleChange} />
             
                   <div className="flex items-center space-x-4">
         <input
           type="checkbox"
-          id="eligibility[interYearAllowed]"
+          id="eligibility.interYearAllowed"
           checked={formData.interYearAllowed}
           onChange={handleChange}
         />
@@ -178,7 +179,7 @@ export function Create_opportunity() {
       <div className="flex items-center space-x-4">
         <input
           type="checkbox"
-          id="eligibility[interCollegeAllowed]"
+          id="eligibility.interCollegeAllowed"
           checked={formData.interCollegeAllowed}
           onChange={handleChange}
         />
@@ -193,7 +194,7 @@ export function Create_opportunity() {
                 Timeline (Multiple rounds with each round having a. Description b. last date c. Results)
               </label>
               <label className="block text-sm font-medium mb-1">No of Rounds req.</label>
-              <Input type="number" id="noOfRounds" placeholder="noOfRounds" onChange={handleChange} ></Input>
+              <Input type="number" id="noOfRounds" placeholder="noOfRounds" ></Input>
               <div className="grid gap-4">
               {formData.rounds.map((round, index) => (
         <div key={index}>
