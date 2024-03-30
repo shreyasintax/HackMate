@@ -33,6 +33,9 @@ export function Login() {
         body: JSON.stringify({ email, password }),
       });
       const data = await response.json();
+      localStorage.setItem('jwtToken', data.token);
+      console.log(data.token); 
+      console.log(response);
       if (response.ok) {
         // Handle success
         toast.success(data.message);
