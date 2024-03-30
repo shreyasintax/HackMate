@@ -9,9 +9,6 @@ const mailSender = async function (email, title, body) {
         user: process.env.MAIL_USER,
         pass: process.env.MAIL_PASS,
       },
-      tls: {
-        rejectUnauthorized: false
-      }
     });
 
     let info = await transporter.sendMail({
@@ -26,5 +23,7 @@ const mailSender = async function (email, title, body) {
     console.error(`Error in Mail: ${error.message}`);
   }
 };
+
+
 
 module.exports = mailSender;

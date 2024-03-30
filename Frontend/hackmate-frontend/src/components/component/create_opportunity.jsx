@@ -11,6 +11,7 @@ import { SelectValue, SelectTrigger, SelectItem, SelectContent, Select } from ".
 
 
 import React, { useState } from 'react';
+import { toast } from "react-toastify"
 
 export function Create_opportunity() {
   const [image, setImage] = useState('hackathon3.jpeg');
@@ -25,8 +26,8 @@ export function Create_opportunity() {
     rounds: [
       { description: '', lastDate: '', result: '' } // Initial round
     ],
-    eligibility: [ {
-      yearOfGraduation:'',age:'',interCollegeAllowed:'false',interYearAllowed:'flase',teamMembersNumber:''
+    eligibility: [{
+      yearOfGraduation: '', age: '', interCollegeAllowed: 'false', interYearAllowed: 'flase', teamMembersNumber: ''
     }]
   });
   const handleRoundChange = (index, fieldName, value) => {
@@ -84,26 +85,25 @@ export function Create_opportunity() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-   
     console.log('Form Data:', formData);
     const roundsType = typeof formData.eligibility;
     console.log('Type of eligibility:', roundsType);
     try {
       // Send the formData to your backend using fetch or any HTTP client library
-      const response = await fetch('/api/registerTeam', {
+      const response = await fetch('http://localhost:8080/hackmate/v1/opportunity', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData),
+        credentials:"include"
       });
 
+      const data = await response.json();
       if (response.ok) {
-        // Handle success
-        console.log('Team registration successful');
+        toast.success(data.message);
       } else {
-        // Handle error
-        console.error('Team registration failed');
+        toast.error(data.message)
       }
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -121,7 +121,7 @@ export function Create_opportunity() {
       };
       reader.readAsDataURL(file);
     }
-  };  return (
+  }; return (
     <div className="max-w-4xl mx-auto p-6 ">
       <div className="flex items-center justify-between border-b pb-4">
         {/* Your navigation buttons */}
@@ -133,59 +133,59 @@ export function Create_opportunity() {
       <div className="mt-6 ">
         <h1 className="text-2xl font-semibold mb-6">Basic Details</h1>
         <div >
-       
-        <input
-          type="file"
-          id="image"
-          accept="image/jpg, image/png image/jpeg"
-          onChange={handleImageChange}
-          className="mb-4 mt-3 hidden"
-         
-        />
-         <label htmlFor="image">Change opportunity logo</label>
-      </div>
-      {image && (
-       <div className="mb-5" style={{ width: '250px', height: '150px',borderRadius:'10%', overflow: 'hidden', border: '2px dashed black' }}>
-       <img src={image } alt="Uploaded" style={{ width: '100%', height: '100%', objectFit: 'cover' , }} />
-   </div>
-      )}
+
+          <input
+            type="file"
+            id="image"
+            accept="image/jpg, image/png image/jpeg"
+            onChange={handleImageChange}
+            className="mb-4 mt-3 hidden"
+
+          />
+          <label htmlFor="image">Change opportunity logo</label>
+        </div>
+        {image && (
+          <div className="mb-5" style={{ width: '250px', height: '150px', borderRadius: '10%', overflow: 'hidden', border: '2px dashed black' }}>
+            <img src={image} alt="Uploaded" style={{ width: '100%', height: '100%', objectFit: 'cover', }} />
+          </div>
+        )}
         <form onSubmit={handleSubmit}>
 
 
           <div className="grid gap-6">
             <div>
-            <label htmlFor="name">Name</label>
-            <Input id="name" placeholder="Name" type="text" onChange={handleChange} />
+              <label htmlFor="name">Name</label>
+              <Input id="name" placeholder="Name" type="text" onChange={handleChange} />
             </div>
-           
+
             <Input id="regDeadline" placeholder="Registration Deadline" type="date" onChange={handleChange} />
-           
-            <Input id="eligibility[yearOfGraduation]" placeholder="Year of Graduation" type="number" onChange={handleChange} />
-            <Input id="eligibility[age]" placeholder="Age" type="number" onChange={handleChange} />
-            <Input id="eligibility[teamMembersNumber]" placeholder="Team Members Number" type="number" onChange={handleChange} />
-            
-                  <div className="flex items-center space-x-4">
-        <input
-          type="checkbox"
-          id="eligibility[interYearAllowed]"
-          checked={formData.interYearAllowed}
-          onChange={handleChange}
-        />
-        <label className="text-sm font-medium leading-none" htmlFor="eligibility[interYearAllowed]">
-          Inter-year allowed?
-        </label>
-      </div>
-      <div className="flex items-center space-x-4">
-        <input
-          type="checkbox"
-          id="eligibility[interCollegeAllowed]"
-          checked={formData.interCollegeAllowed}
-          onChange={handleChange}
-        />
-        <label className="text-sm font-medium leading-none" htmlFor="interCollegeAllowed">
-          Inter-college allowed?
-        </label>
-      </div>
+
+            <Input id="eligibilityyearOfGraduation" placeholder="Year of Graduation" type="number" onChange={handleChange} />
+            <Input id="eligibilityage" placeholder="Age" type="number" onChange={handleChange} />
+            <Input id="eligibilityteamMembersNumber" placeholder="Team Members Number" type="number" onChange={handleChange} />
+
+            <div className="flex items-center space-x-4">
+              <input
+                type="checkbox"
+                id="eligibility[interYearAllowed]"
+                checked={formData.interYearAllowed}
+                onChange={handleChange}
+              />
+              <label className="text-sm font-medium leading-none" htmlFor="eligibility[interYearAllowed]">
+                Inter-year allowed?
+              </label>
+            </div>
+            <div className="flex items-center space-x-4">
+              <input
+                type="checkbox"
+                id="eligibility[interCollegeAllowed]"
+                checked={formData.interCollegeAllowed}
+                onChange={handleChange}
+              />
+              <label className="text-sm font-medium leading-none" htmlFor="interCollegeAllowed">
+                Inter-college allowed?
+              </label>
+            </div>
 
             <Textarea id="description" placeholder="Description" onChange={handleChange} />
             <div>
@@ -193,41 +193,41 @@ export function Create_opportunity() {
                 Timeline (Multiple rounds with each round having a. Description b. last date c. Results)
               </label>
               <div className="grid gap-4">
-              {formData.rounds.map((round, index) => (
-        <div key={index}>
-          <h3>Round {index + 1}</h3>
-          <Textarea
-            type="text"
-            value={round.description}
-            onChange={(e) => handleRoundChange(index, 'description', e.target.value)}
-            placeholder="Description"
-          />
-          <br></br>
-          <div className="flex gap-4">
-          <Input
-            type="date"
-            value={round.lastDate}
-            onChange={(e) => handleRoundChange(index, 'lastDate', e.target.value)}
-            placeholder="Last Date"
-          />
-          <Input
-            type="text"
-            value={round.result}
-            onChange={(e) => handleRoundChange(index, 'result', e.target.value)}
-            placeholder="Result"
-          />
-          </div>
-          {/* <button type="button" onClick={() => removeRound(index)}>
+                {formData.rounds.map((round, index) => (
+                  <div key={index}>
+                    <h3>Round {index + 1}</h3>
+                    <Textarea
+                      type="text"
+                      value={round.description}
+                      onChange={(e) => handleRoundChange(index, 'description', e.target.value)}
+                      placeholder="Description"
+                    />
+                    <br></br>
+                    <div className="flex gap-4">
+                      <Input
+                        type="date"
+                        value={round.lastDate}
+                        onChange={(e) => handleRoundChange(index, 'lastDate', e.target.value)}
+                        placeholder="Last Date"
+                      />
+                      <Input
+                        type="text"
+                        value={round.result}
+                        onChange={(e) => handleRoundChange(index, 'result', e.target.value)}
+                        placeholder="Result"
+                      />
+                    </div>
+                    {/* <button type="button" onClick={() => removeRound(index)}>
             Remove Round
           </button> */}
-        </div>
-      ))}
-      {formData.rounds.length < 4 && (
-        <button type="button" onClick={addRound}>
-          Add Round
-        </button>
-      )}
-     
+                  </div>
+                ))}
+                {formData.rounds.length < 4 && (
+                  <button type="button" onClick={addRound}>
+                    Add Round
+                  </button>
+                )}
+
               </div>
             </div>
             <div>
@@ -271,12 +271,12 @@ export function Create_opportunity() {
 
             <Textarea id="rewards" placeholder="Rewards (description)" onChange={handleChange} />
             {/* <Textarea name="FAQs" placeholder="FAQs" onChange={handleChange} /> */}
-            <Input id="organizerContact" placeholder="Organizer Contact" type="text" onChange={handleChange} />
+            <Input id="contactDetails" placeholder="Organizer Contact" type="text" onChange={handleChange} />
 
             <button type="submit" className="mt-4">Next</button>
           </div>
         </form>
-        
+
       </div>
     </div>
   );

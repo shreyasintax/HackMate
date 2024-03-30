@@ -14,11 +14,14 @@ import { HomePage }from './components/component/HomePage';
 import AcceptOpportunity from './components/component/acceptOpportunity';
 import { Information } from './components/component/Information';
 
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
 
   return (
     <Router>
+      <ToastContainer />
       <Routes>
         <Route path="*" element={<RegistrationForm/>} />
         <Route path="/login" element={<Login/>} />
