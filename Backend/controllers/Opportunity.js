@@ -16,10 +16,9 @@ exports.addOpportunity = async (req, res) => {
             contactDetails,
             eligibility,
             noOfRounds,
-            r1, r2, r3, r4
+            rounds
         } = req.body;
 
-        console.log(eligibility);
         if (
             !name ||
             !regDeadline ||
@@ -29,7 +28,8 @@ exports.addOpportunity = async (req, res) => {
             !FAQs ||
             !contactDetails ||
             !eligibility ||
-            !noOfRounds
+            !noOfRounds ||
+            !rounds
             // Add other required fields from req.body
         ) {
             console.log("Fill all required details");
@@ -39,36 +39,16 @@ exports.addOpportunity = async (req, res) => {
             });
         }
         let teamArray = [];
-
-        const roundArray = [];
-        if (r1) {
-            roundArray.push(r1)
-        } if (r2) {
-            roundArray.push(r2)
-        }
-        if (r3) {
-            roundArray.push(r3)
-        }
-        if (r4) {
-            roundArray.push(r4)
-        }
-
         let newTimeline = [];
-        for (let i = 0; i < roundArray.length; i++) {
+        for (let i = 0; i < rounds.length; i++) {
             let newRound = await Round.create({
-                description: roundArray[i].description,
-                resultDate: roundArray[i].resultDate,
-                deadline: roundArray[i].deadline
+                description: rounds[i].description,
+                resultDate: rounds[i].resultDate,
+                deadline: rounds[i].deadline
             })
             newTimeline.push(newRound._id);
         }
 
-        let faqArray = [];
-        faqArray.push({
-            question: FAQs.question,
-            answer: FAQs.answer
-        }
-        )
         const opportunity = await Opportunity.create({
             name,
             regDeadline,

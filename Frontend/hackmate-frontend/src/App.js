@@ -13,7 +13,7 @@ import PreRegistration from './components/component/PreRegistration';
 import { HomePage }from './components/component/HomePage';
 import AcceptOpportunity from './components/component/acceptOpportunity';
 import { Information } from './components/component/Information';
-
+// import NotFoundPage from './components/component/NotFoundPage';
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
@@ -34,7 +34,7 @@ function App() {
         <Route path = "/prereg" element={<PreRegistration/>} />
         <Route path = "/" element={<HomePage/>} />
         <Route path="/about" element={<Information/>}/>
-
+        {/* <Route path="*" element={<NotFoundPage/>} /> */}
         
         {/* <Route path = "/acceptPage/:teamId" element = {<AcceptOpportunity/>}/> */}
 
