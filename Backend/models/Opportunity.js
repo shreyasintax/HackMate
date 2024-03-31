@@ -32,7 +32,7 @@ const opportunitySchema = new mongoose.Schema({
         }
     }],
     contactDetails: {
-        type: Number
+        type: String
     },
     eligibility: {
         yearOfGraduation: {
