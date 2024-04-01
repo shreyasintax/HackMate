@@ -8,53 +8,44 @@ import Cookies from 'js-cookie'; // Or use document.cookie
 
 
 export function Profile({ user, children }) {
-  const [profileData, setProfileData] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const data = localStorage.getItem('jwtToken');
-  console.log(data.user);
-  function getUserToken() {
-    const data = localStorage.getItem('jwtToken');
-    console.log(data);
-    if (data) {
-      const tokenObj = JSON.parse(data);
-      return tokenObj.token;
-    }
-    return null;
-  }
-  async function fetchProfileData(token) {
-    try {
-        const response = await fetch('http://localhost:8080/hackmate/v1/user', {
-          method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-            },
-        });
-        console.log(`Bearer ${token}`);
-        if (!response.ok) {
-            throw new Error('Failed to fetch user data');
-        }
+  const [profileData, setprofileData] = useState(null);
+    const [error, setError] = useState('');
 
-        const data = await response.json();
-        console.log(data); // Assuming you want to log the fetched data
-        setProfileData(data); // Assuming setProfileData is a function to update state
-    } catch (error) {
-        console.error('Error fetching user data:', error);
-    }
-}
-
-    
     useEffect(() => {
-      const token = getUserToken();
-      console.log("token:", token);
-      if (token) {
-        fetchProfileData(token);
-      }
-    }, [isLoggedIn]);
-    
-    if (!profileData) {
-      return <div>Loading...</div>; // Or any loading indicator you prefer
+        const fetchprofileData = async () => {
+            try {
+                const response = await fetch('http://localhost:8080/hackmate/v1/user', {
+                    method: 'GET', // Explicitly stating the method, though 'GET' is default
+                    credentials: 'include', // Essential for sending cookies over CORS
+                    headers: {
+                        'Content-Type': 'application/json',
+                        // any other headers
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+                console.log(data.user);
+                setprofileData(data.user);
+            } catch (error) {
+                setError(error.message);
+            }
+        };
+
+        fetchprofileData();
+    }, []);
+    console.log("Profile Data:", profileData);
+    if (error) {
+        return <div>Error: {error}</div>;
     }
+
+    if (!profileData) {
+        return <div>Loading profile...</div>;
+    }
+
 
   return (
     <div className="w-full bg-gray-100 ">
@@ -70,44 +61,44 @@ export function Profile({ user, children }) {
                 <img className="object-cover object-center h-32" src='https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ' alt='Woman looking front' />
               </div>
               <div className="text-center mt-2">
-                <h2 className="font-semibold">{profileData.name}</h2>
+                <h2 className="font-semibold">{profileData?.firstName} {profileData?.lastName}</h2>
                 <p className="text-gray-500">username</p>
               </div>
               <div className="space-y-4">
-                <div>
+                {/* <div>
                   <h2 className="font-semibold text-lg">General Interests (Themes)</h2>
-                  <p className="text-sm">{profileData.interests}</p>
-                </div>
-                <div>
+                  <p className="text-sm">{profileData?.interests}</p>
+                </div> */}
+                {/* <div>
                   <h2 className="font-semibold text-lg">Education</h2>
-                  <p className="text-sm">Graduation Year: {profileData.graduationYear}</p>
-                  <p className="text-sm">Degree: {profileData.degree}</p>
-                  <p className="text-sm">College Name: {profileData.collegeName}</p>
-                </div>
+                  <p className="text-sm">Graduation Year: {profileData?.graduationYear}</p>
+                  <p className="text-sm">Degree: {profileData?.degree}</p>
+                  <p className="text-sm">College Name: {profileData?.collegeName}</p>
+                </div> */}
                 <div>
-                  <h2 className="font-semibold text-lg">Skills</h2>
+                  <h2 className="font-semibold text-lg">Hard Skills</h2>
                   {/* display skills */}
                   <div className="space-x-2 space-y-2">
 
-                    {profileData.skills.map((skill, index) => (
+                    {profileData?.hardSkills.map((skill, index) => (
                       <Button key={index} className="text-sm rounded-lg border-gray-500" variant="outline">{skill}</Button>
                     ))}
                   </div>
                 </div>
-                <div>
+                {/* <div>
                   <h2 className="font-semibold text-lg">Personal Info</h2>
-                  {/* Display personal info */}
+                  
                   {Object.entries(profileData.personalInfo).map(([key, value]) => (
                     <p key={key} className="text-sm">{key}: {value}</p>
                   ))}
-                </div>
-                <div>
+                </div> */}
+                {/* <div>
                   <h2 className="font-semibold text-lg">Location</h2>
-                  {/* Display location */}
+                  
                   {Object.entries(profileData.location).map(([key, value]) => (
                     <p key={key} className="text-sm">{key}: {value}</p>
                   ))}
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="flex-col w-1/2">
@@ -122,9 +113,9 @@ export function Profile({ user, children }) {
                     <i class="fa-regular fa-envelope"></i>
                     <span className="text-gray-500"> Email</span>
                     <Link className="block text-sm   text-blue-600" href="#">
-                      {profileData.Email}
+                      {profileData?.email}
                     </Link></div>
-                  <div className="flex gap-2  items-center mb-3"><i class="fa-brands fa-linkedin"></i><span className="text-gray-500">LinkedIn</span>
+                  {/* <div className="flex gap-2  items-center mb-3"><i class="fa-brands fa-linkedin"></i><span className="text-gray-500">LinkedIn</span>
 
                     <Link t0="#" className="block text-sm text-blue-600" >
                       {profileData.Linkedin}
@@ -134,7 +125,7 @@ export function Profile({ user, children }) {
 
                     <Link className="block text-sm text-blue-600" href="#">
                       {profileData.Github}
-                    </Link></div>
+                    </Link></div> */}
 
 
                 </div>
