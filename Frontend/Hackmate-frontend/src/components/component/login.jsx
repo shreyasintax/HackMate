@@ -33,11 +33,12 @@ export function Login() {
         body: JSON.stringify({ email, password }),
       });
       const data = await response.json();
-      localStorage.setItem('jwtToken', data.token);
-      console.log(data.token); 
-      console.log(response);
+      // localStorage.setItem('jwtToken', data);
+      // console.log(data.token); 
+      // console.log(response);
       if (response.ok) {
         // Handle success
+        localStorage.setItem('jwtToken', JSON.stringify(data));
         toast.success(data.message);
         navigate('/');
       } else {

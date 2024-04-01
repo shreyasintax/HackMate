@@ -4,31 +4,57 @@ import { Textarea } from "../ui/textarea";
 import { AvatarImage, AvatarFallback, Avatar } from "../component/avatar";
 import { Button } from '../ui/button';
 import { toast } from 'react-toastify';
+import Cookies from 'js-cookie'; // Or use document.cookie
+
 
 export function Profile({ user, children }) {
   const [profileData, setProfileData] = useState(null);
-
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const data = localStorage.getItem('jwtToken');
+  console.log(data.user);
+  function getUserToken() {
+    const data = localStorage.getItem('jwtToken');
+    console.log(data);
+    if (data) {
+      const tokenObj = JSON.parse(data);
+      return tokenObj.token;
+    }
+    return null;
+  }
+  async function fetchProfileData(token) {
+    try {
         const response = await fetch('http://localhost:8080/hackmate/v1/user', {
           method: 'GET',
-          credentials: 'include', 
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
         });
-        const data = await response.json();
-        console.log(data.user);
-        if (response.ok) {
-          setProfileData(data.user);
-          toast.success(data.message);
-        } else {
-          toast.error(data.message);
+        console.log(`Bearer ${token}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch user data');
         }
-      } catch (error) {
-        console.error('Error fetching profile data:', error);
+
+        const data = await response.json();
+        console.log(data); // Assuming you want to log the fetched data
+        setProfileData(data); // Assuming setProfileData is a function to update state
+    } catch (error) {
+        console.error('Error fetching user data:', error);
+    }
+}
+
+    
+    useEffect(() => {
+      const token = getUserToken();
+      console.log("token:", token);
+      if (token) {
+        fetchProfileData(token);
       }
-    };
-    fetchProfile();
-  }, []); 
+    }, [isLoggedIn]);
+    
+    if (!profileData) {
+      return <div>Loading...</div>; // Or any loading indicator you prefer
+    }
 
   return (
     <div className="w-full bg-gray-100 ">
