@@ -5,8 +5,11 @@
  */
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
+import Logout from "./LogoutButton";
 
 export function HeroSection() {
+  const isAuthenticated = localStorage.getItem('jwtToken') !== null;
+  console.log(isAuthenticated);
   return (
       
     <div className="relative bg-[#CFF5E7] bg-cover   text-[#0D4C92]">
@@ -54,6 +57,7 @@ export function HeroSection() {
        <Link to = "/profile">
        <span className="hidden md:block text-[#CFF5E7] text-3xl hover:text-[#59C1BD]"><i class="fa-regular fa-user"></i></span>
        </Link>
+       {isAuthenticated? <Logout/> : <></>}
        </div>
       
      </div>
