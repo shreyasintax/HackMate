@@ -3,7 +3,7 @@ require("dotenv").config();
 
 exports.isOtpVerified = async (req, res, next) => {
     try {
-        const token = req.body.token  || req.cookies.otpCookie 
+        const token = req.body.token || req.cookies.otpCookie || req.header("Authorization")?.replace("Bearer ", "");
         console.log(req.cookies)
         console.log(token)
         if (!token) {
