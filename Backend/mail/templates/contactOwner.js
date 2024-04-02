@@ -1,6 +1,6 @@
-exports.contactUsEmail = (
-    email,
+exports.contactUsOwnerEmail = (
     fullName,
+    email,
     message,
 ) => {
     return `<!DOCTYPE html>
@@ -8,7 +8,7 @@ exports.contactUsEmail = (
     
     <head>
         <meta charset="UTF-8">
-        <title>Contact Form Confirmation</title>
+        <title>New Contact Us Submission</title>
         <style>
             body {
                 background-color: #ffffff;
@@ -19,7 +19,6 @@ exports.contactUsEmail = (
                 margin: 0;
                 padding: 0;
             }
-    
     
             .container {
                 max-width: 600px;
@@ -47,18 +46,6 @@ exports.contactUsEmail = (
                 margin-bottom: 20px;
             }
     
-            .cta {
-                display: inline-block;
-                padding: 10px 20px;
-                background-color: #FFD60A;
-                color: #000000;
-                text-decoration: none;
-                border-radius: 5px;
-                font-size: 16px;
-                font-weight: bold;
-                margin-top: 20px;
-            }
-    
             .support {
                 font-size: 14px;
                 color: #999999;
@@ -74,20 +61,17 @@ exports.contactUsEmail = (
     
     <body>
         <div class="container">
-            <a href="http://localhost:5173/"><img class="logo" src="https://res.cloudinary.com/dvu2ziiyz/image/upload/v1711437918/Images/Logo_eszqov.jpg" alt="HackMate Logo"></a>
-            <div class="message">Contact Form Confirmation</div>
+            <div class="message">New Contact Us Submission</div>
             <div class="body">
-                <p>Dear ${fullName},</p>
-                <p>Thank you for contacting us. We have received your message and will respond to you as soon as possible.
-                </p>
-                <p>Here are the details you provided:</p>
-                <p>Name: ${fullName}</p>
-                <p>Email: ${email}</p>
-                <p>Message: ${message}</p>
-                <p>We appreciate your interest and will get back to you shortly. </p>
+                <p>Hello,</p>
+                <p>You have received a new contact form submission:</p>
+                <p><strong>Name:</strong> ${fullName}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Message:</strong> ${message}</p>
+                <p>Please take appropriate action and respond to the inquiry promptly.</p>
             </div>
             <div class="support">If you have any further questions or need immediate assistance, please feel free to reach
-                out to us at <a href="mailto:hackmate287@gmail.com">info@hackmate.com</a>. We are here to help!</div>
+                out to the sender at <a href="mailto:${email}">${email}</a>.</div>
         </div>
     </body>
     
