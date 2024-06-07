@@ -93,11 +93,12 @@ export function Registration({ formData, setFormData, onNext }) {
           <CardContent>
             <form onSubmit={handleSubmit}>
               <div className="grid w-full gap-4">
-                <div className="flex flex-col space-y-1.5">
+                <div className="flex flex-col space-y-3">
                   <Input placeholder="First Name" value={formData.firstName} onChange={handleChange} name="firstName" />
                   <Input placeholder="Last Name" value={formData.lastName} onChange={handleChange} name="lastName" />
+                  <Input placeholder="Email" value={formData.email} onChange={handleChange} name="email" />
                 </div>
-                <Input placeholder="Email" value={formData.email} onChange={handleChange} name="email" />
+                
                 {
                   isOtpSent ? (
                     <div className="flex space-x-2">
@@ -116,14 +117,14 @@ export function Registration({ formData, setFormData, onNext }) {
                           />
                         ))
                       }
-                      <Button onClick={handleVerifyOtp} type="button">Submit OTP</Button>
+                      <Button className="w-1/2 bg-blue-600 text-white mx-auto" onClick={handleVerifyOtp} type="button">Submit OTP</Button>
                     </div>
                   ) : (
-                    <Button onClick={handleSendOtp} type="button">Send OTP</Button>
+                    <Button className="w-1/2 bg-blue-600 text-white mx-auto" onClick={handleSendOtp} type="button">Send OTP</Button>
                   )
                 }
                 <div className="flex space-x-4" >
-                  <Select >
+                  {/* <Select >
                     <SelectTrigger id="country-code">
                       <SelectValue>+91</SelectValue>
                     </SelectTrigger>
@@ -131,7 +132,13 @@ export function Registration({ formData, setFormData, onNext }) {
                       <SelectItem value="+1">+1</SelectItem>
                       <SelectItem value="+91">+91</SelectItem>
                     </SelectContent>
-                  </Select>
+                  </Select> */}
+                  <select id="country-code" className="p-2 rounded-md w-72">
+              <option value="+91">+91</option>
+              <option value="+1">+1</option>
+              <option value="+49">+49</option>
+              
+            </select>
                   <Input className="" placeholder="Phone" value={formData.contactNumber} onChange={handleChange} name="contactNumber" />
                 </div>
                 <Input placeholder="Password" type="password" value={formData.password} onChange={handleChange} name="password" />
@@ -187,7 +194,7 @@ export function Onboarding({ formData, setFormData, onSubmit }) {
           <Input id="soft-skills" placeholder="Enter your soft skills" value={formData.softSkills} onChange={handleChange} name="softSkills" />
         </div>
         <div className="space-y-2 mt-4">
-          <Label htmlFor="hard-skills">HardSkills</Label>
+          <Label htmlFor="hard-skills">Hard Skills</Label>
           <Input id="hard-skills" placeholder="Enter your hard skills" value={formData.hardSkills} onChange={handleChange} name="hardSkills" />
         </div>
         <div className="grid grid-cols-3 items-start gap-4">
@@ -206,11 +213,16 @@ export function Onboarding({ formData, setFormData, onSubmit }) {
         </div>
         <div className="space-y-2 mt-4">
           <Label htmlFor="accountType">Account Type</Label>
-          <Input id="accountType" value={formData.accountType} onChange={handleChange} name="accountType" />
+          <br></br>
+          {/* <Input id="accountType" value={formData.accountType} onChange={handleChange} name="accountType" /> */}
+          <select id="accountType" value={formData.accountType} onChange={handleChange} name="accountType" className="p-2 rounded-md w-72">
+              <option value="participant">Participant</option>
+              <option value="organizer">Organizer</option>
+            </select>
         </div>
         <div className="space-y-2 mt-4">
           <Label htmlFor="dateOfBirth">Date of Birth</Label>
-          <Input id="dateOfBirth" type="date" value={formData.dateOfBirth} onChange={handleChange} name="dateOfBirth" />
+          <Input className="p-2 rounded-md w-72" id="dateOfBirth" type="date" value={formData.dateOfBirth} onChange={handleChange} name="dateOfBirth" />
         </div>
         <div className="space-y-2 mt-4">
           <Label htmlFor="gender">Gender</Label>

@@ -9,7 +9,7 @@ import { CardTitle, CardHeader, CardContent, CardFooter, Card } from "../ui/card
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-export function Login() {
+export function OrganizerLogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -95,7 +95,7 @@ export function Login() {
           <CardFooter>
             <p className="mt-6 mb-6 text-center text-sm leading-5 text-gray-600">
               Don't have an account?
-              <Link to="/showSignup" className="ml-1 text-blue-600 hover:underline">
+              <Link to="/signup" className="ml-1 text-blue-600 hover:underline">
                 Sign Up
               </Link>
             </p>

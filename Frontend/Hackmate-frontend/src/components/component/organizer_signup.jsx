@@ -8,10 +8,29 @@ import { useState } from "react";
 import { Label } from "../ui/label"
 import { toast } from 'react-toastify';
 import { Textarea } from "../ui/textarea";
-export function Signup({ formData, setFormData, onNext }) {
+export function Signup({onNext }) {
     const [isOtpSent, setIsOtpSent] = useState(false);
     const [otp, setOtp] = useState("");
     const [isOtpVerified, setIsOtpVerified] = useState(false);
+    const [formData, setFormData] = useState({
+      firstName: '',
+      lastName: '',
+      email: '',
+      contactNumber: '',
+      password: '',
+      confirmPassword: '',
+      // accountType: '',
+      // state: '',
+      // city: '',
+      // softSkills: '',
+      // hardSkills: '',
+      // pinCode: '',
+      // dateOfBirth: '',
+      // linkedin: '',
+      // github: '',
+      // gender: '',
+      // description: ''
+    });
   
     const handleChange = (e) => {
       const { name, value } = e.target;
@@ -77,6 +96,12 @@ export function Signup({ formData, setFormData, onNext }) {
         toast.warn("Please verify OTP first")
       }
     };
+    const navigate = useNavigate();
+
+    const handleNext = useCallback(() => {
+      console.log(formData);
+      navigate("/");
+    }, [navigate])
   
     return (
       <div className="min-h-screen bg-gray-100 flex">
@@ -91,11 +116,12 @@ export function Signup({ formData, setFormData, onNext }) {
             <CardContent>
               <form onSubmit={handleSubmit}>
                 <div className="grid w-full gap-4">
-                  <div className="flex flex-col space-y-1.5">
+                  <div className="flex flex-col space-y-3">
                     <Input placeholder="First Name" value={formData.firstName} onChange={handleChange} name="firstName" />
                     <Input placeholder="Last Name" value={formData.lastName} onChange={handleChange} name="lastName" />
+                    <Input placeholder="Email" value={formData.email} onChange={handleChange} name="email" />
                   </div>
-                  <Input placeholder="Email" value={formData.email} onChange={handleChange} name="email" />
+                  
                   {
                     isOtpSent ? (
                       <div className="flex space-x-2">
@@ -114,28 +140,26 @@ export function Signup({ formData, setFormData, onNext }) {
                             />
                           ))
                         }
-                        <Button onClick={handleVerifyOtp} type="button">Submit OTP</Button>
+                        <Button onClick={handleVerifyOtp} type="button" className="w-1/2 bg-blue-600 text-white mx-auto">Submit OTP</Button>
                       </div>
                     ) : (
-                      <Button onClick={handleSendOtp} type="button">Send OTP</Button>
+                      <Button className="w-1/2 bg-blue-600 text-white mx-auto" onClick={handleSendOtp} type="button" >Send OTP</Button>
                     )
                   }
                   <div className="flex space-x-4" >
-                    <Select >
-                      <SelectTrigger id="country-code">
-                        <SelectValue>+91</SelectValue>
-                      </SelectTrigger>
-                      <SelectContent position="popper">
-                        <SelectItem value="+1">+1</SelectItem>
-                        <SelectItem value="+91">+91</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    
+                    <select id="country-code" className="p-2 rounded-md w-72">
+              <option value="+91">+91</option>
+              <option value="+1">+1</option>
+              <option value="+49">+49</option>
+              
+            </select>
                     <Input className="" placeholder="Phone" value={formData.contactNumber} onChange={handleChange} name="contactNumber" />
                   </div>
                   <Input placeholder="Password" type="password" value={formData.password} onChange={handleChange} name="password" />
                   <Input placeholder="Confirm Password" type="password" value={formData.confirmPassword} onChange={handleChange} name="confirmPassword" />
                 </div>
-                <Button type="submit" className="w-1/2 bg-blue-600 text-white mt-2" disabled={!isOtpVerified}>
+                <Button onclick={handleNext} type="submit" className="w-1/2 bg-blue-600 text-white mt-2" disabled={!isOtpVerified}>
                   Next
                 </Button>
               </form>
@@ -143,7 +167,7 @@ export function Signup({ formData, setFormData, onNext }) {
             <CardFooter className="flex justify-between">
               <div>
                 Already have an account?
-                <Link to="/login" className="ml-2 text-blue-600 hover:underline">Login</Link>
+                <Link to="/organizer_login" className="ml-2 text-blue-600 hover:underline">Login</Link>
               </div>
             </CardFooter>
           </Card>
@@ -151,3 +175,4 @@ export function Signup({ formData, setFormData, onNext }) {
       </div>
     );
   }
+  export default Signup;
