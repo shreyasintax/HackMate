@@ -16,6 +16,7 @@ import { Information } from './components/component/Information';
 // import NotFoundPage from './components/component/NotFoundPage';
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import { Signup } from './components/component/signup';
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
         <Route path = "/prereg" element={<PreRegistration/>} />
         <Route path = "/" element={<HomePage/>} />
         <Route path="/about" element={<Information/>}/>
+        <Route path="/signup" element={<Signup/>}/>
         {/* <Route path="*" element={<NotFoundPage/>} /> */}
         
         {/* <Route path = "/acceptPage/:teamId" element = {<AcceptOpportunity/>}/> */}

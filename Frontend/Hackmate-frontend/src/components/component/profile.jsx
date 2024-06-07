@@ -4,7 +4,7 @@ import { Textarea } from "../ui/textarea";
 import { AvatarImage, AvatarFallback, Avatar } from "../component/avatar";
 import { Button } from '../ui/button';
 import { toast } from 'react-toastify';
-import Cookies from 'js-cookie'; // Or use document.cookie
+// import Cookies from 'js-cookie'; // Or use document.cookie
 
 
 export function Profile({ user, children }) {

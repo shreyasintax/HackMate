@@ -1,4 +1,5 @@
 
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from "../ui/button";
@@ -54,7 +55,8 @@ export function Login() {
     <div className="flex min-h-screen bg-gray-100">
       <div className="flex w-1/2 items-center justify-center p-12">
         {/* Left side content */}
-        <img src="image1.png"></img>
+        {/* <img src="image1.png"></img> */}
+        <img src="/image1.png" alt="background image" className="object-cover w-full h-full" />
       </div>
       <div className="flex  w-1/2 items-center justify-center bg-white p-12">
         <Card className="w-[500px] bg-blue-100  ">

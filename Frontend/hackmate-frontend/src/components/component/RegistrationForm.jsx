@@ -1,7 +1,4 @@
-/**
- * 
- * @see https://v0.dev/t/OOViYtzSwRj
- */
+
 import React, { useCallback } from "react"
 import { Button } from "../ui/button"
 import { CardTitle, CardHeader, CardContent, CardFooter, Card } from "../ui/card"
@@ -11,6 +8,7 @@ import { BrowserRouter as Router, Link, Route, Routes, Navigate, useNavigate } f
 import { useState } from "react";
 import { Label } from "../ui/label"
 import { toast } from 'react-toastify';
+import { Textarea } from "../ui/textarea";
 
 export function Registration({ formData, setFormData, onNext }) {
   const [isOtpSent, setIsOtpSent] = useState(false);
@@ -83,11 +81,11 @@ export function Registration({ formData, setFormData, onNext }) {
   };
 
   return (
-    <div className="min-h-screen bg-white flex">
+    <div className="min-h-screen bg-gray-100 flex">
       <div className="flex-1 flex flex-col justify-between p-10">
         <img src="/image1.png" alt="background image" className="object-cover w-full h-full" />
       </div>
-      <div className="flex-1 flex items-center justify-center p-10">
+      <div className="flex-1 flex items-center justify-center  bg-white p-10">
         <Card className="w-[500px] bg-blue-100">
           <CardHeader>
             <CardTitle>Ready to Be Unstoppable! Create an account</CardTitle>
@@ -124,8 +122,8 @@ export function Registration({ formData, setFormData, onNext }) {
                     <Button onClick={handleSendOtp} type="button">Send OTP</Button>
                   )
                 }
-                <div className="flex space-x-2">
-                  <Select>
+                <div className="flex space-x-4" >
+                  <Select >
                     <SelectTrigger id="country-code">
                       <SelectValue>+91</SelectValue>
                     </SelectTrigger>
@@ -176,7 +174,7 @@ export function Onboarding({ formData, setFormData, onSubmit }) {
     onSubmit(); // Call the onNext function to handle the form submission
   };
   return (
-    <div className="mx-auto max-w-3xl space-y-8 p-6">
+    <div className="mx-auto max-w-4xl space-y-8 p-5 bg-blue-100 ">
       <div className="space-y-2 text-center">
         <h1 className="text-4xl font-extrabold tracking-tight leading-tight">Welcome to the Community</h1>
         <p className="text-gray-500 dark:text-gray-400">
@@ -184,53 +182,63 @@ export function Onboarding({ formData, setFormData, onSubmit }) {
         </p>
       </div>
       <form onSubmit={handleSubmit}>
-        <div className="space-y-2">
-          <Label htmlFor="soft-skills">Soft Skills</Label>
+        <div className="space-y-2 mt-4">
+          <Label htmlFor="soft-skills" >Soft Skills</Label>
           <Input id="soft-skills" placeholder="Enter your soft skills" value={formData.softSkills} onChange={handleChange} name="softSkills" />
         </div>
-        <div className="space-y-2">
+        <div className="space-y-2 mt-4">
           <Label htmlFor="hard-skills">HardSkills</Label>
           <Input id="hard-skills" placeholder="Enter your hard skills" value={formData.hardSkills} onChange={handleChange} name="hardSkills" />
         </div>
         <div className="grid grid-cols-3 items-start gap-4">
-          <div className="space-y-2">
+          <div className="space-y-2 mt-4">
             <Label htmlFor="city">City</Label>
             <Input id="city" placeholder="Enter your city" value={formData.city} onChange={handleChange} name="city" />
           </div>
-          <div className="space-y-2">
+          <div className="space-y-2 mt-4">
             <Label htmlFor="state">State</Label>
             <Input id="state" placeholder="Enter your state" value={formData.state} onChange={handleChange} name="state" />
           </div>
-          <div className="space-y-2">
+          <div className="space-y-2 mt-4">
             <Label htmlFor="pinCode">Pincode</Label>
             <Input id="pinCode" placeholder="Enter your pinCode" value={formData.pinCode} onChange={handleChange} name="pinCode" />
           </div>
         </div>
-        <div className="space-y-2">
+        <div className="space-y-2 mt-4">
           <Label htmlFor="accountType">Account Type</Label>
           <Input id="accountType" value={formData.accountType} onChange={handleChange} name="accountType" />
         </div>
-        <div className="space-y-2">
+        <div className="space-y-2 mt-4">
           <Label htmlFor="dateOfBirth">Date of Birth</Label>
           <Input id="dateOfBirth" type="date" value={formData.dateOfBirth} onChange={handleChange} name="dateOfBirth" />
         </div>
-        <div className="space-y-2">
+        <div className="space-y-2 mt-4">
           <Label htmlFor="gender">Gender</Label>
-          <Input id="gender" value={formData.gender} onChange={handleChange} name="gender" />
+          <br></br>
+          {/* <Input id="gender" value={formData.gender} onChange={handleChange} name="gender" /> */}
+          <select id="gender" value={formData.gender} onChange={handleChange} name="gender" className="p-2 rounded-md w-72">
+              <option value="Other">Other</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              {/* <option value="jpg">JPG</option> */}
+            </select>
         </div>
-        <div className="space-y-2">
+        <div className="space-y-2 mt-4">
           <Label htmlFor="github">Github</Label>
           <Input id="github" value={formData.github} onChange={handleChange} name="github" />
         </div>
-        <div className="space-y-2">
+        <div className="space-y-2 mt-4">
           <Label htmlFor="linkedin">Linkedin</Label>
           <Input id="linkedin" value={formData.linkedin} onChange={handleChange} name="linkedin" />
         </div>
-        <div className="space-y-2">
+        <div className="space-y-2 mt-4">
           <Label htmlFor="description">Description</Label>
-          <Input id="description" value={formData.description} onChange={handleChange} name="description" />
+          {/* <Input id="description" value={formData.description} onChange={handleChange} name="description" /> */}
+          <Textarea className="mb-2" placeholder="Description" value={formData.description} onChange={handleChange} name="description"></Textarea>
         </div>
-        <button type="submit">Save & Continue</button>
+        <div className="mt-4 flex justify-end"><button type="submit">Save & Continue</button>
+        </div>
+        
       </form>
     </div>
   );
