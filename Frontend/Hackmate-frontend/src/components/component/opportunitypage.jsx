@@ -19,15 +19,15 @@ export function OpportunityPage() {
         }
         const data = await response.json();
         setOpportunityData(data.opportunity);
-        // console.log(data.opportunity);
+        console.log(data.opportunity);
         // Extract round IDs from opportunity data
-        const roundDetails = data.opportunity.timeline.map(round => ({
-          id: round._id,
-          description: round.description,
-          resultDate: round.resultDate,
-        }));
+        // const roundDetails = data.opportunity.timeline.map(round => ({
+        //   id: round._id,
+        //   description: round.description,
+        //   resultDate: round.resultDate,
+        // }));
 
-        setRoundDetails(roundDetails);
+        // setRoundDetails(roundDetails);
         // Now you can use roundIds as needed
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -41,7 +41,7 @@ export function OpportunityPage() {
 
   return (
     <Routes>
-      <Route path="/" element={<Opportunity OpportunityData={opportunityData} rd={roundDetails} />} />
+      <Route path="/" element={<Opportunity OpportunityData={opportunityData} />} />
       <Route path="register_team" element={<TeamRegistration />} />
       <Route path="join_team" element={<Teams />} />
     </Routes>
