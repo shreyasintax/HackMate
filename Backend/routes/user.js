@@ -2,20 +2,25 @@ const express = require("express");
 const router = express.Router();
 
 const { getSingleUser, deleteProfile, addUser } = require("../controllers/Profile");
-const { login, sendOTP, verifyOtp } = require("../controllers/Auth");
-const { isOrganiser, isParticipant } = require("../middlewares/auth");
+const { login, sendOTP, verifyOtp, changePassword, contactUs } = require("../controllers/Auth");
 const { auth } = require("../middlewares/auth");
 const { isOtpVerified } = require("../middlewares/verifyOTP");
+const { resetPasswordToken, resetPassword } = require("../controllers/ResetPassword.js");
 
+router.get("/", auth, getSingleUser);
 
 router.post("/signup", isOtpVerified, addUser);
 router.post("/login", login);
-router.get("/", auth, getSingleUser);
+router.post("/changepassword", auth, changePassword);
 
 router.post("/sendOtp", sendOTP);
 router.post("/verifyOTP", verifyOtp);
 
+router.post("/contactUs", contactUs);
 router.delete("/:id", deleteProfile);
 
+
+router.post("/reset-password-token", resetPasswordToken);
+router.post("/reset-password", resetPassword);
 
 module.exports = router;

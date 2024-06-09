@@ -6,6 +6,8 @@ const otpGenerator = require("otp-generator");
 const OTP = require("../models/OTP");
 const mailSender = require("../utils/MailSender");
 const emailTemplate = require("../mail/templates/emailVerification");
+const { contactUsEmail } = require("../mail/templates/contactForm");
+const { contactUsOwnerEmail } = require("../mail/templates/contactOwner");
 
 exports.login = async (req, res) => {
     try {
@@ -45,7 +47,7 @@ exports.login = async (req, res) => {
             const options = {
                 expires: new Date(Date.now() + 3 * 24 * 60 * 50 * 1000), //3 days
                 httpOnly: true,
-                sameSite: 'strict' 
+                sameSite: 'strict'
             };
 
             res.cookie("hackMateCookie", token, options).status(200).json({
@@ -84,7 +86,7 @@ exports.sendOTP = async (req, res) => {
     const checkUserPresent = await User.findOne({ email });
 
     if (checkUserPresent) {
-        return res.status(409).json({ 
+        return res.status(409).json({
             success: false,
             message: "User already exists"
         });
@@ -111,13 +113,12 @@ exports.sendOTP = async (req, res) => {
     mailSender(email, "Verification Email", emailTemplate(otp));
     const otpBody = await OTP.create({ email, otp: hashedOTP });
 
-    return res.status(202).json({ 
+    return res.status(202).json({
         success: true,
         message: "OTP sent successfully",
         otp, // For testing purpose, otp is displayed
     });
 };
-
 
 exports.verifyOtp = async (req, res) => {
     try {
@@ -156,7 +157,7 @@ exports.verifyOtp = async (req, res) => {
             const options = {
                 expires: new Date(Date.now() + 3 * 24 * 60 * 50 * 1000), //3 days
                 httpOnly: true,
-                sameSite: 'strict' 
+                sameSite: 'strict'
             };
 
             res.cookie("otpCookie", token, options).status(200).json({
@@ -179,3 +180,105 @@ exports.verifyOtp = async (req, res) => {
         })
     }
 }
+
+exports.changePassword = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const { email, oldPassword, newPassword, confirmNewPassword } = req.body;
+
+        // Validation
+        if (!email || !oldPassword || !newPassword) {
+            return res.status(400).json({
+                success: false,
+                message: "All fields are required to change password"
+            });
+        }
+        if (confirmNewPassword && newPassword !== confirmNewPassword) {
+            return res.status(400).json({
+                success: false,
+                message: "NewPassword and ConfirmNewPassword do not match"
+            });
+        }
+        if (newPassword === oldPassword) {
+            return res.status(400).json({
+                success: false,
+                message: "New password and old password cannot be the same"
+            });
+        }
+
+        // Check if old password is valid
+        const userDetails = await User.findById(userId);
+        const isPasswordValid = await bcrypt.compare(oldPassword, userDetails.password);
+        
+        if (!isPasswordValid) {
+            return res.status(401).json({
+                success: false,
+                message: "The old password is incorrect"
+            });
+        }
+
+        // Update password in the database
+        const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+        const user = await User.findOneAndUpdate(
+            { email },
+            { password: hashedNewPassword },
+            { new: true, runValidators: true }
+        );
+
+        // Send mail notification that password updated
+        const mailResponse = await mailSender(
+            email,
+            "Password Changed",
+            `<p>Dear ${user.firstName} ${user.lastName}, Your password has been changed Successfully</p>`
+        );
+        
+        // Return response
+        res.status(200).json({
+            success: true,
+            message: "Password changed successfully",
+        });
+    } catch (error) {
+        console.error("Error occurred while changing password:", error);
+        res.status(500).json({
+            success: false,
+            message: "An unexpected error occurred while changing password"
+        });
+    }
+};
+
+exports.contactUs = async (req, res) => {
+    try {
+        const { firstName, lastName, email, message } = req.body;
+
+        // Validate form fields
+        if (!firstName || !email || !message) {
+            return res.status(400).json({
+                success: false,
+                message: "All fields are required"
+            });
+        }
+
+        let fullName = firstName;
+        if (lastName) {
+            fullName = `${firstName} ${lastName}`;
+        }
+        // Send email to user
+        await mailSender(email,"Thank you for contacting us",contactUsEmail(email,fullName,message));
+
+        // Send email to owner
+        await mailSender(process.env.OWNER_MAILS,"New Contact Us Submission",contactUsOwnerEmail(fullName,email,message));
+
+        return res.status(200).json({
+            success: true,
+            message: "Form submitted successfully"
+        });
+        
+    } catch (error) {
+        console.error("Error in contactUs function:", error);
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error"
+        });
+    }
+};
+
