@@ -2,7 +2,7 @@
  * 
  * @see https://v0.dev/t/OOViYtzSwRj
  */
-import React, { useCallback } from "react"
+import React, { useCallback, useEffect } from "react"
 import { Button } from "../ui/button"
 import { CardTitle, CardHeader, CardContent, CardFooter, Card } from "../ui/card"
 import { Input } from "../ui/input"
@@ -164,6 +164,14 @@ export function Registration({ formData, setFormData, onNext }) {
 
 
 export function Onboarding({ formData, setFormData, onSubmit }) {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem('jwtToken') !== null;
+    if (isAuthenticated) {
+      navigate('/');
+    }
+  }, [navigate]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({

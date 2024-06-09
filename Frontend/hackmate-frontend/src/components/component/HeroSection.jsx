@@ -48,16 +48,16 @@ export function HeroSection() {
        <Link to = "/opportunity_list">
        <span className="hidden md:block text-[#CFF5E7] hover:text-[#59C1BD]">Host</span>
        </Link>
-       <Link to = "/login">
+       {isAuthenticated? <Logout/> : <Link to = "/login">
        <span className="hidden md:block  text-[#CFF5E7] hover:text-[#59C1BD]">Login</span>
-       </Link>
+       </Link>}
        <Link to = "/opportunity_list">
        <span className="hidden md:block text-[#CFF5E7] text-3xl hover:text-[#59C1BD]"><i class="fa-regular fa-bell" ></i></span>
        </Link>
        <Link to = "/profile">
        <span className="hidden md:block text-[#CFF5E7] text-3xl hover:text-[#59C1BD]"><i class="fa-regular fa-user"></i></span>
        </Link>
-       {isAuthenticated? <Logout/> : <></>}
+       {/* {isAuthenticated? <Logout/> : <></>} */}
        </div>
       
      </div>

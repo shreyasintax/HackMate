@@ -9,7 +9,7 @@ const Logout = () => {
   };
 
   return (
-    <button onClick={handleLogout}>Logout</button>
+    <span className="hidden md:block  text-[#CFF5E7] hover:text-[#59C1BD]"><button onClick={handleLogout}>Logout</button></span>
   );
 };
 

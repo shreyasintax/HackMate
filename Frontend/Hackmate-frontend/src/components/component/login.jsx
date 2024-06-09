@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -9,9 +9,15 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 export function Login() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem('jwtToken') !== null;
+    if (isAuthenticated) {
+      navigate('/');
+    }
+  }, [navigate]);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
