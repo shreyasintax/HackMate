@@ -89,9 +89,15 @@ export function Registration({ formData, setFormData, onNext }) {
         <img src="/image1.png" alt="background image" className="object-cover w-full h-full" />
       </div>
       <div className="flex-1 flex items-center justify-center  bg-white p-10">
+        
         <Card className="w-[500px] bg-blue-100">
+          
           <CardHeader>
-            <CardTitle>Ready to Be Unstoppable! Create an account</CardTitle>
+            <CardTitle>Ready to Find Hackmate! Create an account</CardTitle><br></br>
+            <div className="flex gap-10">
+            <Link to="/showSignup" className=" bg-white p-3 rounded-3xl border-dashed border-gray-800 border-2 focus:border-gray-800"> Participant</Link>
+            <Link to="/signup"  className="  bg-white p-3 rounded-3xl border-dashed border-gray-200 border-2 focus:border-gray-800">Organizer</Link>
+            </div>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit}>
@@ -101,41 +107,7 @@ export function Registration({ formData, setFormData, onNext }) {
                   <Input placeholder="Last Name" value={formData.lastName} onChange={handleChange} name="lastName" />
                   <Input placeholder="Email" value={formData.email} onChange={handleChange} name="email" />
                 </div>
-                
-                {
-                  isOtpSent ? (
-                    <div className="flex space-x-2">
-                      {
-                        [...Array(6)].map((_, index) => (
-                          <Input
-                            key={index}
-                            placeholder="Enter OTP"
-                            maxLength="1"
-                            value={otp[index] || ""}
-                            onChange={(e) => {
-                              const newOtp = [...otp];
-                              newOtp[index] = e.target.value;
-                              setOtp(newOtp);
-                            }}
-                          />
-                        ))
-                      }
-                      <Button className="w-1/2 bg-blue-600 text-white mx-auto" onClick={handleVerifyOtp} type="button">Submit OTP</Button>
-                    </div>
-                  ) : (
-                    <Button className="w-1/2 bg-blue-600 text-white mx-auto" onClick={handleSendOtp} type="button">Send OTP</Button>
-                  )
-                }
                 <div className="flex space-x-4" >
-                  {/* <Select >
-                    <SelectTrigger id="country-code">
-                      <SelectValue>+91</SelectValue>
-                    </SelectTrigger>
-                    <SelectContent position="popper">
-                      <SelectItem value="+1">+1</SelectItem>
-                      <SelectItem value="+91">+91</SelectItem>
-                    </SelectContent>
-                  </Select> */}
                   <select id="country-code" className="p-2 rounded-md w-72">
               <option value="+91">+91</option>
               <option value="+1">+1</option>
@@ -147,9 +119,37 @@ export function Registration({ formData, setFormData, onNext }) {
                 <Input placeholder="Password" type="password" value={formData.password} onChange={handleChange} name="password" />
                 <Input placeholder="Confirm Password" type="password" value={formData.confirmPassword} onChange={handleChange} name="confirmPassword" />
               </div>
-              <Button type="submit" className="w-1/2 bg-blue-600 text-white mt-2" disabled={!isOtpVerified}>
+              {/* <Button type="submit" className="w-1/2 bg-blue-600 text-white mt-2" disabled={!isOtpVerified}>
                 Next
-              </Button>
+              </Button> */}
+               <div className="flex ">                  
+                  {
+                    isOtpSent ? (
+                      <div className="flex space-x-2">
+                        {
+                          [...Array(6)].map((_, index) => (
+                            <Input
+                              key={index}
+                              placeholder="Enter OTP"
+                              maxLength="1"
+                              value={otp[index] || ""}
+                              onChange={(e) => {
+                                const newOtp = [...otp];
+                                newOtp[index] = e.target.value;
+                                setOtp(newOtp);
+                              }}
+                            />
+                          ))
+                        }
+                        <Button onClick={handleVerifyOtp} type="button" className="w-1/3 bg-blue-600 text-white mx-auto mt-4">Submit OTP</Button>
+                      </div>
+                    ) : (
+                      <Button className="w-1/3 bg-blue-600 text-white mx-auto mt-4" onClick={handleSendOtp} type="button" >Verify Email</Button>
+                    )
+                  }
+                  <Button type="submit" className="w-1/2 bg-blue-600 text-white mt-4" disabled={!isOtpVerified}>
+                  Next
+                </Button></div>
             </form>
           </CardContent>
           <CardFooter className="flex justify-between">
@@ -227,8 +227,8 @@ export function Onboarding({ formData, setFormData, onSubmit }) {
           <br></br>
           {/* <Input id="accountType" value={formData.accountType} onChange={handleChange} name="accountType" /> */}
           <select id="accountType" value={formData.accountType} onChange={handleChange} name="accountType" className="p-2 rounded-md w-72">
-              <option value="participant">Participant</option>
-              <option value="organizer">Organizer</option>
+              <option value="Participant">Participant</option>
+              <option value="Organizer">Organizer</option>
             </select>
         </div>
         <div className="space-y-2 mt-4">

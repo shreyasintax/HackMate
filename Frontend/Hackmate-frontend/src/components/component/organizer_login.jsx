@@ -64,7 +64,7 @@ export function OrganizerLogin() {
             <CardTitle>Ready to Find Hackmate! Sign in</CardTitle>
           </CardHeader>
           <CardContent>
-            <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+            <form className="mt-6 space-y-6" onSubmit={handleSubmit}>
               <Input
                 placeholder="Email address"
                 type="email"

@@ -19,17 +19,17 @@ export function Signup({onNext }) {
       contactNumber: '',
       password: '',
       confirmPassword: '',
-      // accountType: '',
-      // state: '',
-      // city: '',
-      // softSkills: '',
-      // hardSkills: '',
-      // pinCode: '',
-      // dateOfBirth: '',
-      // linkedin: '',
-      // github: '',
-      // gender: '',
-      // description: ''
+      accountType: 'Organizer',
+      state: null,
+      city: null,
+      softSkills: null,
+      hardSkills: null,
+      pinCode: null,
+      dateOfBirth: null,
+      linkedin: null,
+      github: null,
+      gender: null,
+      description: null
     });
   
     const handleChange = (e) => {
@@ -100,9 +100,32 @@ export function Signup({onNext }) {
 
     const handleNext = useCallback(() => {
       console.log(formData);
+      handleSubmit2();
       navigate("/");
     }, [navigate])
-  
+    const handleSubmit2 = useCallback(async () => {
+      // Send formData to backend
+      console.log(formData);
+      try {
+        const response = await fetch('http://localhost:8080/hackmate/v1/user/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+          credentials: "include"
+        });
+        const data = await response.json();
+        if (response.ok) {
+          toast.success(data.message);
+          navigate("/login");
+        } else {
+          toast.error(data.message);
+        }
+      } catch (error) {
+        console.error('Error submitting email:', error);
+      }
+    }, [formData])
     return (
       <div className="min-h-screen bg-gray-100 flex">
         <div className="flex-1 flex flex-col justify-between p-10">
@@ -111,7 +134,11 @@ export function Signup({onNext }) {
         <div className="flex-1 flex items-center justify-center  bg-white p-10">
           <Card className="w-[500px] bg-blue-100">
             <CardHeader>
-              <CardTitle>Ready to Be Unstoppable! Create an account</CardTitle>
+              <CardTitle>Ready to Find Hackmate! Create an account</CardTitle>
+              <br></br> <div className="flex gap-10">
+            <Link to="/showSignup" className=" bg-white p-3 rounded-3xl border-dashed border-gray-200 border-2 focus:border-gray-800"> Participant</Link>
+            <Link to="/signup"  className="  bg-white p-3 rounded-3xl border-dashed border-gray-800 border-2 focus:border-gray-800">Organizer</Link>
+            </div>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit}>
@@ -121,7 +148,21 @@ export function Signup({onNext }) {
                     <Input placeholder="Last Name" value={formData.lastName} onChange={handleChange} name="lastName" />
                     <Input placeholder="Email" value={formData.email} onChange={handleChange} name="email" />
                   </div>
-                  
+
+                  <div className="flex space-x-4" >
+                    
+                    <select id="country-code" className="p-2 rounded-md w-72">
+              <option value="+91">+91</option>
+              <option value="+1">+1</option>
+              <option value="+49">+49</option>
+              
+            </select>
+                    <Input className="" placeholder="Phone" value={formData.contactNumber} onChange={handleChange} name="contactNumber" />
+                  </div>
+                  <Input placeholder="Password" type="password" value={formData.password} onChange={handleChange} name="password" />
+                  <Input placeholder="Confirm Password" type="password" value={formData.confirmPassword} onChange={handleChange} name="confirmPassword" />
+                </div>
+                <div className="flex ">                  
                   {
                     isOtpSent ? (
                       <div className="flex space-x-2">
@@ -140,28 +181,16 @@ export function Signup({onNext }) {
                             />
                           ))
                         }
-                        <Button onClick={handleVerifyOtp} type="button" className="w-1/2 bg-blue-600 text-white mx-auto">Submit OTP</Button>
+                        <Button onClick={handleVerifyOtp} type="button" className="w-1/3 bg-blue-600 text-white mx-auto mt-4">Submit OTP</Button>
                       </div>
                     ) : (
-                      <Button className="w-1/2 bg-blue-600 text-white mx-auto" onClick={handleSendOtp} type="button" >Send OTP</Button>
+                      <Button className="w-1/3 bg-blue-600 text-white mx-auto mt-4" onClick={handleSendOtp} type="button" >Verify Email</Button>
                     )
                   }
-                  <div className="flex space-x-4" >
-                    
-                    <select id="country-code" className="p-2 rounded-md w-72">
-              <option value="+91">+91</option>
-              <option value="+1">+1</option>
-              <option value="+49">+49</option>
-              
-            </select>
-                    <Input className="" placeholder="Phone" value={formData.contactNumber} onChange={handleChange} name="contactNumber" />
-                  </div>
-                  <Input placeholder="Password" type="password" value={formData.password} onChange={handleChange} name="password" />
-                  <Input placeholder="Confirm Password" type="password" value={formData.confirmPassword} onChange={handleChange} name="confirmPassword" />
-                </div>
-                <Button onclick={handleNext} type="submit" className="w-1/2 bg-blue-600 text-white mt-2" disabled={!isOtpVerified}>
+                  <Button onclick={handleNext} type="submit" className="w-1/2 bg-blue-600 text-white mt-4" disabled={!isOtpVerified}>
                   Next
-                </Button>
+                </Button></div>
+                
               </form>
             </CardContent>
             <CardFooter className="flex justify-between">
@@ -175,4 +204,5 @@ export function Signup({onNext }) {
       </div>
     );
   }
+ 
   export default Signup;

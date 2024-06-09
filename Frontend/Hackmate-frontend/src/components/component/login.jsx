@@ -66,10 +66,11 @@ export function Login() {
       <div className="flex  w-1/2 items-center justify-center bg-white p-12">
         <Card className="w-[500px] bg-blue-100  ">
           <CardHeader>
-            <CardTitle>Ready to Find Hackmate! Sign in</CardTitle>
+            <CardTitle>Ready to Find Hackmate! 
+              Sign in</CardTitle>
           </CardHeader>
           <CardContent>
-            <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+            <form className="mt-6 space-y-6" onSubmit={handleSubmit}>
               <Input
                 placeholder="Email address"
                 type="email"
