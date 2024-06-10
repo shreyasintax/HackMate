@@ -79,19 +79,28 @@ exports.addOpportunity = async (req, res) => {
 exports.getSingleOpportunity = async (req, res) => {
     let { id } = req.params;
 
-    let opportunity = await Opportunity.findById(id);
+    try {
+        let opportunity = await Opportunity.findById(id).populate(["timeline", "teams"]);
 
-    if (!opportunity) {
+        if (!opportunity) {
+            return res.json({
+                success: false,
+                message: "No Opportunity Listed"
+            });
+        }
+
         return res.json({
-            success: "false",
-            mesage: "No Opportunity Listed"
-        })
+            success: true,
+            opportunity
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Server Error",
+            error: error.message
+        });
     }
-    return res.json({
-        success: true,
-        opportunity
-    });
-}
+};
 
 
 exports.getAllOpportunity = async (req, res) => {

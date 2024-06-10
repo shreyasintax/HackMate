@@ -9,6 +9,8 @@ export function Opportunity(props) {
     return <div>Loading...</div>;
   }
 
+  console.log(OpportunityData);
+
   return (
     <Card className="w-1/2 mx-auto">
       <CardHeader className="space-y-2">
@@ -25,8 +27,8 @@ export function Opportunity(props) {
         <Card>
           <CardContent className="space-y-2">
             <h2 className="text-lg font-semibold">Timeline</h2>
-            {/* <div className="grid grid-cols-3 gap-4 sm:grid-cols-1">
-              {rd.map((round, index) => (
+            <div className="grid grid-cols-3 gap-4 sm:grid-cols-1">
+              {OpportunityData.timeline.map((round, index) => (
                 <div key={index} className="space-y-1">
                   <h3 className="text-base font-semibold">{round.description}</h3>
                   <p className="text-xs text-gray-500 dark:text-gray-400">
@@ -35,7 +37,7 @@ export function Opportunity(props) {
                   <Button size="sm">Results</Button>
                 </div>
               ))}
-            </div> */}
+            </div>
           </CardContent>
         </Card>
         <Card>
@@ -61,13 +63,14 @@ export function Opportunity(props) {
         <Card>
           <CardContent className="space-y-2">
             <h2 className="text-lg font-semibold">FAQs</h2>
-            {/* <div className="grid gap-2">
-              {OpportunityData.faqs.map((faq, index) => (
+            <div className="grid gap-2">
+              {OpportunityData.FAQs.map((faq, index) => (
                 <div key={index}>
-                  <h3 className="text-base font-semibold">{faq}</h3>
+                  <h3 className="text-base font-semibold">{faq.question}</h3>
+                  <h3 className="text-base">{faq.answer}</h3>
                 </div>
               ))}
-            </div> */}
+            </div>
           </CardContent>
         </Card>
         <Card>

@@ -20,15 +20,6 @@ export function OpportunityPage() {
         const data = await response.json();
         setOpportunityData(data.opportunity);
         console.log(data.opportunity);
-        // Extract round IDs from opportunity data
-        // const roundDetails = data.opportunity.timeline.map(round => ({
-        //   id: round._id,
-        //   description: round.description,
-        //   resultDate: round.resultDate,
-        // }));
-
-        // setRoundDetails(roundDetails);
-        // Now you can use roundIds as needed
       } catch (error) {
         console.error('Error fetching data:', error);
       }
