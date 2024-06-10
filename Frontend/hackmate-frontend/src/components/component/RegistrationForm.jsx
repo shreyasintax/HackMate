@@ -222,15 +222,15 @@ export function Onboarding({ formData, setFormData, onSubmit }) {
             <Input id="pinCode" placeholder="Enter your pinCode" value={formData.pinCode} onChange={handleChange} name="pinCode" />
           </div>
         </div>
-        <div className="space-y-2 mt-4">
+        {/* <div className="space-y-2 mt-4">
           <Label htmlFor="accountType">Account Type</Label>
           <br></br>
-          {/* <Input id="accountType" value={formData.accountType} onChange={handleChange} name="accountType" /> */}
+           <Input id="accountType" value={formData.accountType} onChange={handleChange} name="accountType" />
           <select id="accountType" value={formData.accountType} onChange={handleChange} name="accountType" className="p-2 rounded-md w-72">
               <option value="Participant">Participant</option>
               <option value="Organizer">Organizer</option>
             </select>
-        </div>
+        </div> */}
         <div className="space-y-2 mt-4">
           <Label htmlFor="dateOfBirth">Date of Birth</Label>
           <Input className="p-2 rounded-md w-72" id="dateOfBirth" type="date" value={formData.dateOfBirth} onChange={handleChange} name="dateOfBirth" />
@@ -277,7 +277,7 @@ const RegistrationForm = () => {
     contactNumber: '',
     password: '',
     confirmPassword: '',
-    accountType: '',
+    accountType: 'Participant',
     state: '',
     city: '',
     softSkills: '',
