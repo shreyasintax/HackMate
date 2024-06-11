@@ -73,6 +73,27 @@ exports.login = async (req, res) => {
     }
 };
 
+exports.logout = (req, res) => {
+    try {
+        res.clearCookie('hackMateCookie', {
+            httpOnly: true,
+            sameSite: 'strict',
+            secure: process.env.NODE_ENV === 'production' // Ensure this matches the settings used when the cookie was set
+        });
+
+        return res.status(200).json({
+            success: true,
+            message: "User logged out successfully"
+        });
+    } catch (error) {
+        console.error("Error logging out:", error);
+        return res.status(500).json({
+            success: false,
+            message: "Some error occurred while logging out"
+        });
+    }
+};
+
 exports.sendOTP = async (req, res) => {
     // Fetch email from req body
     const { email } = req.body;
