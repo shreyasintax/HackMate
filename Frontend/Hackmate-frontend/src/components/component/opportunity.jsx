@@ -1,6 +1,7 @@
 import React from 'react';
-import { CardTitle, CardDescription, CardHeader, CardContent, Card } from "../ui/card";
+import { CardTitle, CardDescription, CardHeader, CardContent, Card, CardFooter } from "../ui/card";
 import { Button } from "../ui/button";
+import { Link } from 'react-router-dom';
 
 export function Opportunity(props) {
   const { OpportunityData } = props;
@@ -82,6 +83,10 @@ export function Opportunity(props) {
           </CardContent>
         </Card>
       </CardContent>
+      <CardFooter>
+        <div className='flex gap-4'><Link to='/register_team' className="ml-2 text-blue-600 hover:underline">Create team</Link>
+        <Link to='/join_team' className="ml-2 text-blue-600 hover:underline">Join a Team</Link></div>
+      </CardFooter>
     </Card>
   );
 }
